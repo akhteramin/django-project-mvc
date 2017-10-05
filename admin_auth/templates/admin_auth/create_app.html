@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% include "menu_bar.html" %}
+<div class="row">
+
+
+    <div class="container">
+            <h1>Application Create</h1>
+        <div> {{ message }}</div>
+
+        <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:create_app' %}" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <div>{{ error }} </div>
+            <label class="control-label" for="appName">App Name</label>
+            <div class="controls">
+                <input type="text" class="form-control input-sm chat-input" id="appName" name="appName"  placeholder="app name">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <!--<input type="text" name="description" id="description" placeholder="description">-->
+                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description">
+                 </textarea>
+            </div>
+        </div>
+        </br>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Create</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
