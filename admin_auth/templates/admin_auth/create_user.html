@@ -9,7 +9,7 @@
 
             <h1>User Creation</h1>
             <div> {{ message }}</div>
-            <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:create_user' %}" method="post">
+            <form class="form-horizontal" name="UserForm" action="{% url 'admin_auth:create_user' %}" method="post">
             {% csrf_token %}
             {% if next %}
                 <input type="hidden" name="next" value="{{ next }}" />
@@ -29,11 +29,16 @@
             <div class="control-group">
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
-                    <input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">
+                    <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
+                    <select class="form-control" name="appID" id="appID">
+                    {% for application in applications %}
+                        <option value="{{ application.id }}">{{ application.appName }}</option>
+                    {% endfor %}
+                    </select>
                 </div>
             </div>
             </br>
-            <div class="control-group">
+            <div class="control-group text-center">
                 <div class="controls">
                     <button type="submit" class="btn">Create</button>
 

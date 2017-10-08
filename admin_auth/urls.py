@@ -13,6 +13,15 @@ urlpatterns = [
     url(r'^create_group/$', views.create_group, name='create_group'),
     url(r'^create_service/$', views.create_service, name='create_service'),
     url(r'^create_app/$', views.create_app, name='create_app'),
+
+    url(r'^edit_app/(?P<appID>\w+)/$', views.edit_app, name='edit_app'),
+    url(r'^edit_group/(?P<groupId>\w+)/$', views.edit_group, name='edit_group'),
+    url(r'^edit_service/(?P<serviceId>\w+)/$', views.edit_service, name='edit_service'),
+
+    url(r'^change_password/$', views.change_password, name='change_password'),
+    url(r'^deactivate_user/$', views.deactivate_user, name='deactivate_user'),
+    url(r'^activate_user/$', views.deactivate_user, name='activate_user'),
+
     url(r'^list_user/$', views.list_user, name='list_user'),
     url(r'^list_group/$', views.list_group, name='list_group'),
     url(r'^list_service/$', views.list_service, name='list_service'),

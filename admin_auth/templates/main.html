@@ -5,7 +5,8 @@
           rel="stylesheet" media="screen">
     <link href="{% static 'admin_auth/css/style.css' %}"
           rel="stylesheet" media="screen">
-        <script src="{% static 'admin_auth/js/jquery-3.1.0.min.js' %}"></script>
+
+    <script src="{% static 'admin_auth/js/jquery.min.js' %}"></script>
 
   </head>
 
@@ -15,6 +16,12 @@
     {% block content %}
     {% endblock %}
 
+    <script src="{% static 'admin_auth/template_js/list_user.js' %}"></script>
+
+
+    <script src="{% static 'admin_auth/js/tether.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+
   </body>
 </html>

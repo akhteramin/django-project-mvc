@@ -22,6 +22,7 @@
             <tr>
                 <th>Application ID</th>
                 <th colspan="2">Service ID</th>
+                <th>Category</th>
                 <th>Description</th>
 
                 <th class="text-center" colspan="2">Action</th>
@@ -35,10 +36,18 @@
 
                    <td>{{service.appID}}</td>
                    <td colspan="2">{{service.serviceID}}</td>
+                   <td>
+                       {% if service.category %}
+                        {{service.category}}
+                       {% else %}
+                        Not Available
+                       {% endif %}
+                   </td>
+
                    <td>{{service.description}}</td>
 
                    <td class="text-center" colspan="2">
-                       <a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>
+                       <a href="/admin_auth/edit_service/{{service.id}}/" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>
 
                    </td>
 

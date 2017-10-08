@@ -9,10 +9,10 @@
 
 
     <div id="group">
-        <h1>Group Creation</h1>
+        <h1>Group Update</h1>
             <div> {{ message }}</div>
 
-        <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:create_group' %}" method="post">
+        <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:edit_group' group_details.id%}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
@@ -23,7 +23,7 @@
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
                     <select class="form-control" name="appID" id="appID">
                     {% for application in applications %}
-                        <option value="{{ application.id }}">{{ application.appName }}</option>
+                        <option value="{{ application.id }}" {% if group_details.appID == application.id %} selected {% endif %}>{{ application.appName }}</option>
                     {% endfor %}
                     </select>
                 </div>
@@ -31,7 +31,8 @@
         <div class="control-group">
             <label class="control-label" for="groupID">Group ID</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" name="groupID" id="groupID" placeholder="group ID">
+                <input type="text" class="form-control input-sm chat-input" name="groupID"
+                       id="groupID" placeholder="group ID" value="{{group_details.groupID}}">
             </div>
         </div>
 
@@ -39,14 +40,14 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description"></textarea>
+                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description">{{group_details.description}}</textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn">Update</button>
             </div>
         </div>
         </form>

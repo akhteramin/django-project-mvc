@@ -2,7 +2,6 @@
 from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from .models import Choice,Question
 from django.views import generic
 from django.utils import timezone
 import requests
@@ -11,13 +10,7 @@ from .services import SERVICE_URL,HEADERS
 
 class IndexView(generic.ListView):
     template_name = 'admin_auth/index.html'
-    context_object_name = 'latest_question_list'
 
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Question.objects.filter(
-                pub_date__lte=timezone.now()
-            ).order_by('-pub_date')[:5]
 
 def login(request):
     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -79,27 +72,14 @@ def logout(request):
     request.session.modified = True
     return render(request,'admin_auth/login.html')
 
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, 'admin_auth/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('admin_auth:results', args=(question.id,)))
 
 
 def create_user(request):
     if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications=response_app_data.json()
+        print(response_app_data.content)
         if request.POST:
             print(request.POST['loginID'])
             print(request.POST['password'])
@@ -108,39 +88,53 @@ def create_user(request):
 
             response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
+
+
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_user.html', {"message": "User has been created"})
+                return render(request, 'admin_auth/create_user.html', {"message": "User has been created","applications": applications['results']})
             else:
-                return render(request, 'admin_auth/create_user.html', {"message": response_data.text})
+                return render(request, 'admin_auth/create_user.html', {"message": response_data.text,"applications": applications['results']})
 
 
-        return render(request, 'admin_auth/create_user.html')
+        return render(request, 'admin_auth/create_user.html',{"applications": applications['results']})
     else:
         return render(request, 'admin_auth/login.html')
 
 
 def create_service(request):
     if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications = response_app_data.json()
+        print(response_app_data.content)
         if request.POST:
             print(request.POST['appID'])
             print(request.POST['serviceID'])
             print(request.POST['description'])
-            post_data = {'appID': request.POST['appID'], 'serviceID': request.POST['serviceID'], 'description': request.POST['description']};
+            print(request.POST['serviceCategory'])
+
+
+            post_data = {'appID': request.POST['appID'], 'serviceID': request.POST['serviceID'],
+                         'description': request.POST['description'], 'category':request.POST['serviceCategory']};
 
             response_data = requests.post(SERVICE_URL + 'service/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_service.html', {"message": "Service has been created"})
+                return render(request, 'admin_auth/create_service.html', {"message": "Service has been created","applications": applications['results']})
             else:
-                return render(request, 'admin_auth/create_service.html', {"message": response_data.text})
+                return render(request, 'admin_auth/create_service.html', {"message": response_data.text,"applications": applications['results']})
 
-        return render(request, 'admin_auth/create_service.html')
+        return render(request, 'admin_auth/create_service.html',{"applications": applications['results']})
     else:
         return render(request, 'admin_auth/login.html')
 
 
 def create_group(request):
     if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications = response_app_data.json()
+        print(response_app_data.content)
         if request.POST:
             print(request.POST['appID'])
             print(request.POST['groupID'])
@@ -150,10 +144,11 @@ def create_group(request):
             response_data = requests.post(SERVICE_URL + 'group/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_group.html', {"message": "Group has been created"})
+                return render(request, 'admin_auth/create_group.html', {"message": "Group has been created","applications": applications['results']})
             else:
-                return render(request, 'admin_auth/create_group.html', {"message": response_data.text})
-        return render(request, 'admin_auth/create_group.html')
+                return render(request, 'admin_auth/create_group.html', {"message": response_data.text,"applications": applications['results']})
+
+        return render(request, 'admin_auth/create_group.html',{"applications": applications['results']})
     else:
         return render(request, 'admin_auth/login.html', )
 
@@ -172,6 +167,115 @@ def create_app(request):
             else:
                 return render(request, 'admin_auth/create_app.html', {"message": response_data.text})
         return render(request, 'admin_auth/create_app.html')
+    else:
+        return render(request, 'admin_auth/login.html', )
+
+def edit_app(request,appID=''):
+    if 'token' in request.session:
+
+
+        if request.POST:
+            print(request.POST['appName'])
+            print(request.POST['description'])
+            post_data = {'appName': request.POST['appName'],
+                         'description': request.POST['description']};
+
+            response_data = requests.patch(SERVICE_URL + 'app/'+appID+"/",
+                                           headers=HEADERS, data=json.dumps(post_data))
+            print(response_data.status_code)
+
+            response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
+                                           headers=HEADERS)
+            app_details = response_data.json()
+
+            if response_data.status_code == 200:
+                return render(request, 'admin_auth/edit_app.html', {"message": "Application has been updated","app_details":app_details})
+            else:
+                return render(request, 'admin_auth/edit_app.html', {"message": response_data.text,"app_details":app_details})
+
+
+        elif appID!='':
+            print(appID)
+            response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
+                                           headers=HEADERS)
+            app_details=response_data.json()
+            return render(request, 'admin_auth/edit_app.html', {"app_details": app_details})
+    else:
+        return render(request, 'admin_auth/login.html', )
+
+def edit_group(request,groupId=''):
+    if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications = response_app_data.json()
+        print(response_app_data.content)
+        if request.POST:
+            print(request.POST['appID'])
+            print(request.POST['description'])
+            post_data = {'appID': request.POST['appID'],
+                         'groupID':request.POST['groupID'],
+                         'description': request.POST['description']};
+
+            response_data = requests.patch(SERVICE_URL + 'group/'+groupId+"/",
+                                           headers=HEADERS, data=json.dumps(post_data))
+            print(response_data.status_code)
+
+            response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
+                                           headers=HEADERS)
+            group_details = response_data.json()
+
+            if response_data.status_code == 200:
+                return render(request, 'admin_auth/edit_group.html',
+                              {"message": "Group has been updated","group_details":group_details,"applications":applications['results']})
+            else:
+                return render(request, 'admin_auth/edit_group.html', {"message": response_data.text,"group_details":group_details,"applications":applications['results']})
+
+
+        elif groupId!='':
+            print(groupId)
+            response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
+                                           headers=HEADERS)
+            group_details=response_data.json()
+            return render(request, 'admin_auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
+    else:
+        return render(request, 'admin_auth/login.html', )
+
+def edit_service(request,serviceId=''):
+    if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications = response_app_data.json()
+        print(response_app_data.content)
+        if request.POST:
+            print(request.POST['appID'])
+            print(request.POST['description'])
+            post_data = {'appID': request.POST['appID'],
+                         'serviceID':request.POST['serviceID'],
+                         'category':request.POST['serviceCategory'],
+                         'description': request.POST['description']};
+
+            response_data = requests.patch(SERVICE_URL + 'service/'+serviceId+"/",
+                                           headers=HEADERS, data=json.dumps(post_data))
+            print(response_data.status_code)
+
+            response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
+                                           headers=HEADERS)
+            service_details = response_data.json()
+
+            if response_data.status_code == 200:
+                return render(request, 'admin_auth/edit_service.html',
+                              {"message": "Service has been updated","service_details":service_details,"applications":applications['results']})
+            else:
+                return render(request, 'admin_auth/edit_service.html', {"message": response_data.text,"service_details":service_details,"applications":applications['results']})
+
+
+        elif serviceId!='':
+            print(serviceId)
+            response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
+                                           headers=HEADERS)
+            print(response_data.content)
+            service_details=response_data.json()
+            return render(request, 'admin_auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
     else:
         return render(request, 'admin_auth/login.html', )
 
@@ -407,3 +511,47 @@ def save_group_service(serviceIDList,groupID):
     return
 
 
+def change_password(request):
+    if request.POST:
+
+        post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'],'appID':request.POST['appID']}
+        change_password = requests.put(SERVICE_URL + 'password/set/',
+                                         headers=HEADERS, data=json.dumps(post_data))
+        print(change_password.status_code)
+        if change_password.status_code==204:
+            return HttpResponse(
+                json.dumps({"message":"password has been Updated"}),
+                content_type="application/json"
+            )
+        else:
+            return HttpResponse(
+                json.dumps({"message": "password Can not be Updated"}),
+                content_type="application/json"
+            )
+    else:
+        return HttpResponse(
+            json.dumps({"nothing to see": "this isn't happening"}),
+            content_type="application/json"
+        )
+def deactivate_user(request):
+    if request.POST:
+        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+        deactivate_data = requests.put(SERVICE_URL + 'account/deactivate/',
+                                       headers=HEADERS, data=json.dumps(post_data))
+        print(deactivate_data.status_code)
+        print(deactivate_data.content)
+        return HttpResponse(
+            json.dumps({"message": "User has been deactivated"}),
+            content_type="application/json"
+        )
+def activate_user(request):
+    if request.POST:
+        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+        deactivate_data = requests.put(SERVICE_URL + 'account/reactivate/',
+                                       headers=HEADERS, data=json.dumps(post_data))
+        print(deactivate_data.status_code)
+        print(deactivate_data.content)
+        return HttpResponse(
+            json.dumps({"message": "User has been activated"}),
+            content_type="application/json"
+        )
