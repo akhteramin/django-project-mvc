@@ -48,6 +48,8 @@ def login(request):
 
             print(token)
             request.session['token'] = token['token']
+            request.session['loginID'] = request.POST['loginID']
+
             return HttpResponseRedirect(reverse('admin_auth:home'))
 
             # return render(request, 'admin_auth/home.html', {
@@ -340,8 +342,10 @@ def list_service(request):
             print(response_data.content)
             serviceList = response_data.json()
             print(response_data.content)
-
-        return render(request, 'admin_auth/list_service.html', {"services": serviceList})
+        postData = "?limit=100&offset=0"
+        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+        appList=response_data.json()
+        return render(request, 'admin_auth/list_service.html', {"services": serviceList,"applications":appList['results']})
     else:
         return render(request, 'admin_auth/login.html', )
 
@@ -534,24 +538,24 @@ def change_password(request):
             content_type="application/json"
         )
 def deactivate_user(request):
-    if request.POST:
-        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
-        deactivate_data = requests.put(SERVICE_URL + 'account/deactivate/',
-                                       headers=HEADERS, data=json.dumps(post_data))
-        print(deactivate_data.status_code)
-        print(deactivate_data.content)
-        return HttpResponse(
-            json.dumps({"message": "User has been deactivated"}),
-            content_type="application/json"
-        )
+        if request.POST and 'token' in request.session:
+            post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+            deactivate_data = requests.put(SERVICE_URL + 'account/deactivate/',
+                                           headers=HEADERS, data=json.dumps(post_data))
+            print(deactivate_data.status_code)
+            print(deactivate_data.content)
+            return HttpResponse(
+                json.dumps({"message": "User has been deactivated"}),
+                content_type="application/json"
+            )
 def activate_user(request):
-    if request.POST:
-        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
-        deactivate_data = requests.put(SERVICE_URL + 'account/reactivate/',
-                                       headers=HEADERS, data=json.dumps(post_data))
-        print(deactivate_data.status_code)
-        print(deactivate_data.content)
-        return HttpResponse(
-            json.dumps({"message": "User has been activated"}),
-            content_type="application/json"
-        )
+        if request.POST and 'token' in request.session:
+            post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+            deactivate_data = requests.put(SERVICE_URL + 'account/reactivate/',
+                                           headers=HEADERS, data=json.dumps(post_data))
+            print(deactivate_data.status_code)
+            print(deactivate_data.content)
+            return HttpResponse(
+                json.dumps({"message": "User has been activated"}),
+                content_type="application/json"
+            )

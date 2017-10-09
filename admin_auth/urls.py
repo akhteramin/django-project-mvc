@@ -20,7 +20,7 @@ urlpatterns = [
 
     url(r'^change_password/$', views.change_password, name='change_password'),
     url(r'^deactivate_user/$', views.deactivate_user, name='deactivate_user'),
-    url(r'^activate_user/$', views.deactivate_user, name='activate_user'),
+    url(r'^activate_user/$', views.activate_user, name='activate_user'),
 
     url(r'^list_user/$', views.list_user, name='list_user'),
     url(r'^list_group/$', views.list_group, name='list_group'),

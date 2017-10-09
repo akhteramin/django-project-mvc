@@ -48,24 +48,17 @@
                        Inactive
                     {% endif %}
                    </td>
-                   <td class="text-center">
+                   <td id="actionUser_{{user.id}}" class="text-center">
                        <!--<a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>-->
-                       <a href="/admin_auth/assign_user_group/{{user.id}}/{{user.appID}}" class="btn btn-secondary btn-md active" role="button" aria-pressed="true">Assign Group</a>
-                       <a href="#" onclick="setData('{{user.loginID}}','{{user.appID}}')" class="btn btn-info btn-md active" data-toggle="modal" data-target="#ChangePasswordModal" role="button" aria-pressed="true">Change Password</a>
-                        <!--<form id="activateForm" method="post">-->
-                            <!--{% csrf_token %}-->
-                            <!--<input type="hidden" value="{{user.loginID}}">-->
-                            <!--<input type="hidden" value="{{user.appID}}">-->
-                            <!--<input type="hidden" value="{{user.appID}}">-->
+                       <a href="/admin_auth/assign_user_group/{{user.id}}/{{user.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Group</a>
+                       <a href="#" onclick="setData('{{user.loginID}}','{{user.appID}}')" class="btn btn-info btn-md active" data-toggle="modal" data-target="#ChangePasswordModal" role="button" aria-pressed="true">Set Password</a>
 
-                        {% if user.is_active  %}
+                       {% if user.is_active  %}
+                       <a id="deactivate_{{user.id}}" href="#" onclick="changeStatus('{{user.loginID}}','{{user.appID}}','0','{{user.id}}')" class="btn btn-warning">Deactivate</a>
+                       {% else %}
+                       <a id="activate_{{user.id}}" href="#" onclick="changeStatus('{{user.loginID}}','{{user.appID}}','1','{{user.id}}')" class="btn btn-success">Activate</a>
+                       {% endif %}
 
-
-                        <button type="submit" class="btn btn-warning">Deactivate</button>
-                        {% else %}
-                        <button type="submit" class="btn btn-primary">Activate</button>
-                        {% endif %}
-                        <!--</form>-->
                    </td>
 
                </tr>

@@ -1,19 +1,39 @@
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
   <a class="navbar-brand" href="#">Admin Auth</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
           <a class="nav-item nav-link" href="{% url 'admin_auth:home' %}">Home</a>
+      </li>
+      <li class="nav-item">
           <a class="nav-item nav-link" href="{% url 'admin_auth:list_user' %}">User</a>
+      </li>
+      <li class="nav-item">
           <a class="nav-item nav-link" href="{% url 'admin_auth:list_group' %}">Group</a>
-          <a class="nav-item nav-link" href="{% url 'admin_auth:list_service' %}">Service</a>
+      </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" href="{% url 'admin_auth:list_service' %}">Service</a>
+        </li>
+        <li class="nav-item">
+
           <a class="nav-item nav-link" href="{% url 'admin_auth:list_app' %}">Application</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav" style="padding-right:20px">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ request.session.loginID }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="padding-right:20px">
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="{% url 'admin_auth:logout' %}">Logout</a>
 
-          <a class="nav-item nav-link" href="{% url 'admin_auth:logout' %}">Logout</a>
+            </div>
+        </li>
 
-    </div>
 
-  </div>
-</nav>
+    </ul>
+  </nav>
+

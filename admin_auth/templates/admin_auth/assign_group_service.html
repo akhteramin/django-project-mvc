@@ -21,7 +21,7 @@
                 <tr>
                     <th>Service ID</th>
                     <th>Service Description</th>
-
+                    <th>Service Group</th>
                     <th class="text-center">Action</th>
 
 
@@ -34,7 +34,13 @@
 
                        <td>{{service.serviceID}}</td>
                        <td>{{service.description}}</td>
-
+                        <td>
+                        {% if service.category %}
+                            {{service.category}}
+                        {% else %}
+                            Not Available
+                        {% endif %}
+                        </td>
                        <td class="text-center">
                           {% if service.assigned is 1  %}
                             <input class="group" name="serviceID"  type="checkbox" value="{{service.id}}" checked>
@@ -49,7 +55,7 @@
             </table>
             <div class="wrapper">
                 <span class="group-btn">
-                    <button type="submit" class="btn btn-primary btn-md">Submit</button>
+                    <button type="submit" class="btn button-assign-service">Assign</button>
                 </span>
             </div>
         </form>

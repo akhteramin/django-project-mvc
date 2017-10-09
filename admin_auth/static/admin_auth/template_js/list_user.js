@@ -30,67 +30,75 @@ function setData(loginID,appID){
     $("#loginID").val(loginID);
     $("#appID").val(appID);
 }
+function changeStatus(loginID,appID,activate=1,userID){
 
-$('#activateForm').on('submit', function(event){
-        event.preventDefault();
-        var formdata = $(this).serializeArray();
-        var data = {};
-        $(formdata).each(function(index, obj){
-            data[obj.name] = obj.value;
-        });
-        console.log(data.activate);
-        if(data.activate==0)
-        {
-            $.ajax({
+
+    if(activate==0)
+    {
+        $("#deactivate_"+userID).prop('disabled', true);
+        console.log(activate);
+        $.ajax({
                 url : "/admin_auth/deactivate_user/", // the endpoint
                 type : "POST", // http method
-                data :  $(this).serialize() , // data sent with the post request
+                data :  {'loginID':loginID,'appID':appID} , // data sent with the post request
                 dataType: 'json',
-
-                // handle a successful response
+                "beforeSend": function(xhr, settings) {
+                    console.log("Before Send");
+                    $.ajaxSettings.beforeSend(xhr, settings);
+                },
                 success : function(json) {
                     console.log(json); // log the returned json to the console
                     console.log("success"); // another sanity check
-//                    $("#activate").style.visibility='visible';
-//                    $("#deactivate").style.visibility='hidden';
 
+                    $("#deactivate_"+userID).remove();
+                    $('#actionUser_'+userID).append(
+                        "<a id='activate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','1','"+userID+"')"+" href='#' class='btn btn-success'>Activate</a>"
+                    );
                 },
-
-                // handle a non-successful response
                 error : function(xhr,errmsg,err) {
-                    //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                    // " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
                     console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
 
                 }
 
             });
-        }
-        else
-        {
-            $.ajax({
+    }
+
+     else{
+      $("#activate_"+userID).prop('disabled', true);
+        console.log(activate);
+        $.ajax({
                 url : "/admin_auth/activate_user/", // the endpoint
                 type : "POST", // http method
-                data :  $(this).serialize() , // data sent with the post request
+                data :  {'loginID':loginID,'appID':appID} , // data sent with the post request
                 dataType: 'json',
+                "beforeSend": function(xhr, settings) {
+                    console.log("Before Send");
+                    $.ajaxSettings.beforeSend(xhr, settings);
+                },
 
-                // handle a successful response
                 success : function(json) {
                     console.log(json); // log the returned json to the console
                     console.log("success"); // another sanity check
-//                    $("#activate").style.visibility='hidden';
-//                    $("#deactivate").style.visibility='visible';
+                    $("#activate_"+userID).remove();
+                    $('#actionUser_'+userID).append(
+                        "<a id='deactivate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','0','"+userID+"')"+" href='#' class='btn btn-warning'>Dectivate</a>"
+
+                    );
+
+
                 },
 
-                // handle a non-successful response
                 error : function(xhr,errmsg,err) {
-                    //$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                    // " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
                     console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+
                 }
 
             });
-        }
+     }
 
-    });
+
+
+    };
 
