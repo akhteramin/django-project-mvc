@@ -5,6 +5,7 @@
 
 <div class="row">
     <div class="header col-md-2">
+        <br/>
 
         <h1>Service List</h1>
         <b> Total Service: {{services.count}} </b>
@@ -16,7 +17,7 @@
     <div class="table_container">
         <div class="row">
             <div class="col-md-3">
-                <a href="{% url 'admin_auth:create_service' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Create Service</a>
+                <a href="{% url 'admin_auth:create_service' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Service</a>
             </div>
             <div class="col-md-5 offset-md-4 search-content">
 

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="header col-md-3">
-
+        <br/>
         <h1>Application List</h1>
         <b> Total Applications: {{apps.count}} </b>
     </div>
@@ -14,7 +14,7 @@
     </div>
     <div class="table_container">
         <div class="col-md-offset-3">
-            <a href="{% url 'admin_auth:create_app' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Create Application</a>
+            <a href="{% url 'admin_auth:create_app' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Application</a>
         </div>
         <br/>
         <table class="table table-bordered">

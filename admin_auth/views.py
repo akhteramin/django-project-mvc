@@ -50,6 +50,7 @@ def login(request):
             request.session['token'] = token['token']
             request.session['loginID'] = request.POST['loginID']
 
+
             return HttpResponseRedirect(reverse('admin_auth:home'))
 
             # return render(request, 'admin_auth/home.html', {
@@ -284,7 +285,10 @@ def edit_service(request,serviceId=''):
 def list_user(request):
 
     if 'token' in request.session:
+        searchParam={}
         if 'next_url' in request.POST:
+            print("next login id")
+            print(request.POST['next_login_id'])
             response_data = requests.get(request.POST['next_url'], headers=HEADERS)
             userList = response_data.json()
             print(response_data.content)
@@ -292,14 +296,24 @@ def list_user(request):
             response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
             userList = response_data.json()
             print(response_data.content)
-
+        elif 'login_id' in request.POST and 'app_id' in request.POST:
+            paramData=request.POST['login_id']+"/"+request.POST['app_id']+"?limit=5&offset=0"
+            searchParam={'login_id':request.POST['login_id'],'app_id':request.POST['app_id']}
+            response_data = requests.get(SERVICE_URL + 'user/' + paramData, headers=HEADERS)
+            userList = response_data.json()
+            print(response_data.content)
         else:
             postData="?limit=10&offset=0"
             response_data = requests.get(SERVICE_URL + 'user/'+postData, headers=HEADERS)
             userList=response_data.json()
             print(response_data.content)
 
-        return render(request, 'admin_auth/list_user.html',{"users":userList})
+        postData = "?limit=1000&offset=0"
+        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+        appList = response_data.json()
+
+        return render(request, 'admin_auth/list_user.html',
+                      {"users":userList,"applications":appList['results'],'searchParam':searchParam})
     else:
         return render(request, 'admin_auth/login.html', )
 

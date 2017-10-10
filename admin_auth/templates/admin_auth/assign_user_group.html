@@ -32,7 +32,12 @@
               {% for group in groups %}
                    <tr>
 
-                       <td>{{group.groupID}}</td>
+                       <td>
+                           <a href="{% url 'admin_auth:assign_group_service' group.id user.appID %}">
+                                {{group.groupID}}
+                            </a>
+
+                        </td>
                        <td>{{group.description}}</td>
 
 

@@ -5,6 +5,7 @@
 
 <div class="row">
     <div class="header col-md-2">
+        <br/>
 
         <h1>Group List</h1>
         <b> Total Group: {{groups.count}} </b>
@@ -14,7 +15,7 @@
     </div>
     <div class="table_container">
         <div class="col-md-offset-3">
-            <a href="{% url 'admin_auth:create_group' %}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Create Group</a>
+            <a href="{% url 'admin_auth:create_group' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Group</a>
         </div>
         <br/>
         <table class="table table-bordered">

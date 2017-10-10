@@ -52,7 +52,7 @@ function changeStatus(loginID,appID,activate=1,userID){
 
                     $("#deactivate_"+userID).remove();
                     $('#actionUser_'+userID).append(
-                        "<a id='activate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','1','"+userID+"')"+" href='#' class='btn btn-success'>Activate</a>"
+                        "<a id='activate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','1','"+userID+"')"+" href='#' class='btn button-activate'>Activate</a>"
                     );
                 },
                 error : function(xhr,errmsg,err) {
@@ -82,7 +82,7 @@ function changeStatus(loginID,appID,activate=1,userID){
                     console.log("success"); // another sanity check
                     $("#activate_"+userID).remove();
                     $('#actionUser_'+userID).append(
-                        "<a id='deactivate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','0','"+userID+"')"+" href='#' class='btn btn-warning'>Dectivate</a>"
+                        "<a id='deactivate_"+userID+"' onclick="+"changeStatus('"+loginID+"','"+appID+"','0','"+userID+"')"+" href='#' class='btn button-deactivate'>Dectivate</a>"
 
                     );
 
@@ -97,8 +97,20 @@ function changeStatus(loginID,appID,activate=1,userID){
 
             });
      }
+};
+$("#login_id").change(function(){
+    console.log($("#login_id").val());
 
+    $("#prev_login_id").val($("#login_id").val());
+    $("#next_login_id").val($("#login_id").val());
 
+});
 
-    };
+$("#app_id").change(function(){
+console.log($("#app_id").val());
+
+    $("#prev_app_id").val($("#app_id").val());
+    $("#next_app_id").val($("#app_id").val());
+
+})
 
