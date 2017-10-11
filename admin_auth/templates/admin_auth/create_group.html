@@ -20,7 +20,7 @@
         <div class="control-group">
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
-                    <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
+                    <option value="">Select Application</option>
                     <select class="form-control" name="appID" id="appID">
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>

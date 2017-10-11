@@ -19,20 +19,39 @@
             <div class="col-md-3">
                 <a href="{% url 'admin_auth:create_service' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Service</a>
             </div>
-            <div class="col-md-5 offset-md-4 search-content">
+            <div class="col-md-5 offset-md-3 search-content">
 
-                <form class="form-horizontal" name="UserForm" action="#" method="post">
+                <form class="form-horizontal" name="UserForm" action="{% url 'admin_auth:list_service' %}" method="post">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-5">
-                            <select class="form-control" name="appID" id="appID">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm chat-input"
+                                   {% if searchParam.service_id  %}
+                                        value={{searchParam.service_id}}
+                                    {% endif %}
+                                   id="service_id" name="service_id"  placeholder="service ID">
+
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="app_id" id="app_id">
+                                <option value="">Select Application</option>
                             {% for application in applications %}
-                                <option value="{{ application.id }}">{{ application.appName }}</option>
+                                {% if searchParam.app_id|add:"0" == application.id|add:"0" %}
+                                    <option value="{{ application.id }}"  selected >{{ application.appName }}</option>
+                                {% else %}
+                                    <option value="{{ application.id }}" >{{ application.appName }}</option>
+
+                                {% endif %}
+
                             {% endfor %}
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <button type="submit" class="button-search">Search</button>
+
+                            <a href="{% url 'admin_auth:list_service' %}">
+                                <button type="button" class="button-reset">Reset</button>
+                            </a>
                         </div>
                     </div>
 
@@ -44,7 +63,7 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-                <th>Application ID</th>
+                <th>Application Name</th>
                 <th colspan="2">Service ID</th>
                 <th>Category</th>
                 <th>Description</th>
@@ -58,9 +77,15 @@
           {% for service in services.results %}
                <tr>
 
-                   <td>{{service.appID}}</td>
-                   <td colspan="2">{{service.serviceID}}</td>
-                   <td>
+                   <td style="width:5%">
+                       {% for application in applications %}
+                                {% if service.appID|add:"0" == application.id|add:"0" %}
+                                    {{application.appName}}
+                                {% endif %}
+                       {% endfor %}
+                   </td>
+                   <td style="width:10%" colspan="2">{{service.serviceID}}</td>
+                   <td style="width:5%">
                        {% if service.category %}
                         {{service.category}}
                        {% else %}
@@ -68,9 +93,9 @@
                        {% endif %}
                    </td>
 
-                   <td>{{service.description}}</td>
+                   <td style="width:10%">{{service.description}}</td>
 
-                   <td class="text-center" colspan="2">
+                   <td style="width:5%" class="text-center" colspan="2">
                        <a href="/admin_auth/edit_service/{{service.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
 
                    </td>
@@ -91,7 +116,7 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin_auth:list_service' %}" method="post">
+                <form class="form-horizontal" action="{% url 'admin_auth:list_service' %}?service_id={{searchParam.service_id}}&app_id={{searchParam.app_id}}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{services.previous}}'>
                   <button type="submit" class="page-link"  aria-label="Previous">
@@ -116,7 +141,7 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin_auth:list_service' %}" method="post">
+              <form class="form-horizontal" action="{% url 'admin_auth:list_service' %}?service_id={{searchParam.service_id}}&app_id={{searchParam.app_id}}" method="post">
                   {% csrf_token %}
 
                   <input id="next_url" name="next_url" type="hidden" value='{{services.next}}'>

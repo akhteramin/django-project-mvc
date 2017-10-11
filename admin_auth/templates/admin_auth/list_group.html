@@ -14,14 +14,55 @@
         <hr/>
     </div>
     <div class="table_container">
-        <div class="col-md-offset-3">
-            <a href="{% url 'admin_auth:create_group' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Group</a>
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{% url 'admin_auth:create_group' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Group</a>
+            </div>
+            <div class="col-md-5 offset-md-3 search-content">
+
+                <form class="form-horizontal" name="UserForm" action="{% url 'admin_auth:list_group' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control input-sm chat-input"
+                                   {% if searchParam.group_id  %}
+                                        value={{searchParam.group_id}}
+                                    {% endif %}
+                                   id="group_id" name="group_id"  placeholder="group_id">
+
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="app_id" id="app_id">
+                                <option value="">Select Application</option>
+                            {% for application in applications %}
+                                {% if searchParam.app_id|add:"0" == application.id|add:"0" %}
+                                    <option value="{{ application.id }}"  selected >{{ application.appName }}</option>
+                                {% else %}
+                                    <option value="{{ application.id }}" >{{ application.appName }}</option>
+
+                                {% endif %}
+
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="button-search">Search</button>
+
+                            <a href="{% url 'admin_auth:list_group' %}">
+                                <button type="button" class="button-reset">Reset</button>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
         </div>
         <br/>
         <table class="table table-bordered">
           <thead>
             <tr>
-                <th>Application ID</th>
+                <th>Application Name</th>
                 <th colspan="2">Group ID</th>
                 <th>Description</th>
 
@@ -34,7 +75,13 @@
           {% for group in groups.results %}
                <tr>
 
-                   <td>{{group.appID}}</td>
+                   <td>
+                       {% for application in applications %}
+                                {% if group.appID|add:"0" == application.id|add:"0" %}
+                                    {{application.appName}}
+                                {% endif %}
+                       {% endfor %}
+                   </td>
                    <td colspan="2">{{group.groupID}}</td>
                    <td>{{group.description}}</td>
 
@@ -51,7 +98,7 @@
         </table>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-              {% if users.previous == None %}
+              {% if groups.previous == None %}
                 <li class="page-item disabled">
                   <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -61,7 +108,7 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin_auth:list_group' %}" method="post">
+                <form class="form-horizontal" action="{% url 'admin_auth:list_group' %}?group_id={{searchParam.group_id}}&app_id={{searchParam.group_id}}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{groups.previous}}'>
                   <button type="submit" class="page-link"  aria-label="Previous">
@@ -75,7 +122,7 @@
             <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
             <!--<li class="page-item"><a class="page-link" href="#">2</a></li>-->
             <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
-          {% if users.next == None %}
+          {% if groups.next == None %}
             <li class="page-item disabled">
               <a class="page-link" href="#" aria-label="Next">
                   Next
@@ -86,7 +133,7 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin_auth:list_group' %}" method="post">
+              <form class="form-horizontal" action="{% url 'admin_auth:list_group' %}?group_id={{searchParam.group_id}}&app_id={{searchParam.app_id}}" method="post">
                   {% csrf_token %}
 
                   <input id="next_url" name="next_url" type="hidden" value='{{groups.next}}'>

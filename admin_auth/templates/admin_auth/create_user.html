@@ -31,6 +31,7 @@
                 <div class="controls">
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
                     <select class="form-control" name="appID" id="appID">
+                        <option value="">Select Application</option>
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>
                     {% endfor %}

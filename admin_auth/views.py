@@ -8,6 +8,9 @@ import requests
 import json
 from .services import SERVICE_URL,HEADERS
 
+import subprocess
+import os
+
 class IndexView(generic.ListView):
     template_name = 'admin_auth/index.html'
 
@@ -21,6 +24,9 @@ def login(request):
     if request.POST:
         loginID = request.POST['loginID']
         password = request.POST['password']
+
+        device_id=request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family
+        print(device_id)
         print(loginID)
         print(password)
 
@@ -33,7 +39,7 @@ def login(request):
                     }
             })
         else:
-            post_data = {'loginID': loginID, 'password': password, 'appID': 2, 'deviceID': 'postman'};
+            post_data = {'loginID': loginID, 'password': password, 'appID': 2, 'deviceID': device_id};
             response = requests.post(SERVICE_URL + 'login/', headers=HEADERS, data=json.dumps(post_data))
             print(response.text)
             # if response:
@@ -84,10 +90,10 @@ def create_user(request):
         applications=response_app_data.json()
         print(response_app_data.content)
         if request.POST:
-            print(request.POST['loginID'])
-            print(request.POST['password'])
-            print(request.POST['appID'])
-            post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': request.POST['appID'], 'deviceID': 'postman'};
+
+            device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+
+            post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': request.POST['appID'], 'deviceID': device_id};
 
             response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
@@ -111,12 +117,6 @@ def create_service(request):
         applications = response_app_data.json()
         print(response_app_data.content)
         if request.POST:
-            print(request.POST['appID'])
-            print(request.POST['serviceID'])
-            print(request.POST['description'])
-            print(request.POST['serviceCategory'])
-
-
             post_data = {'appID': request.POST['appID'], 'serviceID': request.POST['serviceID'],
                          'description': request.POST['description'], 'category':request.POST['serviceCategory']};
 
@@ -287,19 +287,21 @@ def list_user(request):
     if 'token' in request.session:
         searchParam={}
         if 'next_url' in request.POST:
-            print("next login id")
-            print(request.POST['next_login_id'])
+
+            searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['next_url'], headers=HEADERS)
             userList = response_data.json()
             print(response_data.content)
         elif 'prev_url' in request.POST:
+            searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
             userList = response_data.json()
             print(response_data.content)
         elif 'login_id' in request.POST and 'app_id' in request.POST:
-            paramData=request.POST['login_id']+"/"+request.POST['app_id']+"?limit=5&offset=0"
+
+            paramData="?login_id="+request.POST.get('login_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
             searchParam={'login_id':request.POST['login_id'],'app_id':request.POST['app_id']}
-            response_data = requests.get(SERVICE_URL + 'user/' + paramData, headers=HEADERS)
+            response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
             userList = response_data.json()
             print(response_data.content)
         else:
@@ -319,47 +321,72 @@ def list_user(request):
 
 def list_group(request):
     if 'token' in request.session:
+        searchParam={}
         if 'next_url' in request.POST:
+            searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['next_url'], headers=HEADERS)
             groupList = response_data.json()
             print(response_data.content)
         elif 'prev_url' in request.POST:
+            searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
             groupList = response_data.json()
             print(response_data.content)
-
-        else:
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'group/' + postData, headers=HEADERS)
+        elif 'group_id' in request.POST and 'app_id' in request.POST:
+            searchParam={'group_id':request.POST.get('group_id'),'app_id':request.POST.get('app_id')}
+            paramData="?group_id="+request.POST.get('group_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'group/get/' + paramData, headers=HEADERS)
             print(response_data.content)
             groupList = response_data.json()
             print(response_data.content)
+        else:
+            postData = "?limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'group/' + postData, headers=HEADERS)
+            groupList = response_data.json()
+            print(response_data.content)
 
-        return render(request, 'admin_auth/list_group.html', {"groups": groupList})
+        postData = "?limit=1000&offset=0"
+        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+        appList = response_data.json()
+
+        return render(request, 'admin_auth/list_group.html',
+                      {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
     else:
         return render(request, 'admin_auth/login.html', )
 
 def list_service(request):
     if 'token' in request.session:
+        searchParam = {}
         if 'next_url' in request.POST:
+            searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['next_url'], headers=HEADERS)
             serviceList = response_data.json()
             print(response_data.content)
         elif 'prev_url' in request.POST:
+            searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
             response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
             serviceList = response_data.json()
             print(response_data.content)
 
-        else:
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'service/' + postData, headers=HEADERS)
+        elif 'service_id' in request.POST and 'app_id' in request.POST:
+            searchParam = {'service_id': request.POST.get('service_id'), 'app_id': request.POST.get('app_id')}
+            paramData="?service_id="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'service/get/' + paramData, headers=HEADERS)
             print(response_data.content)
             serviceList = response_data.json()
             print(response_data.content)
-        postData = "?limit=100&offset=0"
+
+        else:
+            print(request.POST);
+            postData = "?limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'service/' + postData, headers=HEADERS)
+            serviceList = response_data.json()
+            print(response_data.content)
+        postData = "?limit=1000&offset=0"
         response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
         appList=response_data.json()
-        return render(request, 'admin_auth/list_service.html', {"services": serviceList,"applications":appList['results']})
+        return render(request, 'admin_auth/list_service.html',
+                      {"services": serviceList,"applications":appList['results'],'searchParam':searchParam})
     else:
         return render(request, 'admin_auth/login.html', )
 
@@ -419,17 +446,17 @@ def load_user_group_list(userID='',appID=''):
     user_group_list = response_user_group_data.json()
     print(response_user_group_data.content)
     count = 0
-    for group in grouptList:
+    for group in grouptList['results']:
 
         for user_group in user_group_list:
             if group['groupID'] == user_group['group']['groupID']:
-                grouptList[count]['assigned'] = 1
+                grouptList['results'][count]['assigned'] = 1
                 break
             else:
-                grouptList[count]['assigned'] = 0
+                grouptList['results'][count]['assigned'] = 0
         count += 1
     print(grouptList)
-    return {'groups': grouptList, 'user': user, 'app': app, 'user_group': user_group_list};
+    return {'groups': grouptList['results'], 'user': user, 'app': app, 'user_group': user_group_list};
 
 # only load Data
 def save_user_group(groupIDList,userID):
@@ -490,17 +517,17 @@ def load_group_service_list(groupID='',appID=''):
     group_service_list = response_group_service_data.json()
     print(response_group_service_data.content)
     count = 0
-    for service in serviceList:
+    for service in serviceList['results']:
 
         for group_service in group_service_list:
-            if service['serviceID'] == group_service['service']['serviceID']:
-                serviceList[count]['assigned'] = 1
+            if service['id'] == group_service['service']['id']:
+                serviceList['results'][count]['assigned'] = 1
                 break
             else:
-                serviceList[count]['assigned'] = 0
+                serviceList['results'][count]['assigned'] = 0
         count += 1
     print(serviceList)
-    return {'services': serviceList, 'group': group, 'app': app, 'group_service': group_service_list};
+    return {'services': serviceList['results'], 'group': group, 'app': app, 'group_service': group_service_list};
 
 # only load Data
 def save_group_service(serviceIDList,groupID):
@@ -528,6 +555,11 @@ def save_group_service(serviceIDList,groupID):
 
     return
 
+def get_device_id():
+    if 'nt' in os.name:
+        return subprocess.Popen('dmidecode.exe -s system-uuid'.split())
+    else:
+        return subprocess.Popen('hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid'.split())
 
 def change_password(request):
     if request.POST:

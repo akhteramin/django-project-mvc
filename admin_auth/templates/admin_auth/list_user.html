@@ -62,9 +62,8 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-                <th>#</th>
                 <th>Login ID</th>
-                <th>Application ID</th>
+                <th>Application Name</th>
                 <th>Device ID</th>
                 <th>Created At</th>
                 <th>Updated At</th>
@@ -77,20 +76,25 @@
           <tbody>
           {% for user in users.results %}
                <tr>
-                   <td>{{user.id}}</td>
-                   <td>{{user.loginID}}</td>
-                   <td>{{user.appID}}</td>
-                   <td>{{user.deviceID}}</td>
-                   <td>{{user.createdAT | slice:"10"}}</td>
-                   <td>{{user.updatedAT | slice:"10"}}</td>
+                   <td style="width:10%">{{user.loginID}}</td>
                    <td>
+                       {% for application in applications %}
+                                {% if user.appID|add:"0" == application.id|add:"0" %}
+                                    {{application.appName}}
+                                {% endif %}
+                       {% endfor %}
+                   </td>
+                   <td style="width:20%">{{user.deviceID}}</td>
+                   <td style="width:10%">{{user.createdAT | slice:"10"}}</td>
+                   <td style="width:10%">{{user.updatedAT | slice:"10"}}</td>
+                   <td style="width:5%">
                     {% if user.is_active  %}
                         Active
                     {% else %}
                        Inactive
                     {% endif %}
                    </td>
-                   <td id="actionUser_{{user.id}}" class="text-center">
+                   <td id="actionUser_{{user.id}}" class="text-center" style="width:40%">
                        <!--<a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>-->
                        <a href="/admin_auth/assign_user_group/{{user.id}}/{{user.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Group</a>
                        <a href="#" onclick="setData('{{user.loginID}}','{{user.appID}}')" class="btn button-set-password" data-toggle="modal" data-target="#ChangePasswordModal" role="button" aria-pressed="true">Set Password</a>
@@ -119,11 +123,10 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin_auth:list_user' %}" method="post">
+                <form class="form-horizontal" action="{% url 'admin_auth:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{users.previous}}'>
-                    <input id="prev_login_id" name="prev_login_id" type="hidden">
-                    <input id="prev_app_id" name="prev_app_id" type="hidden">
+
 
                   <button type="submit" class="page-link"  aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -147,10 +150,9 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin_auth:list_user' %}" method="post">
+              <form class="form-horizontal" action="{% url 'admin_auth:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
                   {% csrf_token %}
-                  <input id="next_login_id" name="next_login_id" type="hidden">
-                  <input id="next_app_id" name="next_app_id" type="hidden">
+
 
                   <input id="next_url" name="next_url" type="hidden" value='{{users.next}}'>
 

@@ -98,19 +98,5 @@ function changeStatus(loginID,appID,activate=1,userID){
             });
      }
 };
-$("#login_id").change(function(){
-    console.log($("#login_id").val());
 
-    $("#prev_login_id").val($("#login_id").val());
-    $("#next_login_id").val($("#login_id").val());
-
-});
-
-$("#app_id").change(function(){
-console.log($("#app_id").val());
-
-    $("#prev_app_id").val($("#app_id").val());
-    $("#next_app_id").val($("#app_id").val());
-
-})
 
