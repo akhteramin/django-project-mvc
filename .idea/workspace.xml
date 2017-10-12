@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bd2930b-3a8f-477f-9270-289b4ca8b9cc" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin_auth/templatetags/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin_auth/templatetags/datetime.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/services.py" afterPath="$PROJECT_DIR$/admin_auth/services.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_group.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_group.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_user.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_user.html" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/main.html" afterPath="$PROJECT_DIR$/admin_auth/templates/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/views.py" afterPath="$PROJECT_DIR$/admin_auth/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -112,35 +100,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mysite/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="88" column="67" lean-forward="true" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
+            <state relative-caret-position="232">
+              <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="services.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="services.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_auth/services.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state relative-caret-position="15">
+              <caret line="1" column="38" lean-forward="false" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_service.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-              <folding>
-                <element signature="e#457#464#0" expanded="true" />
-                <element signature="e#839#846#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="15">
+              <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -205,7 +190,6 @@
         <option value="$PROJECT_DIR$/admin_auth/templates/left_side_bar.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery-3.1.0.min.js" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/admin_auth/migrations/0001_initial.py" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery.min.js" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/tether.min.js" />
@@ -222,7 +206,6 @@
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_group.html" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/css/style.css" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_service.html" />
-        <option value="$PROJECT_DIR$/mysite/settings.py" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_group.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html" />
@@ -235,6 +218,8 @@
         <option value="$PROJECT_DIR$/admin_auth/templates/main.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_user.html" />
         <option value="$PROJECT_DIR$/admin_auth/services.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/mysite/settings.py" />
       </list>
     </option>
   </component>
@@ -673,13 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="110" column="7" lean-forward="false" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_auth/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -934,18 +912,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="88" column="67" lean-forward="true" selection-start-line="88" selection-start-column="67" selection-end-line="88" selection-end-column="67" />
+        <state relative-caret-position="15">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin_auth/services.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="15">
+          <caret line="1" column="38" lean-forward="false" selection-start-line="1" selection-start-column="38" selection-end-line="1" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
           <folding />
         </state>
       </provider>
