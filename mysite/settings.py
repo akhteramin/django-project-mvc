@@ -25,13 +25,13 @@ SECRET_KEY = 'z)!9&2**@6ev!=l0cd=@1#qobpl0eiujui1sn6&&8xfl^31d2('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.10.10.199']
+ALLOWED_HOSTS = ['10.10.10.199','localhost','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'admin_auth.apps.AdminAuthConfig',
+    'admin-auth.apps.AdminAuthConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
