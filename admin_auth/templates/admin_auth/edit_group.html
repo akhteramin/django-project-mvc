@@ -10,7 +10,23 @@
 
     <div id="group">
         <h1>Group Update</h1>
-            <div> {{ message }}</div>
+        {% if message and status %}
+            {% if status == 200 %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Success!</strong> {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Warning!</strong> {{ message }}
+                </div>
+            {% endif%}
+        {% endif%}
 
         <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:edit_group' group_details.id%}" method="post">
         {% csrf_token %}

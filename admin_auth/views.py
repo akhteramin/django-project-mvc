@@ -100,9 +100,9 @@ def create_user(request):
 
 
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_user.html', {"message": "User has been created","applications": applications['results']})
+                return render(request, 'admin_auth/create_user.html', {"message": "User has been created","applications": applications['results'],"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/create_user.html', {"message": response_data.text,"applications": applications['results']})
+                return render(request, 'admin_auth/create_user.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
 
 
         return render(request, 'admin_auth/create_user.html',{"applications": applications['results']})
@@ -123,9 +123,9 @@ def create_service(request):
             response_data = requests.post(SERVICE_URL + 'service/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_service.html', {"message": "Service has been created","applications": applications['results']})
+                return render(request, 'admin_auth/create_service.html', {"message": "Service has been created","applications": applications['results'],"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/create_service.html', {"message": response_data.text,"applications": applications['results']})
+                return render(request, 'admin_auth/create_service.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
 
         return render(request, 'admin_auth/create_service.html',{"applications": applications['results']})
     else:
@@ -147,9 +147,9 @@ def create_group(request):
             response_data = requests.post(SERVICE_URL + 'group/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
             if response_data.status_code==201:
-                return render(request, 'admin_auth/create_group.html', {"message": "Group has been created","applications": applications['results']})
+                return render(request, 'admin_auth/create_group.html', {"message": "Group has been created","applications": applications['results'],"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/create_group.html', {"message": response_data.text,"applications": applications['results']})
+                return render(request, 'admin_auth/create_group.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
 
         return render(request, 'admin_auth/create_group.html',{"applications": applications['results']})
     else:
@@ -166,9 +166,9 @@ def create_app(request):
             response_data = requests.post(SERVICE_URL + 'app/', headers=HEADERS, data=json.dumps(post_data))
             print(response_data.status_code)
             if response_data.status_code == 201:
-                return render(request, 'admin_auth/create_app.html', {"message": "Application has been created"})
+                return render(request, 'admin_auth/create_app.html', {"message": "Application has been created","status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/create_app.html', {"message": response_data.text})
+                return render(request, 'admin_auth/create_app.html', {"message": response_data.text,"status":response_data.status_code})
         return render(request, 'admin_auth/create_app.html')
     else:
         return render(request, 'admin_auth/login.html', )
@@ -192,9 +192,9 @@ def edit_app(request,appID=''):
             app_details = response_data.json()
 
             if response_data.status_code == 200:
-                return render(request, 'admin_auth/edit_app.html', {"message": "Application has been updated","app_details":app_details})
+                return render(request, 'admin_auth/edit_app.html', {"message": "Application has been updated","app_details":app_details,"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/edit_app.html', {"message": response_data.text,"app_details":app_details})
+                return render(request, 'admin_auth/edit_app.html', {"message": response_data.text,"app_details":app_details,"status":response_data.status_code})
 
 
         elif appID!='':
@@ -229,9 +229,10 @@ def edit_group(request,groupId=''):
 
             if response_data.status_code == 200:
                 return render(request, 'admin_auth/edit_group.html',
-                              {"message": "Group has been updated","group_details":group_details,"applications":applications['results']})
+                              {"message": "Group has been updated","group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/edit_group.html', {"message": response_data.text,"group_details":group_details,"applications":applications['results']})
+                return render(request, 'admin_auth/edit_group.html',
+                              {"message": response_data.text,"group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
 
 
         elif groupId!='':
@@ -267,9 +268,9 @@ def edit_service(request,serviceId=''):
 
             if response_data.status_code == 200:
                 return render(request, 'admin_auth/edit_service.html',
-                              {"message": "Service has been updated","service_details":service_details,"applications":applications['results']})
+                              {"message": "Service has been updated","service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
             else:
-                return render(request, 'admin_auth/edit_service.html', {"message": response_data.text,"service_details":service_details,"applications":applications['results']})
+                return render(request, 'admin_auth/edit_service.html', {"message": response_data.text,"service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
 
 
         elif serviceId!='':

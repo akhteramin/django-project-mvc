@@ -6,8 +6,24 @@
 
 
     <div class="container">
-            <h1>Service Creation</h1>
-        <div> {{ message }}</div>
+        <h1>Service Creation</h1>
+        {% if message and status %}
+            {% if status == 201 %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Success!</strong> {{ message }}
+            </div>
+            {% else %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <strong>Warning!</strong> {{ message }}
+            </div>
+            {% endif%}
+        {% endif%}
 
         <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:create_service' %}" method="post">
         {% csrf_token %}
@@ -18,8 +34,8 @@
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
-                    <option value="">Select Application</option>
                     <select class="form-control" name="appID" id="appID">
+                        <option value="">Select Application</option>
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>
                     {% endfor %}

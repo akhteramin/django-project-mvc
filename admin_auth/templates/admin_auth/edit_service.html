@@ -6,8 +6,24 @@
 
 
     <div class="container">
-            <h1>Service Edit</h1>
-        <div> {{ message }}</div>
+        <h1>Service Edit</h1>
+        {% if message and status %}
+            {% if status == 200 %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Success!</strong> {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Warning!</strong> {{ message }}
+                </div>
+            {% endif%}
+        {% endif%}
 
         <form class="form-horizontal" name="ServiceForm" action="{% url 'admin_auth:edit_service' service_details.id %}" method="post">
         {% csrf_token %}

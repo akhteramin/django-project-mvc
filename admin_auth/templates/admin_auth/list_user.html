@@ -2,6 +2,7 @@
 
 {% block content %}
 {% include "menu_bar.html" %}
+{% load datetime %}
 
 <div class="row">
     <div class="header col-md-2">
@@ -85,8 +86,8 @@
                        {% endfor %}
                    </td>
                    <td style="width:20%">{{user.deviceID}}</td>
-                   <td style="width:10%">{{user.createdAT | slice:"10"}}</td>
-                   <td style="width:10%">{{user.updatedAT | slice:"10"}}</td>
+                   <td style="width:10%">{{user.createdAT | get_date_time:user.createdAT}}</td>
+                   <td style="width:10%">{{user.updatedAT | get_date_time:user.updatedAT}}</td>
                    <td style="width:5%">
                     {% if user.is_active  %}
                         Active
