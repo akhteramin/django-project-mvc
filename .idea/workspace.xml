@@ -2,62 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bd2930b-3a8f-477f-9270-289b4ca8b9cc" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/__init__.py" afterPath="$PROJECT_DIR$/admin-auth/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/admin.py" afterPath="$PROJECT_DIR$/admin-auth/admin.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/apps.py" afterPath="$PROJECT_DIR$/admin-auth/apps.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/admin-auth/migrations/0001_initial.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/migrations/__init__.py" afterPath="$PROJECT_DIR$/admin-auth/migrations/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/models.py" afterPath="$PROJECT_DIR$/admin-auth/models.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/services.py" afterPath="$PROJECT_DIR$/admin-auth/services.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/css/style.css" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/css/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/images/background.jpg" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/images/background.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/images/btn-login-hover.png" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/images/btn-login-hover.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/images/btn-login.png" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/images/btn-login.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/js/csrf_token_header.js" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/js/csrf_token_header.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery.min.js" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/js/jquery.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/js/tether.min.js" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/js/tether.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/admin_auth/template_js/list_user.js" afterPath="$PROJECT_DIR$/admin-auth/static/admin-auth/template_js/list_user.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-grid.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-grid.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-grid.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-grid.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-grid.min.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-grid.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-grid.min.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-grid.min.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-reboot.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-reboot.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-reboot.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-reboot.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-reboot.min.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-reboot.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap-reboot.min.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap-reboot.min.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/css/bootstrap.min.css.map" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/css/bootstrap.min.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/js/bootstrap.js" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/js/bootstrap.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/static/bootstrap/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/admin-auth/static/bootstrap/js/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_group_service.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_group_service.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_user_group.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_user_group.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_app.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_group.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_group.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_service.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_user.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_group.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_service.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/home.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/index.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_app.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_group.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_service.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_user.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/login.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/main.html" afterPath="$PROJECT_DIR$/admin-auth/templates/main.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templates/menu_bar.html" afterPath="$PROJECT_DIR$/admin-auth/templates/menu_bar.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templatetags/__init__.py" afterPath="$PROJECT_DIR$/admin-auth/templatetags/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/templatetags/datetime.py" afterPath="$PROJECT_DIR$/admin-auth/templatetags/datetime.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/tests.py" afterPath="$PROJECT_DIR$/admin-auth/tests.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/urls.py" afterPath="$PROJECT_DIR$/admin-auth/urls.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/admin_auth/views.py" afterPath="$PROJECT_DIR$/admin-auth/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/settings.py" afterPath="$PROJECT_DIR$/mysite/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mysite/urls.py" afterPath="$PROJECT_DIR$/mysite/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -108,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit_app.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="edit_app.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="27" column="83" lean-forward="false" selection-start-line="27" selection-start-column="83" selection-end-line="27" selection-end-column="83" />
+            <state relative-caret-position="420">
+              <caret line="52" column="39" lean-forward="false" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
               <folding>
                 <element signature="e#461#468#0" expanded="true" />
                 <element signature="e#843#850#0" expanded="true" />
@@ -171,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create_user.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="create_user.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="27" column="92" lean-forward="false" selection-start-line="27" selection-start-column="92" selection-end-line="27" selection-end-column="92" />
+            <state relative-caret-position="239">
+              <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -275,10 +220,10 @@
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html" />
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html" />
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html" />
-        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" />
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_user_group.html" />
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_group_service.html" />
         <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" />
       </list>
     </option>
   </component>
@@ -974,17 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="27" column="83" lean-forward="false" selection-start-line="27" selection-start-column="83" selection-end-line="27" selection-end-column="83" />
-          <folding>
-            <element signature="e#461#468#0" expanded="true" />
-            <element signature="e#843#850#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_service.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -1027,9 +961,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="27" column="92" lean-forward="false" selection-start-line="27" selection-start-column="92" selection-end-line="27" selection-end-column="92" />
+        <state relative-caret-position="239">
+          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="52" column="39" lean-forward="false" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+          <folding>
+            <element signature="e#461#468#0" expanded="true" />
+            <element signature="e#843#850#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
