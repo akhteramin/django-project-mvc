@@ -77,9 +77,12 @@ def home( request ):
 
 
 def logout(request):
-    del request.session['token']
-    request.session.modified = True
-    return render(request,'admin-auth/login.html')
+    try:
+        del request.session['token']
+        request.session.modified = True
+        return render(request,'admin-auth/login.html')
+    except Exception as e:
+        return render(request,'admin-auth/login.html')
 
 
 
