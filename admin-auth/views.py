@@ -432,7 +432,7 @@ def assign_user_group(request,userID='',appID=''):
         return render(request,'admin-auth/login.html')
 
 # only load Data
-def load_user_group_list(userID='',appID=''):
+def load_user_group_list(userID='', appID=''):
     userData = requests.get(SERVICE_URL + 'user/' + userID, headers=HEADERS)
     user = userData.json()
     print(userData.content)
@@ -450,17 +450,48 @@ def load_user_group_list(userID='',appID=''):
     user_group_list = response_user_group_data.json()
     print(response_user_group_data.content)
     count = 0
-    for group in grouptList['results']:
+    for group in grouptList:
 
         for user_group in user_group_list:
             if group['groupID'] == user_group['group']['groupID']:
-                grouptList['results'][count]['assigned'] = 1
+                grouptList[count]['assigned'] = 1
                 break
             else:
-                grouptList['results'][count]['assigned'] = 0
+                grouptList[count]['assigned'] = 0
         count += 1
     print(grouptList)
-    return {'groups': grouptList['results'], 'user': user, 'app': app, 'user_group': user_group_list};
+    return {'groups': grouptList, 'user': user, 'app': app, 'user_group': user_group_list};
+
+# # only load Data
+# def load_user_group_list(userID='',appID=''):
+#     userData = requests.get(SERVICE_URL + 'user/' + userID, headers=HEADERS)
+#     user = userData.json()
+#     print(userData.content)
+#
+#     appData = requests.get(SERVICE_URL + 'app/' + appID, headers=HEADERS)
+#     app = appData.json()
+#     print(appData.content)
+#
+#     response_group_data = requests.get(SERVICE_URL + 'group/filtered/app/' + str(appID), headers=HEADERS)
+#     grouptList = response_group_data.json()
+#     print(response_group_data.content)
+#
+#     response_user_group_data = requests.get(SERVICE_URL + 'user_group/details/user/' + str(userID),
+#                                             headers=HEADERS)
+#     user_group_list = response_user_group_data.json()
+#     print(response_user_group_data.content)
+#     count = 0
+#     for group in grouptList['results']:
+#
+#         for user_group in user_group_list:
+#             if group['groupID'] == user_group['group']['groupID']:
+#                 grouptList['results'][count]['assigned'] = 1
+#                 break
+#             else:
+#                 grouptList['results'][count]['assigned'] = 0
+#         count += 1
+#     print(grouptList)
+#     return {'groups': grouptList['results'], 'user': user, 'app': app, 'user_group': user_group_list};
 
 # only load Data
 def save_user_group(groupIDList,userID):
@@ -502,8 +533,8 @@ def assign_group_service(request,groupID='',appID=''):
     else:
         return render(request,'admin-auth/login.html')
 
-# only load Data
-def load_group_service_list(groupID='',appID=''):
+    # only load Data
+def load_group_service_list(groupID='', appID=''):
     groupData = requests.get(SERVICE_URL + 'group/' + groupID, headers=HEADERS)
     group = groupData.json()
     print(groupData.content)
@@ -517,21 +548,52 @@ def load_group_service_list(groupID='',appID=''):
     print(response_service_data.content)
 
     response_group_service_data = requests.get(SERVICE_URL + 'acl/details/group/' + str(groupID),
-                                            headers=HEADERS)
+                                               headers=HEADERS)
     group_service_list = response_group_service_data.json()
     print(response_group_service_data.content)
     count = 0
-    for service in serviceList['results']:
+    for service in serviceList:
 
         for group_service in group_service_list:
             if service['id'] == group_service['service']['id']:
-                serviceList['results'][count]['assigned'] = 1
+                serviceList[count]['assigned'] = 1
                 break
             else:
-                serviceList['results'][count]['assigned'] = 0
+                serviceList[count]['assigned'] = 0
         count += 1
     print(serviceList)
-    return {'services': serviceList['results'], 'group': group, 'app': app, 'group_service': group_service_list};
+    return {'services': serviceList, 'group': group, 'app': app, 'group_service': group_service_list};
+
+# # only load Data
+# def load_group_service_list(groupID='',appID=''):
+#     groupData = requests.get(SERVICE_URL + 'group/' + groupID, headers=HEADERS)
+#     group = groupData.json()
+#     print(groupData.content)
+#
+#     appData = requests.get(SERVICE_URL + 'app/' + appID, headers=HEADERS)
+#     app = appData.json()
+#     print(appData.content)
+#
+#     response_service_data = requests.get(SERVICE_URL + 'service/filtered/app/' + str(appID), headers=HEADERS)
+#     serviceList = response_service_data.json()
+#     print(response_service_data.content)
+#
+#     response_group_service_data = requests.get(SERVICE_URL + 'acl/details/group/' + str(groupID),
+#                                             headers=HEADERS)
+#     group_service_list = response_group_service_data.json()
+#     print(response_group_service_data.content)
+#     count = 0
+#     for service in serviceList['results']:
+#
+#         for group_service in group_service_list:
+#             if service['id'] == group_service['service']['id']:
+#                 serviceList['results'][count]['assigned'] = 1
+#                 break
+#             else:
+#                 serviceList['results'][count]['assigned'] = 0
+#         count += 1
+#     print(serviceList)
+#     return {'services': serviceList['results'], 'group': group, 'app': app, 'group_service': group_service_list};
 
 # only load Data
 def save_group_service(serviceIDList,groupID):
