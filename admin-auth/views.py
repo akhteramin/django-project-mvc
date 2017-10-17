@@ -55,8 +55,8 @@ def login(request):
             print(token)
             request.session['token'] = token['token']
             request.session['loginID'] = request.POST['loginID']
-
-
+            HEADERS['token'] = token['token']
+            print(HEADERS)
             return HttpResponseRedirect(reverse('admin-auth:home'))
 
             # return render(request, 'admin-auth/home.html', {
@@ -290,6 +290,8 @@ def list_user(request):
 
     if 'token' in request.session:
         searchParam={}
+        print("headers::")
+        print(HEADERS)
         if 'next_url' in request.POST:
 
             searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
@@ -325,6 +327,8 @@ def list_user(request):
 
 def list_group(request):
     if 'token' in request.session:
+        print("headers::")
+        print(HEADERS)
         searchParam={}
         if 'next_url' in request.POST:
             searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
