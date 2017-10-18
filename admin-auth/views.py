@@ -80,6 +80,8 @@ def logout(request):
     try:
         del request.session['token']
         request.session.modified = True
+        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
+
         return render(request,'admin-auth/login.html')
     except Exception as e:
         return render(request,'admin-auth/login.html')
