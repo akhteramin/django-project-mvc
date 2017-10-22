@@ -17,7 +17,12 @@
     <div class="table_container">
         <div class="row">
             <div class="col-md-3">
-                <a href="{% url 'admin-auth:create_service' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Service</a>
+                {% for permissions in request.session.permissionList %}
+                    {% if permissions.serviceID == "AUTH_ADD_SERVICE" %}
+
+                    <a href="{% url 'admin-auth:create_service' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Service</a>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="col-md-5 offset-md-3 search-content">
 
@@ -96,7 +101,11 @@
                    <td style="width:10%">{{service.description}}</td>
 
                    <td style="width:5%" class="text-center" colspan="2">
-                       <a href="/admin-auth/edit/service/{{service.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
+                       {% for permissions in request.session.permissionList %}
+                            {% if permissions.serviceID == "AUTH_REPLACE_SERVICE" %}
+                                <a href="/admin-auth/edit/service/{{service.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
+                            {% endif %}
+                        {% endfor %}
 
                    </td>
 

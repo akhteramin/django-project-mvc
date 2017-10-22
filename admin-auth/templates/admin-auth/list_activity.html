@@ -2,41 +2,44 @@
 
 {% block content %}
 {% include "menu_bar.html" %}
+{% load datetime %}
 
 <div class="row">
     <div class="header col-md-2">
         <br/>
 
-        <h1>Group List</h1>
-        <b> Total Group: {{groups.count}} </b>
+        <h1>Activity List</h1>
+        <b> Total Activity: {{activities.count}} </b>
     </div>
+
     <div class="col-md-12">
         <hr/>
     </div>
     <div class="table_container">
         <div class="row">
-            <div class="col-md-3">
-            {% for permissions in request.session.permissionList %}
-                {% if permissions.serviceID == "AUTH_ADD_GROUP" %}
 
-                <a href="{% url 'admin-auth:create_group' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Group</a>
-                {% endif %}
-            {% endfor %}
-            </div>
-            <div class="col-md-5 offset-md-3 search-content">
+            <div class="col-md-8 offset-md-3 search-content">
 
-                <form class="form-horizontal" name="UserForm" action="{% url 'admin-auth:list_group' %}" method="post">
+                <form class="form-horizontal" name="UserForm" action="{% url 'admin-auth:list_activity' %}" method="post">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <input type="text" class="form-control input-sm chat-input"
-                                   {% if searchParam.group_id  %}
-                                        value={{searchParam.group_id}}
+                                   {% if searchParam.login_id  %}
+                                        value={{searchParam.login_id}}
                                     {% endif %}
-                                   id="group_id" name="group_id"  placeholder="group_id">
+                                   id="login_id" name="login_id"  placeholder="login id">
 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <input type="text" class="form-control input-sm chat-input"
+                                   {% if searchParam.service_name  %}
+                                        value={{searchParam.service_name}}
+                                    {% endif %}
+                                   id="service_id" name="service_id"  placeholder="service ID">
+
+                        </div>
+                        <div class="col-md-3">
                             <select class="form-control" name="app_id" id="app_id">
                                 <option value="">Select Application</option>
                             {% for application in applications %}
@@ -50,10 +53,10 @@
                             {% endfor %}
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <button type="submit" class="button-search">Search</button>
 
-                            <a href="{% url 'admin-auth:list_group' %}">
+                            <a href="{% url 'admin-auth:list_activity' %}">
                                 <button type="button" class="button-reset">Reset</button>
                             </a>
                         </div>
@@ -68,40 +71,27 @@
           <thead>
             <tr>
                 <th>Application Name</th>
-                <th colspan="2">Group ID</th>
-                <th>Description</th>
-
-                <th class="text-center" colspan="2">Action</th>
-
+                <th colspan="2">User</th>
+                <th>Service ID</th>
+                <th>Action Time</th>
 
             </tr>
           </thead>
           <tbody>
-          {% for group in groups.results %}
+          {% for activity in activities.results %}
                <tr>
 
-                   <td>
+                   <td style="width:5%">
                        {% for application in applications %}
-                                {% if group.appID|add:"0" == application.id|add:"0" %}
+                                {% if activity.app|add:"0" == application.id|add:"0" %}
                                     {{application.appName}}
                                 {% endif %}
                        {% endfor %}
                    </td>
-                   <td colspan="2">{{group.groupID}}</td>
-                   <td>{{group.description}}</td>
+                   <td style="width:10%" colspan="2">{{activity.user}}</td>
+                   <td style="width:5%">{{activity.service}}</td>
 
-                   <td class="text-center" colspan="2">
-                       {% for permissions in request.session.permissionList %}
-                            {% if permissions.serviceID == "AUTH_REPLACE_GROUP" %}
-                                <a href="/admin-auth/edit/group/{{group.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
-                            {% endif %}
-                        {% endfor %}
-                       {% for permissions in request.session.permissionList %}
-                            {% if permissions.serviceID == "AUTH_ASSIGN_GROUP_SERVICE" %}
-                       <a href="/admin-auth/assign/group/service/{{group.id}}/{{group.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Service</a>
-                             {% endif %}
-                        {% endfor %}
-                   </td>
+                   <td style="width:10%">{{activity.createdAT | get_date_time:activity.createdAT}}</td>
 
                </tr>
             {% endfor %}
@@ -109,7 +99,7 @@
         </table>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
-              {% if groups.previous == None %}
+              {% if activities.previous == None %}
                 <li class="page-item disabled">
                   <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
@@ -119,9 +109,9 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin-auth:list_group' %}?group_id={{searchParam.group_id}}&app_id={{searchParam.group_id}}" method="post">
+                <form class="form-horizontal" action="{% url 'admin-auth:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
                     {% csrf_token %}
-                    <input id="prev_url" name="prev_url" type="hidden" value='{{groups.previous}}'>
+                    <input id="prev_url" name="prev_url" type="hidden" value='{{activities.previous}}'>
                   <button type="submit" class="page-link"  aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
@@ -133,7 +123,7 @@
             <!--<li class="page-item"><a class="page-link" href="#">1</a></li>-->
             <!--<li class="page-item"><a class="page-link" href="#">2</a></li>-->
             <!--<li class="page-item"><a class="page-link" href="#">3</a></li>-->
-          {% if groups.next == None %}
+          {% if activities.next == None %}
             <li class="page-item disabled">
               <a class="page-link" href="#" aria-label="Next">
                   Next
@@ -144,10 +134,10 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin-auth:list_group' %}?group_id={{searchParam.group_id}}&app_id={{searchParam.app_id}}" method="post">
+              <form class="form-horizontal" action="{% url 'admin-auth:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
                   {% csrf_token %}
 
-                  <input id="next_url" name="next_url" type="hidden" value='{{groups.next}}'>
+                  <input id="next_url" name="next_url" type="hidden" value='{{activities.next}}'>
 
                   <button type="submit" class="page-link" aria-label="Next">
                       Next

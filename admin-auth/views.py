@@ -56,6 +56,10 @@ def login(request):
             request.session['token'] = token['token']
             request.session['loginID'] = request.POST['loginID']
             HEADERS['token'] = token['token']
+            responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
+            print(responsePermission.text)
+            request.session['permissionList']=responsePermission.json()
+
             print(HEADERS)
             return HttpResponseRedirect(reverse('admin-auth:home'))
 
@@ -68,24 +72,22 @@ def login(request):
             # return HttpResponseRedirect(reverse('admin-auth:login'))
     return render(request, 'admin-auth/login.html')
 
+
+
 def home( request ):
+
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     else:
-        return render(request, 'admin-auth/login.html')
-
+        return render(request, 'admin-auth/login.html',)
 
 
 def logout(request):
-    try:
-        del request.session['token']
-        request.session.modified = True
-        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
+    del request.session['token']
+    request.session.modified = True
+    response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
 
-        return render(request,'admin-auth/login.html')
-    except Exception as e:
-        return render(request,'admin-auth/login.html')
-
+    return render(request,'admin-auth/login.html')
 
 
 def create_user(request):
@@ -160,6 +162,7 @@ def create_group(request):
     else:
         return render(request, 'admin-auth/login.html', )
 
+
 def create_app(request):
     if 'token' in request.session:
         if request.POST:
@@ -178,10 +181,9 @@ def create_app(request):
     else:
         return render(request, 'admin-auth/login.html', )
 
+
 def edit_app(request,appID=''):
     if 'token' in request.session:
-
-
         if request.POST:
             print(request.POST['appName'])
             print(request.POST['description'])
@@ -210,6 +212,7 @@ def edit_app(request,appID=''):
             return render(request, 'admin-auth/edit_app.html', {"app_details": app_details})
     else:
         return render(request, 'admin-auth/login.html', )
+
 
 def edit_group(request,groupId=''):
     if 'token' in request.session:
@@ -248,6 +251,7 @@ def edit_group(request,groupId=''):
             return render(request, 'admin-auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
     else:
         return render(request, 'admin-auth/login.html', )
+
 
 def edit_service(request,serviceId=''):
     if 'token' in request.session:
@@ -288,8 +292,8 @@ def edit_service(request,serviceId=''):
     else:
         return render(request, 'admin-auth/login.html', )
 
-def list_user(request):
 
+def list_user(request):
     if 'token' in request.session:
         searchParam={}
         print("headers::")
@@ -327,6 +331,7 @@ def list_user(request):
     else:
         return render(request, 'admin-auth/login.html', )
 
+
 def list_group(request):
     if 'token' in request.session:
         print("headers::")
@@ -363,6 +368,7 @@ def list_group(request):
                       {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
     else:
         return render(request, 'admin-auth/login.html', )
+
 
 def list_service(request):
     if 'token' in request.session:
@@ -423,6 +429,45 @@ def list_app(request):
     else:
         return render(request, 'admin-auth/login.html', )
 
+
+def list_activity(request):
+
+    if 'token' in request.session:
+        searchParam = {}
+        if 'next_url' in request.POST:
+            searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
+            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+            activityList = response_data.json()
+            print(response_data.content)
+        elif 'prev_url' in request.POST:
+            searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
+            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+            activityList = response_data.json()
+            print(response_data.content)
+
+        elif 'service_id' in request.POST and 'app_id' in request.POST and 'login_id' in request.POST:
+            searchParam = {'service_name': request.POST.get('service_id'), 'app_id': request.POST.get('app_id'), 'login_id':request.POST.get('login_id')}
+            paramData="?service_name="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&login_id="+request.POST.get('login_id')+"&limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'activity/get/' + paramData, headers=HEADERS)
+            print(response_data.content)
+            activityList = response_data.json()
+            print(response_data.content)
+
+        else:
+            print(request.POST);
+            postData = "?limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'activity/' + postData, headers=HEADERS)
+            activityList = response_data.json()
+            print(response_data.content)
+        postData = "?limit=1000&offset=0"
+        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+        appList=response_data.json()
+        return render(request, 'admin-auth/list_activity.html',
+                      {"activities": activityList,"applications":appList['results'],'searchParam':searchParam})
+    else:
+        return render(request, 'admin-auth/login.html', )
+
+
 def assign_user_group(request,userID='',appID=''):
 
     if 'token' in request.session:
@@ -436,6 +481,7 @@ def assign_user_group(request,userID='',appID=''):
 
     else:
         return render(request,'admin-auth/login.html')
+
 
 # only load Data
 def load_user_group_list(userID='', appID=''):
@@ -468,36 +514,6 @@ def load_user_group_list(userID='', appID=''):
     print(grouptList)
     return {'groups': grouptList, 'user': user, 'app': app, 'user_group': user_group_list};
 
-# # only load Data
-# def load_user_group_list(userID='',appID=''):
-#     userData = requests.get(SERVICE_URL + 'user/' + userID, headers=HEADERS)
-#     user = userData.json()
-#     print(userData.content)
-#
-#     appData = requests.get(SERVICE_URL + 'app/' + appID, headers=HEADERS)
-#     app = appData.json()
-#     print(appData.content)
-#
-#     response_group_data = requests.get(SERVICE_URL + 'group/filtered/app/' + str(appID), headers=HEADERS)
-#     grouptList = response_group_data.json()
-#     print(response_group_data.content)
-#
-#     response_user_group_data = requests.get(SERVICE_URL + 'user_group/details/user/' + str(userID),
-#                                             headers=HEADERS)
-#     user_group_list = response_user_group_data.json()
-#     print(response_user_group_data.content)
-#     count = 0
-#     for group in grouptList['results']:
-#
-#         for user_group in user_group_list:
-#             if group['groupID'] == user_group['group']['groupID']:
-#                 grouptList['results'][count]['assigned'] = 1
-#                 break
-#             else:
-#                 grouptList['results'][count]['assigned'] = 0
-#         count += 1
-#     print(grouptList)
-#     return {'groups': grouptList['results'], 'user': user, 'app': app, 'user_group': user_group_list};
 
 # only load Data
 def save_user_group(groupIDList,userID):
@@ -525,6 +541,7 @@ def save_user_group(groupIDList,userID):
 
     return
 
+
 def assign_group_service(request,groupID='',appID=''):
 
     if 'token' in request.session:
@@ -538,6 +555,7 @@ def assign_group_service(request,groupID='',appID=''):
 
     else:
         return render(request,'admin-auth/login.html')
+
 
     # only load Data
 def load_group_service_list(groupID='', appID=''):
@@ -570,38 +588,7 @@ def load_group_service_list(groupID='', appID=''):
     print(serviceList)
     return {'services': serviceList, 'group': group, 'app': app, 'group_service': group_service_list};
 
-# # only load Data
-# def load_group_service_list(groupID='',appID=''):
-#     groupData = requests.get(SERVICE_URL + 'group/' + groupID, headers=HEADERS)
-#     group = groupData.json()
-#     print(groupData.content)
-#
-#     appData = requests.get(SERVICE_URL + 'app/' + appID, headers=HEADERS)
-#     app = appData.json()
-#     print(appData.content)
-#
-#     response_service_data = requests.get(SERVICE_URL + 'service/filtered/app/' + str(appID), headers=HEADERS)
-#     serviceList = response_service_data.json()
-#     print(response_service_data.content)
-#
-#     response_group_service_data = requests.get(SERVICE_URL + 'acl/details/group/' + str(groupID),
-#                                             headers=HEADERS)
-#     group_service_list = response_group_service_data.json()
-#     print(response_group_service_data.content)
-#     count = 0
-#     for service in serviceList['results']:
-#
-#         for group_service in group_service_list:
-#             if service['id'] == group_service['service']['id']:
-#                 serviceList['results'][count]['assigned'] = 1
-#                 break
-#             else:
-#                 serviceList['results'][count]['assigned'] = 0
-#         count += 1
-#     print(serviceList)
-#     return {'services': serviceList['results'], 'group': group, 'app': app, 'group_service': group_service_list};
 
-# only load Data
 def save_group_service(serviceIDList,groupID):
     response_group_service_data = requests.get(SERVICE_URL + 'acl/details/group/' + str(groupID),
                                             headers=HEADERS)
@@ -624,14 +611,15 @@ def save_group_service(serviceIDList,groupID):
         if 'change' not in groupService:
             deleteUserGroup = requests.delete(SERVICE_URL + 'acl/' + str(groupService['id']),
                                           headers=HEADERS)
-
     return
+
 
 def get_device_id():
     if 'nt' in os.name:
         return subprocess.Popen('dmidecode.exe -s system-uuid'.split())
     else:
         return subprocess.Popen('hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid'.split())
+
 
 def change_password(request):
     if request.POST:
@@ -655,25 +643,36 @@ def change_password(request):
             json.dumps({"nothing to see": "this isn't happening"}),
             content_type="application/json"
         )
+
+
 def deactivate_user(request):
-        if request.POST and 'token' in request.session:
-            post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
-            deactivate_data = requests.put(SERVICE_URL + 'account/deactivate/',
-                                           headers=HEADERS, data=json.dumps(post_data))
-            print(deactivate_data.status_code)
-            print(deactivate_data.content)
-            return HttpResponse(
-                json.dumps({"message": "User has been deactivated"}),
-                content_type="application/json"
-            )
+    if request.POST and 'token' in request.session:
+        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+        deactivate_data = requests.put(SERVICE_URL + 'account/deactivate/',
+                                       headers=HEADERS, data=json.dumps(post_data))
+        print(deactivate_data.status_code)
+        print(deactivate_data.content)
+        return HttpResponse(
+            json.dumps({"message": "User has been deactivated"}),
+            content_type="application/json"
+        )
+
+
 def activate_user(request):
-        if request.POST and 'token' in request.session:
-            post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
-            deactivate_data = requests.put(SERVICE_URL + 'account/reactivate/',
-                                           headers=HEADERS, data=json.dumps(post_data))
-            print(deactivate_data.status_code)
-            print(deactivate_data.content)
-            return HttpResponse(
-                json.dumps({"message": "User has been activated"}),
-                content_type="application/json"
-            )
+    if request.POST and 'token' in request.session:
+        post_data = {'loginID': request.POST['loginID'], 'appID': request.POST['appID']}
+        deactivate_data = requests.put(SERVICE_URL + 'account/reactivate/',
+                                       headers=HEADERS, data=json.dumps(post_data))
+        print(deactivate_data.status_code)
+        print(deactivate_data.content)
+        return HttpResponse(
+            json.dumps({"message": "User has been activated"}),
+            content_type="application/json"
+        )
+
+
+# def check_service_permission(request,serviceID):
+#     for permission in request.session['permissionList']:
+#         if permission['serviceID']==serviceID:
+#             return True
+#     return False

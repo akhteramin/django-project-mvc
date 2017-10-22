@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^list/group/$', views.list_group, name='list_group'),
     url(r'^list/service/$', views.list_service, name='list_service'),
     url(r'^list/app/$', views.list_app, name='list_app'),
+    url(r'^list/activity/$', views.list_activity, name='list_activity'),
+
     url(r'^assign/user/group/(?P<userID>\w+)/(?P<appID>\w+)/$', views.assign_user_group, name='assign_user_group'),
     url(r'^assign/group/service/(?P<groupID>\w+)/(?P<appID>\w+)/$', views.assign_group_service, name='assign_group_service'),
 

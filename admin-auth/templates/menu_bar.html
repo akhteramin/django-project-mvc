@@ -4,22 +4,45 @@
     </button>
   <a class="navbar-brand" href="#">Admin Auth</a>
     <ul class="navbar-nav mr-auto">
+
       <li class="nav-item">
           <a class="nav-item nav-link" href="{% url 'admin-auth:home' %}">Home</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-item nav-link" href="{% url 'admin-auth:list_user' %}">User</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-item nav-link" href="{% url 'admin-auth:list_group' %}">Group</a>
-      </li>
-        <li class="nav-item">
-            <a class="nav-item nav-link" href="{% url 'admin-auth:list_service' %}">Service</a>
-        </li>
-        <li class="nav-item">
-
-          <a class="nav-item nav-link" href="{% url 'admin-auth:list_app' %}">Application</a>
-        </li>
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_USER_LIST" %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_user' %}">User</a>
+                    </li>
+                {% endif %}
+        {% endfor %}
+      {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_GROUP_LIST" %}
+                  <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_group' %}">Group</a>
+                  </li>
+                {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_SERVICE_LIST" %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_service' %}">Service</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_APPLICATION_LIST" %}
+                    <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_app' %}">Application</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_ACTIVITY_LIST" %}
+                    <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_activity' %}">Activity</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
     </ul>
     <ul class="navbar-nav" style="padding-right:20px">
         <li class="nav-item dropdown">
