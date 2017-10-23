@@ -6,10 +6,10 @@
 
 
     <div class="container">
-            <h1>Application Creation</h1>
+            <h1>Application Edit</h1>
         <div> {{ message }}</div>
 
-        <form class="form-horizontal" name="AppCreateForm" action="{% url 'admin_auth:create_app' %}" method="post">
+        <form class="form-horizontal" name="EditAppForm" action="{% url 'admin_auth:edit_app' app_details.id%}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
@@ -18,7 +18,7 @@
             <div>{{ error }} </div>
             <label class="control-label" for="appName">App Name</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" id="appName" name="appName"  placeholder="app name">
+                <input type="text" class="form-control input-sm chat-input" id="appName" name="appName" value="{{app_details.appName}}" placeholder="app name">
             </div>
         </div>
 
@@ -26,14 +26,14 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description"></textarea>
+                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description">{{app_details.description}}</textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn">Update</button>
             </div>
         </div>
         </form>

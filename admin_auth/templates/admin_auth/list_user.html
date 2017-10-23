@@ -49,12 +49,12 @@
                     {% endif %}
                    </td>
                    <td class="text-center">
-                       <a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>
+                       <!--<a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>-->
                        <a href="/admin_auth/assign_user_group/{{user.id}}/{{user.appID}}" class="btn btn-secondary btn-md active" role="button" aria-pressed="true">Assign Group</a>
-                       <a href="#" class="btn btn-danger btn-md active" role="button" aria-pressed="true">Set Password</a>
+                       <a href="#" class="btn btn-danger btn-md active" role="button" aria-pressed="true">Change Password</a>
 
                         {% if user.is_active  %}
-                        <button type="button" class="btn btn-warning">Inactivate</button>
+                        <button type="button" class="btn btn-warning">Deactivate</button>
                         {% else %}
                         <button type="button" class="btn btn-primary">Activate</button>
                         {% endif %}
