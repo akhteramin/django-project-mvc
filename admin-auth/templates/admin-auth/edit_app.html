@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% include "menu_bar.html" %}
+<div class="row">
+
+
+    <div class="container">
+        <h1>Application Edit</h1>
+        {% if message and status %}
+            {% if status == 200 %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Success!</strong> {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Warning!</strong> {{ message }}
+                </div>
+            {% endif%}
+        {% endif%}
+
+        <form class="form-horizontal" name="EditAppForm" action="{% url 'admin-auth:edit_app' app_details.id%}" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <div>{{ error }} </div>
+            <label class="control-label" for="appName">App Name</label>
+            <div class="controls">
+                <input type="text" class="form-control input-sm chat-input" id="appName" name="appName" value="{{app_details.appName}}" placeholder="app name">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <!--<input type="text" name="description" id="description" placeholder="description">-->
+                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description">{{app_details.description}}</textarea>
+            </div>
+        </div>
+        </br>
+
+        <div class="control-group text-center">
+            <div class="controls">
+                <button type="submit" class="button-update update">Update</button>
+                <a href="{% url 'admin-auth:list_app' %}">
+                    <button type="button" class="button-create-cancel create-cancel">Cancel</button>
+                </a>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

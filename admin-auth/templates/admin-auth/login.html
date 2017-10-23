@@ -1,11 +1,11 @@
 {% extends "main.html" %}
 
 {% block content %}
-<div class="container">
+<div class="login-container">
     <div class="row">
         <div class="col-md-7">
             <div class="form-login" id="login">
-                <form class="form-horizontal" name="LoginForm" action="{% url 'admin_auth:login' %}" method="post">
+                <form class="form-horizontal" name="LoginForm" action="{% url 'admin-auth:login' %}" method="post">
                     {% csrf_token %}
                     {% if next %}
                         <input type="hidden"  name="next" value="{{ next }}" />
@@ -24,12 +24,16 @@
                         </div>
                     </div>
                     </br>
-
                     <div class="wrapper">
-                        <span class="group-btn">
-                            <button type="submit" class="btn btn-primary btn-md">Login</button>
-                        </span>
+                        <button type="submit" id="user_login" class="login" disabled="disabled">Login</button>
+
                     </div>
+                    <!--<div class="wrapper">-->
+
+                        <!--<span class="group-btn">-->
+                            <!--<button type="submit" class="btn btn-primary btn-md">Login</button>-->
+                        <!--</span>-->
+                    <!--</div>-->
                 </form>
             </div>
         </div>

@@ -1,0 +1,62 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <a class="navbar-brand" href="#">Admin Auth</a>
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item">
+          <a class="nav-item nav-link" href="{% url 'admin-auth:home' %}">Home</a>
+      </li>
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_USER_LIST" %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_user' %}">User</a>
+                    </li>
+                {% endif %}
+        {% endfor %}
+      {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_GROUP_LIST" %}
+                  <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_group' %}">Group</a>
+                  </li>
+                {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_SERVICE_LIST" %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_service' %}">Service</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_APPLICATION_LIST" %}
+                    <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_app' %}">Application</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
+        {% for permissions in request.session.permissionList %}
+                {% if permissions.serviceID == "AUTH_GET_ACTIVITY_LIST" %}
+                    <li class="nav-item">
+                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_activity' %}">Activity</a>
+                    </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <ul class="navbar-nav" style="padding-right:20px">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ request.session.loginID }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="padding-right:20px">
+                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="{% url 'admin-auth:logout' %}">Logout</a>
+
+            </div>
+        </li>
+
+
+    </ul>
+  </nav>
+

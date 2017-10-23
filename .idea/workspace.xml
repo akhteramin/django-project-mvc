@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bd2930b-3a8f-477f-9270-289b4ca8b9cc" name="Default" comment="">
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" />
@@ -24,6 +25,18 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/templates/main.html" afterPath="$PROJECT_DIR$/admin_auth/templates/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/urls.py" afterPath="$PROJECT_DIR$/admin_auth/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_auth/views.py" afterPath="$PROJECT_DIR$/admin_auth/views.py" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_activity.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html" afterPath="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/templates/menu_bar.html" afterPath="$PROJECT_DIR$/admin-auth/templates/menu_bar.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/urls.py" afterPath="$PROJECT_DIR$/admin-auth/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-auth/views.py" afterPath="$PROJECT_DIR$/admin-auth/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,17 +52,41 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/admin_auth/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3795">
               <caret line="253" column="65" lean-forward="false" selection-start-line="253" selection-start-column="65" selection-end-line="253" selection-end-column="65" />
+=======
+        <entry file="file://$PROJECT_DIR$/admin-auth/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4350">
+              <caret line="666" column="38" lean-forward="true" selection-start-line="666" selection-start-column="38" selection-end-line="666" selection-end-column="38" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <folding>
                 <element signature="e#34#87#0" expanded="true" />
+                <element signature="e#728#2802#0" expanded="false" />
+                <element signature="e#3321#4595#0" expanded="false" />
+                <element signature="e#4736#5890#0" expanded="false" />
+                <element signature="e#6029#7231#0" expanded="false" />
+                <element signature="e#7370#8176#0" expanded="false" />
+                <element signature="e#8322#9681#0" expanded="false" />
+                <element signature="e#9831#11678#0" expanded="false" />
+                <element signature="e#11832#13803#0" expanded="false" />
+                <element signature="e#13941#15639#0" expanded="false" />
+                <element signature="e#15778#17538#0" expanded="false" />
+                <element signature="e#17679#19464#0" expanded="false" />
+                <element signature="e#19601#20362#0" expanded="false" />
+                <element signature="e#20505#22494#0" expanded="false" />
+                <element signature="e#22660#23033#0" expanded="false" />
+                <element signature="e#25472#25865#0" expanded="false" />
+                <element signature="e#29556#30027#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="edit_service.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -76,65 +113,123 @@
             <state relative-caret-position="372">
               <caret line="45" column="123" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
+=======
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-auth/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="edit_group.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="225">
               <caret line="25" column="128" lean-forward="false" selection-start-line="25" selection-start-column="60" selection-end-line="25" selection-end-column="128" />
               <folding />
+=======
+      <file leaf-file-name="list_activity.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_activity.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="111" column="128" lean-forward="false" selection-start-line="111" selection-start-column="128" selection-end-line="111" selection-end-column="128" />
+              <folding>
+                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_auth/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
+=======
       <file leaf-file-name="list_app.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/list_app.html">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="40" column="64" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list_service.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/list_service.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="49" column="67" lean-forward="true" selection-start-line="49" selection-start-column="67" selection-end-line="49" selection-end-column="67" />
+            <state relative-caret-position="300">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="list_group.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/list_group.html">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="40" column="62" lean-forward="false" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+<<<<<<< HEAD
+            <state relative-caret-position="390">
+              <caret line="40" column="64" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="64" />
+=======
+            <state relative-caret-position="162">
+              <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="list_service.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="480">
+              <caret line="49" column="67" lean-forward="true" selection-start-line="49" selection-start-column="67" selection-end-line="49" selection-end-column="67" />
+=======
+            <state relative-caret-position="1605">
+              <caret line="107" column="36" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="171" selection-end-column="14" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="list_user.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="360">
+              <caret line="40" column="62" lean-forward="false" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+=======
+            <state relative-caret-position="405">
+              <caret line="37" column="30" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="37" selection-end-column="30" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+=======
+      <file leaf-file-name="menu_bar.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin-auth/templates/menu_bar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="41" column="89" lean-forward="false" selection-start-line="41" selection-start-column="76" selection-end-line="41" selection-end-column="89" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Python Script" />
         <option value="HTML File" />
       </list>
     </option>
@@ -145,14 +240,38 @@
       <find>auth</find>
       <find>home</find>
       <find>post</find>
+<<<<<<< HEAD
       <find>edit_service</find>
+=======
+      <find>edit</find>
+      <find>btn</find>
+      <find>appID</find>
+      <find>value</find>
+      <find>button-search</find>
+      <find>deviceID</find>
+      <find>edit_app</find>
+      <find>status_code</find>
+      <find>All</find>
+      <find>admin_auth</find>
+      <find>create_user</find>
+      <find>admin-auth/</find>
+      <find>create_app</find>
+      <find>for</find>
+      <find>edit_group</find>
+      <find>try:</find>
+      <find>except</find>
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
     </findStrings>
     <replaceStrings>
       <replace>admin_auth</replace>
       <replace>auth</replace>
+      <replace>admin-auth</replace>
+      <replace>create/user</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/admin_auth/static/auth</dir>
+      <dir>$PROJECT_DIR$/admin_auth</dir>
+      <dir>$PROJECT_DIR$/admin-auth</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -161,32 +280,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/polls/services.py" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/main.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/detail.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/index.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/results.html" />
-        <option value="$PROJECT_DIR$/polls/static/polls/style.css" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/left_side_bar.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/home.html" />
-        <option value="$PROJECT_DIR$/polls/templates/left_side_bar.html" />
-        <option value="$PROJECT_DIR$/polls/static/polls/css/style.css" />
-        <option value="$PROJECT_DIR$/polls/urls.py" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/create_group.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/create_service.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/create_user.html" />
-        <option value="$PROJECT_DIR$/polls/templates/polls/login.html" />
-        <option value="$PROJECT_DIR$/polls/views.py" />
-        <option value="$PROJECT_DIR$/polls/templates/main.html" />
-        <option value="$PROJECT_DIR$/auth/apps.py" />
-        <option value="$PROJECT_DIR$/admin_auth/apps.py" />
-        <option value="$PROJECT_DIR$/mysite/settings.py" />
-        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/detail.html" />
-        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html" />
-        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/results.html" />
-        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/index.html" />
-        <option value="$PROJECT_DIR$/admin_auth/services.py" />
         <option value="$PROJECT_DIR$/admin_auth/templates/left_side_bar.html" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/admin_auth/templates/menu_bar.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery-3.1.0.min.js" />
@@ -196,6 +291,30 @@
         <option value="$PROJECT_DIR$/admin_auth/models.py" />
         <option value="$PROJECT_DIR$/admin_auth/admin.py" />
         <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/css/style.css" />
+=======
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery-3.1.0.min.js" />
+        <option value="$PROJECT_DIR$/admin_auth/migrations/0001_initial.py" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery.min.js" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/tether.min.js" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/ajax_calling.js" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/list_user.js" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/js/csrf_token_header.js" />
+        <option value="$PROJECT_DIR$/admin_auth/templatetags/datetime.py" />
+        <option value="$PROJECT_DIR$/admin_auth/services.py" />
+        <option value="$PROJECT_DIR$/admin_auth/apps.py" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/css/style.css" />
+        <option value="$PROJECT_DIR$/admin_auth/static/admin_auth/template_js/list_user.js" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_group_service.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_user_group.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_group.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_user.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_group.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_app.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_app.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html" />
@@ -208,9 +327,37 @@
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_group.html" />
         <option value="$PROJECT_DIR$/admin_auth/urls.py" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_service.html" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/admin_auth/templates/main.html" />
         <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/edit_service.html" />
         <option value="$PROJECT_DIR$/admin_auth/views.py" />
+=======
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/list_user.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/main.html" />
+        <option value="$PROJECT_DIR$/admin_auth/templates/menu_bar.html" />
+        <option value="$PROJECT_DIR$/admin_auth/urls.py" />
+        <option value="$PROJECT_DIR$/admin_auth/views.py" />
+        <option value="$PROJECT_DIR$/mysite/urls.py" />
+        <option value="$PROJECT_DIR$/mysite/settings.py" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_user_group.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html" />
+        <option value="$PROJECT_DIR$/admin-auth/static/admin-auth/template_js/login.js" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/login.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/main.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/admin-auth/services.py" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_group_service.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/menu_bar.html" />
+        <option value="$PROJECT_DIR$/admin-auth/urls.py" />
+        <option value="$PROJECT_DIR$/admin-auth/templates/admin-auth/list_activity.html" />
+        <option value="$PROJECT_DIR$/admin-auth/views.py" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
       </list>
     </option>
   </component>
@@ -233,7 +380,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scratches" />
+=======
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -271,7 +421,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -285,7 +439,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templatetags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin-auth-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin-auth-client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -303,7 +479,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -311,7 +491,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -325,7 +509,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -343,7 +531,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -351,7 +543,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="template_js" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -365,7 +565,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -373,27 +577,35 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="admin_auth" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="css" />
+=======
+              <option name="myItemId" value="admin-auth" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="FullScreen" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="add_unversioned_files" value="true" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin_auth/templatetags" />
+      <recent name="$PROJECT_DIR$/admin_auth/static/admin_auth/images" />
+      <recent name="$PROJECT_DIR$/admin_auth/static/admin_auth/template_js" />
       <recent name="$PROJECT_DIR$/polls/templates" />
       <recent name="$PROJECT_DIR$/polls/static/polls/css" />
     </key>
@@ -581,93 +793,55 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/admin_auth/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#34#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="83" lean-forward="false" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/results.html" />
-    <entry file="file://$PROJECT_DIR$/admin_auth/tests.py">
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="28" lean-forward="true" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/apps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/urls.py">
+    <entry file="file://$PROJECT_DIR$/admin-auth/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/views.py">
+    <entry file="file://$PROJECT_DIR$/admin-auth/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#34#87#0" expanded="true" />
+            <element signature="e#728#2802#0" expanded="false" />
+            <element signature="e#3321#4595#0" expanded="false" />
+            <element signature="e#4736#5890#0" expanded="false" />
+            <element signature="e#6029#7231#0" expanded="false" />
+            <element signature="e#7370#8176#0" expanded="false" />
+            <element signature="e#8322#9681#0" expanded="false" />
+            <element signature="e#9831#11678#0" expanded="false" />
+            <element signature="e#11832#13803#0" expanded="false" />
+            <element signature="e#13941#15639#0" expanded="false" />
+            <element signature="e#15778#17538#0" expanded="false" />
+            <element signature="e#17679#19464#0" expanded="false" />
+            <element signature="e#19601#20362#0" expanded="false" />
+            <element signature="e#20505#22494#0" expanded="false" />
+            <element signature="e#22660#23033#0" expanded="false" />
+            <element signature="e#25472#25865#0" expanded="false" />
+            <element signature="e#29556#30027#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -679,110 +853,294 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="83" lean-forward="false" selection-start-line="1" selection-start-column="83" selection-end-line="1" selection-end-column="83" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/results.html" />
-    <entry file="file://$PROJECT_DIR$/admin_auth/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="36" lean-forward="false" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/detail.html" />
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/results.html" />
-    <entry file="file://$PROJECT_DIR$/admin_auth/apps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/services.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="42" lean-forward="false" selection-start-line="0" selection-start-column="42" selection-end-line="0" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/index.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/menu_bar.html">
+    <entry file="file://$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery-3.1.0.min.js" />
+    <entry file="file://$PROJECT_DIR$/admin-auth/migrations/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="68" lean-forward="false" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="68" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/home.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/js/tether.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="23383" lean-forward="false" selection-start-line="0" selection-start-column="23383" selection-end-line="0" selection-end-column="23383" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/js/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11835">
+          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/js/csrf_token_header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="51" lean-forward="true" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="20" lean-forward="false" selection-start-line="27" selection-start-column="20" selection-end-line="31" selection-end-column="26" />
+<<<<<<< HEAD
+        <state relative-caret-position="210">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+=======
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/static/admin_auth/js/jquery-3.1.0.min.js">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templatetags/datetime.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="12" column="40" lean-forward="false" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_group_service.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="46" lean-forward="false" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_user_group.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="207">
+          <caret line="349" column="33" lean-forward="false" selection-start-line="349" selection-start-column="33" selection-end-line="349" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="73" lean-forward="false" selection-start-line="27" selection-start-column="73" selection-end-line="27" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/results.html" />
+    <entry file="file://$PROJECT_DIR$/admin_auth/tests.py">
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_service.html">
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="71" lean-forward="false" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/mysite/urls.py">
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="71" lean-forward="false" selection-start-line="30" selection-start-column="71" selection-end-line="30" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/edit_app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="94" lean-forward="false" selection-start-line="19" selection-start-column="94" selection-end-line="19" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/login.html">
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="94" lean-forward="false" selection-start-line="27" selection-start-column="94" selection-end-line="27" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="56" lean-forward="false" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="75" lean-forward="false" selection-start-line="27" selection-start-column="75" selection-end-line="27" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mysite/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="12" lean-forward="false" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/admin_auth/templates/menu_bar.html">
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/create_user.html">
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1665">
+          <caret line="111" column="10" lean-forward="false" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/login.html">
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_user_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/assign_group_service.html">
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="50" lean-forward="false" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/template_js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="23" lean-forward="false" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_group_service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="37" column="46" lean-forward="false" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/static/admin-auth/template_js/list_user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="70" column="24" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/assign_user_group.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/services.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="42" lean-forward="false" selection-start-line="1" selection-start-column="42" selection-end-line="1" selection-end-column="42" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_app.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/admin_auth/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -803,18 +1161,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/menu_bar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="41" column="89" lean-forward="false" selection-start-line="41" selection-start-column="76" selection-end-line="41" selection-end-column="89" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/static/admin_auth/css/style.css">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_service.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="395">
           <caret line="40" column="12" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="12" />
+=======
+        <state relative-caret-position="1605">
+          <caret line="107" column="36" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="171" selection-end-column="14" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/create_app.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
@@ -851,12 +1221,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="150" lean-forward="false" selection-start-line="28" selection-start-column="150" selection-end-line="28" selection-end-column="150" />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="37" column="30" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="37" selection-end-column="30" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/list_group.html">
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_group.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="360">
           <caret line="40" column="62" lean-forward="false" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
           <folding />
@@ -883,26 +1260,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="18" column="65" lean-forward="false" selection-start-line="18" selection-start-column="53" selection-end-line="18" selection-end-column="65" />
+=======
+        <state relative-caret-position="162">
+          <caret line="76" column="17" lean-forward="true" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/list_service.html">
+    <entry file="file://$PROJECT_DIR$/mysite/urls.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="480">
           <caret line="49" column="67" lean-forward="true" selection-start-line="49" selection-start-column="67" selection-end-line="49" selection-end-column="67" />
+=======
+        <state relative-caret-position="270">
+          <caret line="19" column="40" lean-forward="false" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/admin_auth/create_service.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="45" column="123" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/mysite/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="27" column="54" lean-forward="false" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/admin_auth/templates/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -932,6 +1326,51 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/admin-auth/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/templates/admin-auth/list_activity.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="111" column="128" lean-forward="false" selection-start-line="111" selection-start-column="128" selection-end-line="111" selection-end-column="128" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-auth/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4350">
+          <caret line="666" column="38" lean-forward="true" selection-start-line="666" selection-start-column="38" selection-end-line="666" selection-end-column="38" />
+          <folding>
+            <element signature="e#34#87#0" expanded="true" />
+            <element signature="e#728#2802#0" expanded="false" />
+            <element signature="e#3321#4595#0" expanded="false" />
+            <element signature="e#4736#5890#0" expanded="false" />
+            <element signature="e#6029#7231#0" expanded="false" />
+            <element signature="e#7370#8176#0" expanded="false" />
+            <element signature="e#8322#9681#0" expanded="false" />
+            <element signature="e#9831#11678#0" expanded="false" />
+            <element signature="e#11832#13803#0" expanded="false" />
+            <element signature="e#13941#15639#0" expanded="false" />
+            <element signature="e#15778#17538#0" expanded="false" />
+            <element signature="e#17679#19464#0" expanded="false" />
+            <element signature="e#19601#20362#0" expanded="false" />
+            <element signature="e#20505#22494#0" expanded="false" />
+            <element signature="e#22660#23033#0" expanded="false" />
+            <element signature="e#25472#25865#0" expanded="false" />
+            <element signature="e#29556#30027#0" expanded="false" />
+          </folding>
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7
         </state>
       </provider>
     </entry>
