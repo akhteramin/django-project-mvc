@@ -34,7 +34,7 @@
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
-                    <select class="form-control" name="appID" id="appID">
+                    <select id="appID" class="form-control" name="appID">
                         <option value="">Select Application</option>
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>
@@ -45,14 +45,14 @@
         <div class="control-group">
             <label class="control-label" for="serviceID">Service ID</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" name="serviceID" id="serviceID" placeholder="service ID">
+                <input  id="serviceID" type="text" class="form-control input-sm chat-input" name="serviceID" placeholder="service ID">
             </div>
         </div>
 
         <div class="control-group">
             <label class="control-label" for="serviceCategory">Category Name</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" name="serviceCategory" id="serviceCategory" placeholder="category">
+                <input  id="serviceCategory" type="text" class="form-control input-sm chat-input" name="serviceCategory" placeholder="category">
             </div>
         </div>
 
@@ -60,14 +60,14 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description"></textarea>
+                 <textarea  id="description" rows="4" class="form-control input-sm chat-input" cols="50" name="description"></textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button type="submit" class="button-create create">Create</button>
+                <button id="create_service" type="submit" class="button-create create" disabled="disabled">Create</button>
                 <a href="{% url 'admin-auth:list_service' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>

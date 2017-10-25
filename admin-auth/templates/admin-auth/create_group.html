@@ -36,7 +36,7 @@
         <div class="control-group">
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
-                    <select class="form-control" name="appID" id="appID">
+                    <select id="appID" class="form-control" name="appID">
                         <option value="">Select Application</option>
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>
@@ -47,7 +47,7 @@
         <div class="control-group">
             <label class="control-label" for="groupID">Group ID</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" name="groupID" id="groupID" placeholder="group ID">
+                <input id="groupID" type="text" class="form-control input-sm chat-input" name="groupID" placeholder="group ID">
             </div>
         </div>
 
@@ -55,14 +55,14 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description"></textarea>
+                 <textarea  id="description" rows="4" class="form-control input-sm chat-input" cols="50" name="description"></textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button type="submit" class="button-create create">Create</button>
+                <button id="create_group" type="submit" class="button-create create" disabled="disabled">Create</button>
                 <a href="{% url 'admin-auth:list_group' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>

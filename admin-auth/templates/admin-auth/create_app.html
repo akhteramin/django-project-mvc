@@ -34,7 +34,7 @@
             <div>{{ error }} </div>
             <label class="control-label" for="appName">App Name</label>
             <div class="controls">
-                <input type="text" class="form-control input-sm chat-input" id="appName" name="appName"  placeholder="app name">
+                <input id="appName" type="text" class="form-control input-sm chat-input" name="appName"  placeholder="app name">
             </div>
         </div>
 
@@ -42,14 +42,14 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea rows="4" class="form-control input-sm chat-input" cols="50" name="description" id="description"></textarea>
+                 <textarea id="description" rows="4" class="form-control input-sm chat-input" cols="50" name="description"></textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button type="submit" class="button-create create">Create</button>
+                <button id="create_app" type="submit" class="button-create create"  disabled="disabled">Create</button>
                 <a href="{% url 'admin-auth:list_app' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>

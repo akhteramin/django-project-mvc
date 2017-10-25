@@ -109,6 +109,7 @@ def create_user(request):
             if response_data.status_code==201:
                 return render(request, 'admin-auth/create_user.html', {"message": "User has been created","applications": applications['results'],"status":response_data.status_code})
             else:
+                print(response_data.headers)
                 return render(request, 'admin-auth/create_user.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
 
 

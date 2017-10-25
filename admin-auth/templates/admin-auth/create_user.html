@@ -33,20 +33,20 @@
             <div class="control-group">
                 <label class="control-label" for="loginID">Login ID</label>
                 <div class="controls">
-                    <input type="text" class="form-control input-sm chat-input" id="loginID" name="loginID"  placeholder="login ID">
+                    <input id="loginID" type="text" class="form-control input-sm chat-input" name="loginID"  placeholder="login ID">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input type="password" class="form-control input-sm chat-input" name="password" id="password" placeholder="Password">
+                    <input id="password" type="password" class="form-control input-sm chat-input" name="password" placeholder="Password">
                 </div>
             </div>
             <div class="control-group">
                 <label class="control-label" for="appID">App ID</label>
                 <div class="controls">
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
-                    <select class="form-control" name="appID" id="appID">
+                    <select id="appID" class="form-control" name="appID">
                         <option value="">Select Application</option>
                     {% for application in applications %}
                         <option value="{{ application.id }}">{{ application.appName }}</option>
@@ -57,7 +57,7 @@
             </br>
             <div class="control-group text-center">
                 <div class="controls">
-                <button type="submit" class="button-create create">Create</button>
+                <button id="create_user" type="submit" class="button-create create" disabled="disabled">Create</button>
                 <a href="{% url 'admin-auth:list_user' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>
