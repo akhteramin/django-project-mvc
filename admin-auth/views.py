@@ -6,7 +6,7 @@ from django.views import generic
 from django.utils import timezone
 import requests
 import json
-from .services import SERVICE_URL,HEADERS
+from mysite.settings import SERVICE_URL,HEADERS
 
 import subprocess
 import os

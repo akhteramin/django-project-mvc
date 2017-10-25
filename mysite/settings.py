@@ -12,6 +12,21 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import socket
+
+
+if socket.gethostname().startswith('dev'):
+    SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
+else:
+    SERVICE_URL="http://localhost:8080/auth/api/v1/"
+
+HEADERS = {
+    "Content-type": "application/json",
+    "Accept": "application/json",
+    "X-CSRFToken": "BJeWR32Q6AgETCGGIRz9V0lrxh1qwWOQb2pd2wbd6haZVOq6AuJo7ZOZDz895cbY",
+    "token":""
+}
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
