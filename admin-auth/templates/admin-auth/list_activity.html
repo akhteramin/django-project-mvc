@@ -3,6 +3,8 @@
 {% block content %}
 {% include "menu_bar.html" %}
 {% load datetime %}
+{% load tojson %}
+
 
 <div class="row">
     <div class="header col-md-2">
@@ -73,6 +75,7 @@
                 <th>Application Name</th>
                 <th colspan="2">User</th>
                 <th>Service ID</th>
+                <th>Data</th>
                 <th>Action Time</th>
 
             </tr>
@@ -90,6 +93,13 @@
                    </td>
                    <td style="width:10%" colspan="2">{{activity.user}}</td>
                    <td style="width:5%">{{activity.service}}</td>
+                   <td style="width:4%">
+                       {% if activity.data %}
+                            {{activity.data | get_json:activity.data}}
+                       {% else %}
+                            N/A
+                       {% endif %}
+                   </td>
 
                    <td style="width:10%">{{activity.createdAT | get_date_time:activity.createdAT}}</td>
 
