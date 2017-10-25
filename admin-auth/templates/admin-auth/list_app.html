@@ -45,11 +45,16 @@
                    <td>{{app.description}}</td>
 
                    <td class="text-center" colspan="2">
+<<<<<<< HEAD:admin_auth/templates/admin_auth/list_app.html
+                       <a href="/admin_auth/edit_app/{{app.id}}/" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>
+
+=======
                     {% for permissions in request.session.permissionList %}
                         {% if permissions.serviceID == "AUTH_REPLACE_APPLICATION" %}
                        <a href="/admin-auth/edit/app/{{app.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
                         {% endif %}
                     {% endfor %}
+>>>>>>> d4f66094052220e42f0c07240090ceacaea2d7d7:admin-auth/templates/admin-auth/list_app.html
                    </td>
 
                </tr>
