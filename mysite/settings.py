@@ -18,13 +18,14 @@ import socket
 if socket.gethostname().startswith('dev'):
     SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
 else:
-    SERVICE_URL="http://localhost:8080/auth/api/v1/"
+    SERVICE_URL="http://127.0.0.1:8000/auth/api/v1/"
 
 HEADERS = {
     "Content-type": "application/json",
     "Accept": "application/json",
     "X-CSRFToken": "BJeWR32Q6AgETCGGIRz9V0lrxh1qwWOQb2pd2wbd6haZVOq6AuJo7ZOZDz895cbY",
-    "token":""
+    "token":"",
+    "Access-Control-Allow-Origin": "*"
 }
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_user_agents',
+    'corsheaders'
 
 ]
 
@@ -66,7 +68,36 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+CORS_ORIGIN_WHITELIST = ('localhost:8080')
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'token',
+    'Access-Control-Request-Headers',
+    'Access-Control-Request-Method',
+    'Origin',
+    'User-Agent'
+)
 
 ROOT_URLCONF = 'mysite.urls'
 

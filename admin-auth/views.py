@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
 from mysite.settings import SERVICE_URL,HEADERS
@@ -14,7 +15,6 @@ import os
 class IndexView(generic.ListView):
     template_name = 'admin-auth/index.html'
 
-
 def login(request):
     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
     # context = {'latest_question_list': latest_question_list}
@@ -22,8 +22,9 @@ def login(request):
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     if request.POST:
-        loginID = request.POST['loginID']
-        password = request.POST['password']
+        if request.POST:
+            loginID = request.POST['loginID']
+            password = request.POST['password']
 
         device_id=request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family
         print(device_id)
@@ -40,6 +41,7 @@ def login(request):
             })
         else:
             post_data = {'loginID': loginID, 'password': password, 'appID': 2, 'deviceID': device_id};
+            print(SERVICE_URL + 'login/')
             response = requests.post(SERVICE_URL + 'login/', headers=HEADERS, data=json.dumps(post_data))
             print(response.text)
             # if response:
@@ -50,17 +52,19 @@ def login(request):
                 # Redisplay the question voting form.
                 msg = "Wrong Credentials"
                 # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
-                return render(request, 'admin-auth/login.html', {"error": "wrong credential"})
+                return render(request, 'admin-auth/login.html', {"error": msg})
 
             print(token)
             request.session['token'] = token['token']
-            request.session['loginID'] = request.POST['loginID']
+            request.session['loginID'] = loginID
             HEADERS['token'] = token['token']
             responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
             print(responsePermission.text)
             request.session['permissionList']=responsePermission.json()
 
             print(HEADERS)
+
+
             return HttpResponseRedirect(reverse('admin-auth:home'))
 
             # return render(request, 'admin-auth/home.html', {
@@ -72,6 +76,41 @@ def login(request):
             # return HttpResponseRedirect(reverse('admin-auth:login'))
     return render(request, 'admin-auth/login.html')
 
+@csrf_exempt
+def accounts( request ):
+    # print(request.GET.get('loginID'))
+    # print(request.GET.get('appID'))
+    # print(request.GET.get('token'))
+    post_data = {
+        'loginID': 'akhter.amin@ipay.com.bd',
+        'password': '12345678'
+    }
+    device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+    post_data = {'loginID': post_data['loginID'], 'password': post_data['password'], 'appID': 2, 'deviceID': device_id};
+    print(SERVICE_URL + 'login/')
+    response = requests.post(SERVICE_URL + 'login/', headers=HEADERS, data=json.dumps(post_data))
+    print(response.text)
+    # if response:
+    try:
+        token = response.json()
+    except Exception as e:
+        print(e)
+        # Redisplay the question voting form.
+        msg = "Wrong Credentials"
+        # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+        return render(request, 'admin-auth/login.html', {"error": msg})
+
+    print(token)
+    request.session['token'] = token['token']
+    request.session['loginID'] = post_data['loginID']
+    HEADERS['token'] = token['token']
+    responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
+    print(responsePermission.text)
+    request.session['permissionList'] = responsePermission.json()
+
+    return HttpResponseRedirect(reverse('admin-auth:login'))
+
+    # return render(request, 'admin-auth/accounts.html')
 
 
 def home( request ):
