@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
-from mysite.settings import SERVICE_URL,HEADERS
+from mysite.settings import SERVICE_URL, HEADERS, DEV_URLS
 
 import subprocess
 import os
@@ -20,13 +20,14 @@ def login(request):
     # context = {'latest_question_list': latest_question_list}
     loginID = password = ''
     if 'token' in request.session:
+        responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
+        print(responsePermission.text)
+        request.session['permissionList'] = responsePermission.json()
         return render(request,'admin-auth/home.html')
     if request.POST:
-        if request.POST:
-            loginID = request.POST['loginID']
-            password = request.POST['password']
-
-        device_id=request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family
+        loginID = request.POST['loginID']
+        password = request.POST['password']
+        device_id = request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family
         print(device_id)
         print(loginID)
         print(password)
@@ -76,44 +77,108 @@ def login(request):
             # return HttpResponseRedirect(reverse('admin-auth:login'))
     return render(request, 'admin-auth/login.html')
 
-@csrf_exempt
-def accounts( request ):
+
+def accounts(request):
     # print(request.GET.get('loginID'))
     # print(request.GET.get('appID'))
-    # print(request.GET.get('token'))
-    post_data = {
-        'loginID': 'akhter.amin@ipay.com.bd',
-        'password': '12345678'
-    }
-    device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
-    post_data = {'loginID': post_data['loginID'], 'password': post_data['password'], 'appID': 2, 'deviceID': device_id};
-    print(SERVICE_URL + 'login/')
-    response = requests.post(SERVICE_URL + 'login/', headers=HEADERS, data=json.dumps(post_data))
-    print(response.text)
-    # if response:
+    # print(request.GET.get('token'))'
+    print("here it is")
+    if request.GET.get('appID'):
+        if request.GET.get('appID') in request.session and request.GET.get('appID') is '6':
+            print("appIDDDDD::", request.session[request.GET.get('appID')])
+            return HttpResponseRedirect(DEV_URLS['member_service'] + '?token='+request.session[request.GET.get('appID')] + '&loginID=' +request.session['loginID'])
+        elif request.GET.get('appID') in request.session and request.GET.get('appID') is '2':
+            print("appIDDDDD::", request.session[request.GET.get('appID')])
+            return HttpResponseRedirect(DEV_URLS['auth'])
+        else:
+            print("not appIDDDDD::")
+            return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get('appID')})
+    if request.POST:
+        if request.POST['appID'] in request.session:
+            if request.POST['appID'] is '6':
+                print("in post appIDDDDD::", request.session[request.POST['appID']])
+                return HttpResponseRedirect(DEV_URLS['member_service'] + '?token='+request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
+            elif request.POST['appID'] is '2':
+                print("in post appIDDDDD::", request.session[request.POST['appID']])
+                return HttpResponseRedirect(DEV_URLS['auth'])
+
+        loginID = request.POST['loginID']
+        password = request.POST['password']
+        device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+        print(device_id)
+        print(loginID)
+        print(password)
+
+        post_data = {'loginID': loginID, 'password': password, 'appID': request.POST['appID'], 'deviceID': device_id};
+        print(SERVICE_URL + 'login/')
+        response = requests.post(SERVICE_URL + 'login/', headers=HEADERS, data=json.dumps(post_data))
+        print(response.text)
+        # if response:
+        try:
+            token = response.json()
+        except Exception as e:
+            print(e)
+            # Redisplay the question voting form.
+            msg = "Wrong Credentials"
+            # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+            return render(request, 'admin-auth/accounts.html', {"error": msg})
+
+        print(token)
+        HEADERS['token'] = token['token']
+        request.session['token'] = token['token']
+        request.session['loginID'] = loginID
+        request.session[request.POST['appID']] = token['token']
+
+        paramData = "?login_id="+request.session['loginID']+"&app_id=&limit=100&offset=0"
+        response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+        appList = response_data.json()
+        for app in appList['results']:
+            print("appID::"+str(app['appID']))
+            if request.POST['appID'] != str(app['appID']):
+                paramData = "?appID=" + str(app['appID']) + "&deviceID=" + device_id
+                response_data = requests.get(SERVICE_URL + 'token/renew/' + paramData, headers=HEADERS)
+                new_token = response_data.json()
+                print("request token:::" + new_token['token'])
+                request.session[str(app['appID'])] = new_token['token']
+                if str(app['appID']) == '2':
+                    HEADERS['token'] = new_token['token']
+                    request.session['token'] = new_token['token']
+                    request.session['loginID'] = loginID
+
+        print("response data:", response_data.content)
+        print("app data:", request.POST.get('appID'))
+        if request.POST.get('appID') is '6':
+            return HttpResponseRedirect(DEV_URLS['member_service']+'?token=' + request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
+        else:
+            return HttpResponseRedirect(DEV_URLS['auth'])
+
+    return render(request,'admin-auth/accounts.html')
+
+
+def accountslogout( request ):
     try:
-        token = response.json()
+        # del request.session['token']
+        for key in list(request.session.keys()):
+            del request.session[key]
+        request.session.modified = True
+        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
     except Exception as e:
         print(e)
         # Redisplay the question voting form.
-        msg = "Wrong Credentials"
+        msg = ""
         # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
-        return render(request, 'admin-auth/login.html', {"error": msg})
+        if request.GET.get("appID"):
+            return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
-    print(token)
-    request.session['token'] = token['token']
-    request.session['loginID'] = post_data['loginID']
-    HEADERS['token'] = token['token']
-    responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
-    print(responsePermission.text)
-    request.session['permissionList'] = responsePermission.json()
-
-    return HttpResponseRedirect(reverse('admin-auth:login'))
-
-    # return render(request, 'admin-auth/accounts.html')
+    if request.GET.get("appID"):
+        return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
+    else:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
-def home( request ):
+def home(request):
 
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
@@ -122,11 +187,25 @@ def home( request ):
 
 
 def logout(request):
-    del request.session['token']
-    request.session.modified = True
-    response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
+    # del request.session['token']
+    # request.session.modified = True
+    # response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
 
-    return render(request,'admin-auth/login.html')
+    # return render(request,'admin-auth/login.html')
+    try:
+        # del request.session['token']
+        for key in list(request.session.keys()):
+            del request.session[key]
+        request.session.modified = True
+        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
+    except Exception as e:
+        print(e)
+        # Redisplay the question voting form.
+        msg = ""
+        # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+    return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def create_user(request):

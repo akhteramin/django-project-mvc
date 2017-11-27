@@ -50,6 +50,7 @@
                 {{ request.session.loginID }}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="padding-right:20px">
+                <a class="dropdown-item" href="{% url 'admin-auth:accounts' %}?appID=6" target="_blank">Member Service</a>
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" href="{% url 'admin-auth:logout' %}">Logout</a>
 

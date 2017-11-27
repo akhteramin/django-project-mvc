@@ -18,7 +18,8 @@ import socket
 if socket.gethostname().startswith('dev'):
     SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
 else:
-    SERVICE_URL="http://127.0.0.1:8000/auth/api/v1/"
+    # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
+    SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
 
 HEADERS = {
     "Content-type": "application/json",
@@ -26,6 +27,13 @@ HEADERS = {
     "X-CSRFToken": "BJeWR32Q6AgETCGGIRz9V0lrxh1qwWOQb2pd2wbd6haZVOq6AuJo7ZOZDz895cbY",
     "token":"",
     "Access-Control-Allow-Origin": "*"
+}
+
+# URL of all applications
+DEV_URLS = {
+    "auth": "http://localhost:8000/admin-auth",
+    "member_service": "http://localhost:8080/",
+    "crm": ""
 }
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
