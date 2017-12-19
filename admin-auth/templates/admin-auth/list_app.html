@@ -48,7 +48,7 @@
 
                     {% for permissions in request.session.permissionList %}
                         {% if permissions.serviceID == "AUTH_REPLACE_APPLICATION" %}
-                       <a href="/admin-auth/edit/app/{{app.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
+                       <a href="/edit/app/{{app.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
                         {% endif %}
                     {% endfor %}
 

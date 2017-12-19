@@ -103,7 +103,7 @@
                        <!--<a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>-->
                        {% for permissions in request.session.permissionList %}
                             {% if permissions.serviceID == "AUTH_ASSIGN_USER_GROUP" %}
-                                <a href="/admin-auth/assign/user/group/{{user.id}}/{{user.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Group</a>
+                                <a href="/assign/user/group/{{user.id}}/{{user.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Group</a>
                                {% endif %}
                         {% endfor %}
                        {% for permissions in request.session.permissionList %}

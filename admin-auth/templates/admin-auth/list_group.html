@@ -93,12 +93,12 @@
                    <td class="text-center" colspan="2">
                        {% for permissions in request.session.permissionList %}
                             {% if permissions.serviceID == "AUTH_REPLACE_GROUP" %}
-                                <a href="/admin-auth/edit/group/{{group.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
+                                <a href="/edit/group/{{group.id}}/" class="btn button-edit" role="button" aria-pressed="true">Edit</a>
                             {% endif %}
                         {% endfor %}
                        {% for permissions in request.session.permissionList %}
                             {% if permissions.serviceID == "AUTH_ASSIGN_GROUP_SERVICE" %}
-                       <a href="/admin-auth/assign/group/service/{{group.id}}/{{group.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Service</a>
+                       <a href="/assign/group/service/{{group.id}}/{{group.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Service</a>
                              {% endif %}
                         {% endfor %}
                    </td>

@@ -31,11 +31,14 @@ HEADERS = {
 
 # URL of all applications
 DEV_URLS = {
-    "auth": "http://localhost:8000/admin-auth",
+    "auth": "http://localhost:8000",
     "member_service": "http://localhost:8080/",
     "crm": ""
 }
 
+APP_LIST = { '2': 'Auth', '7': 'CRM', '6': 'Admin' }
+
+APP_URL = {'2': DEV_URLS['auth'], '7': DEV_URLS['crm'], '6': DEV_URLS['member_service']}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -49,7 +52,7 @@ SECRET_KEY = 'z)!9&2**@6ev!=l0cd=@1#qobpl0eiujui1sn6&&8xfl^31d2('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.10.10.199','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['10.10.10.199','localhost','127.0.0.1', '*']
 
 
 # Application definition

@@ -1,3 +1,4 @@
+{% load appname %}
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -45,14 +46,27 @@
         {% endfor %}
     </ul>
     <ul class="navbar-nav" style="padding-right:20px">
+         <li class="nav-item dropdown">
+             <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-th fa-2x" aria-hidden="true"></i></button>
+              <ul class="dropdown-menu" style="padding-left:20px">
+                {% for app in request.session.appList %}
+                  {% if app.appID != 2 %}
+                    <li><a href="{{app.appID | get_app_url:app.appID}}" target="_blank">{{app.appID | get_app_name:app.appID}}</a></li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+        </li>
+
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ request.session.loginID }}
             </a>
+
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="padding-right:20px">
-                <a class="dropdown-item" href="{% url 'admin-auth:accounts' %}?appID=6" target="_blank">Member Service</a>
                 <a class="dropdown-item" href="#">Settings</a>
-                <a class="dropdown-item" href="{% url 'admin-auth:logout' %}">Logout</a>
+                <a class="dropdown-item" href="{% url 'admin-auth:accountslogout' %}">Logout</a>
 
             </div>
         </li>

@@ -43,15 +43,20 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="appID">App ID</label>
+                <label class="control-label" for="appID">Select App</label>
                 <div class="controls">
                     <!--<input type="text" class="form-control input-sm chat-input" id="appID" name="appID"  placeholder="App ID">-->
-                    <select id="appID" class="form-control" name="appID">
-                        <option value="">Select Application</option>
+                    <!--<select id="appID" class="form-control" name="appID">-->
+                        <!--<option value="">Select Application</option>-->
+                    <!--{% for application in applications %}-->
+                        <!--<option value="{{ application.id }}">{{ application.appName }}</option>-->
+                    <!--{% endfor %}-->
+                    <!--</select>-->
                     {% for application in applications %}
-                        <option value="{{ application.id }}">{{ application.appName }}</option>
+                        <input type="checkbox" name="appID" id="appID" value="{{ application.id }}"/>
+                        <label><b>{{application.appName}}</b></label><br/>
                     {% endfor %}
-                    </select>
+
                 </div>
             </div>
             </br>

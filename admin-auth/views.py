@@ -7,7 +7,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
-from mysite.settings import SERVICE_URL, HEADERS, DEV_URLS
+from mysite.settings import SERVICE_URL, HEADERS, DEV_URLS, APP_LIST, APP_URL
 
 import subprocess
 import os
@@ -23,6 +23,12 @@ def login(request):
         responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
         print(responsePermission.text)
         request.session['permissionList'] = responsePermission.json()
+
+        paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
+        response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+        appList = response_data.json()
+        request.session['appList'] = appList['results']
+
         return render(request,'admin-auth/home.html')
     if request.POST:
         loginID = request.POST['loginID']
@@ -63,19 +69,20 @@ def login(request):
             print(responsePermission.text)
             request.session['permissionList']=responsePermission.json()
 
+            paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
+            response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+            appList = response_data.json()
+            request.session['appList'] = appList['results']
+
             print(HEADERS)
 
 
-            return HttpResponseRedirect(reverse('admin-auth:home'))
+            return HttpResponseRedirect(reverse('home'))
 
-            # return render(request, 'admin-auth/home.html', {
-            #     'login_token': token
-            # })
-            # else:
-            #     return HttpResponseRedirect(reverse('admin-auth:login'))
-
-            # return HttpResponseRedirect(reverse('admin-auth:login'))
-    return render(request, 'admin-auth/login.html')
+    if request.GET.get("appID"):
+        return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
+    else:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def accounts(request):
@@ -83,6 +90,17 @@ def accounts(request):
     # print(request.GET.get('appID'))
     # print(request.GET.get('token'))'
     print("here it is")
+    if 'token' in request.session:
+        responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
+        print(responsePermission.text)
+        request.session['permissionList'] = responsePermission.json()
+
+        paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
+        response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+        appList = response_data.json()
+        request.session['appList'] = appList['results']
+
+        return render(request,'admin-auth/home.html')
     if request.GET.get('appID'):
         if request.GET.get('appID') in request.session and request.GET.get('appID') is '6':
             print("appIDDDDD::", request.session[request.GET.get('appID')])
@@ -94,6 +112,7 @@ def accounts(request):
             print("not appIDDDDD::")
             return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get('appID')})
     if request.POST:
+        print("post")
         if request.POST['appID'] in request.session:
             if request.POST['appID'] is '6':
                 print("in post appIDDDDD::", request.session[request.POST['appID']])
@@ -120,7 +139,7 @@ def accounts(request):
             print(e)
             # Redisplay the question voting form.
             msg = "Wrong Credentials"
-            # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+            # return HttpResponseRedirect(reverse('login', args=(msg,)))
             return render(request, 'admin-auth/accounts.html', {"error": msg})
 
         print(token)
@@ -132,6 +151,7 @@ def accounts(request):
         paramData = "?login_id="+request.session['loginID']+"&app_id=&limit=100&offset=0"
         response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
         appList = response_data.json()
+        request.session['appList'] = appList['results']
         for app in appList['results']:
             print("appID::"+str(app['appID']))
             if request.POST['appID'] != str(app['appID']):
@@ -152,7 +172,10 @@ def accounts(request):
         else:
             return HttpResponseRedirect(DEV_URLS['auth'])
 
-    return render(request,'admin-auth/accounts.html')
+    if request.GET.get("appID"):
+        return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
+    else:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def accountslogout( request ):
@@ -166,7 +189,7 @@ def accountslogout( request ):
         print(e)
         # Redisplay the question voting form.
         msg = ""
-        # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+        # return HttpResponseRedirect(reverse('login', args=(msg,)))
         if request.GET.get("appID"):
             return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
         else:
@@ -183,7 +206,7 @@ def home(request):
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     else:
-        return render(request, 'admin-auth/login.html',)
+        return render(request, 'admin-auth/accounts.html',)
 
 
 def logout(request):
@@ -202,7 +225,7 @@ def logout(request):
         print(e)
         # Redisplay the question voting form.
         msg = ""
-        # return HttpResponseRedirect(reverse('admin-auth:login', args=(msg,)))
+        # return HttpResponseRedirect(reverse('login', args=(msg,)))
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
     return render(request, 'admin-auth/accounts.html', {"appID": 2})
@@ -215,13 +238,13 @@ def create_user(request):
         applications=response_app_data.json()
         print(response_app_data.content)
         if request.POST:
-
+            print(request.POST.getlist('appID'))
+            appList = request.POST.getlist('appID')
             device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
-
-            post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': request.POST['appID'], 'deviceID': device_id};
-
-            response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
+            for app in appList:
+                post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': app, 'deviceID': device_id};
+                response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
 
 
             if response_data.status_code==201:
@@ -233,7 +256,7 @@ def create_user(request):
 
         return render(request, 'admin-auth/create_user.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/login.html')
+        return render(request, 'admin-auth/accounts.html')
 
 
 def create_service(request):
@@ -255,7 +278,7 @@ def create_service(request):
 
         return render(request, 'admin-auth/create_service.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/login.html')
+        return render(request, 'admin-auth/accounts.html')
 
 
 def create_group(request):
@@ -279,7 +302,7 @@ def create_group(request):
 
         return render(request, 'admin-auth/create_group.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def create_app(request):
@@ -298,7 +321,7 @@ def create_app(request):
                 return render(request, 'admin-auth/create_app.html', {"message": response_data.text,"status":response_data.status_code})
         return render(request, 'admin-auth/create_app.html')
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def edit_app(request,appID=''):
@@ -330,7 +353,7 @@ def edit_app(request,appID=''):
             app_details=response_data.json()
             return render(request, 'admin-auth/edit_app.html', {"app_details": app_details})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def edit_group(request,groupId=''):
@@ -369,7 +392,7 @@ def edit_group(request,groupId=''):
             group_details=response_data.json()
             return render(request, 'admin-auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def edit_service(request,serviceId=''):
@@ -409,7 +432,7 @@ def edit_service(request,serviceId=''):
             service_details=response_data.json()
             return render(request, 'admin-auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def list_user(request):
@@ -448,7 +471,7 @@ def list_user(request):
         return render(request, 'admin-auth/list_user.html',
                       {"users":userList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def list_group(request):
@@ -486,7 +509,7 @@ def list_group(request):
         return render(request, 'admin-auth/list_group.html',
                       {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def list_service(request):
@@ -523,7 +546,7 @@ def list_service(request):
         return render(request, 'admin-auth/list_service.html',
                       {"services": serviceList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def list_app(request):
@@ -546,7 +569,7 @@ def list_app(request):
 
         return render(request, 'admin-auth/list_app.html', {"apps": appList})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def list_activity(request):
@@ -584,7 +607,7 @@ def list_activity(request):
         return render(request, 'admin-auth/list_activity.html',
                       {"activities": activityList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/login.html', )
+        return render(request, 'admin-auth/accounts.html', )
 
 
 def assign_user_group(request,userID='',appID=''):
@@ -599,7 +622,7 @@ def assign_user_group(request,userID='',appID=''):
             return render(request, 'admin-auth/assign_user_group.html',postData)
 
     else:
-        return render(request,'admin-auth/login.html')
+        return render(request,'admin-auth/accounts.html')
 
 
 # only load Data
@@ -673,7 +696,7 @@ def assign_group_service(request,groupID='',appID=''):
             return render(request, 'admin-auth/assign_group_service.html',postData)
 
     else:
-        return render(request,'admin-auth/login.html')
+        return render(request,'admin-auth/accounts.html')
 
 
     # only load Data
@@ -742,8 +765,13 @@ def get_device_id():
 
 def change_password(request):
     if request.POST:
-
-        post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'],'appID':request.POST['appID']}
+        # paramData = "?login_id=" + request.POST['loginID'] + "&app_id=&limit=10&offset=0"
+        # response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+        # appList = response_data.json()
+        # print(response_data.content)
+        # for app in appList['results']:
+        #     print(app['appID'])
+        post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'],'appID': request.POST['appID']}
         change_password = requests.put(SERVICE_URL + 'password/set/',
                                          headers=HEADERS, data=json.dumps(post_data))
         print(change_password.status_code)
