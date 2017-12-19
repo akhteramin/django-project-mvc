@@ -90,17 +90,7 @@ def accounts(request):
     # print(request.GET.get('appID'))
     # print(request.GET.get('token'))'
     print("here it is")
-    if 'token' in request.session:
-        responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
-        print(responsePermission.text)
-        request.session['permissionList'] = responsePermission.json()
 
-        paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
-        response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
-        appList = response_data.json()
-        request.session['appList'] = appList['results']
-
-        return render(request,'admin-auth/home.html')
     if request.GET.get('appID'):
         if request.GET.get('appID') in request.session and request.GET.get('appID') is '6':
             print("appIDDDDD::", request.session[request.GET.get('appID')])

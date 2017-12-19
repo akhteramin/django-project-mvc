@@ -5,7 +5,7 @@ from . import views
 app_name = 'admin-auth'
 urlpatterns = [
     # url(r'^login/$', views.LoginView.as_view,name='login'),
-    url(r'^$', views.accounts, name='accounts'),
+    url(r'^$', views.login, name='login'),
     url(r'^login/$', views.login, name='login'),
     url(r'^home/$', views.home, name='home'),
     url(r'^accounts/$', views.accounts, name='accounts'),
