@@ -2,7 +2,7 @@ $('#postUserForm').on('submit', function(event){
         event.preventDefault();
         console.log("form submitted!")  // sanity check
         $.ajax({
-        url : "/admin-auth/change_password/", // the endpoint
+        url : "/change_password/", // the endpoint
         type : "POST", // http method
         data :  $(this).serialize() , // data sent with the post request
         dataType: 'json',
@@ -38,7 +38,7 @@ function changeStatus(loginID,appID,activate=1,userID){
         $("#deactivate_"+userID).prop('disabled', true);
         console.log(activate);
         $.ajax({
-                url : "/admin-auth/deactivate_user/", // the endpoint
+                url : "/deactivate_user/", // the endpoint
                 type : "POST", // http method
                 data :  {'loginID':loginID,'appID':appID} , // data sent with the post request
                 dataType: 'json',
@@ -68,7 +68,7 @@ function changeStatus(loginID,appID,activate=1,userID){
       $("#activate_"+userID).prop('disabled', true);
         console.log(activate);
         $.ajax({
-                url : "/admin-auth/activate_user/", // the endpoint
+                url : "/activate_user/", // the endpoint
                 type : "POST", // http method
                 data :  {'loginID':loginID,'appID':appID} , // data sent with the post request
                 dataType: 'json',
