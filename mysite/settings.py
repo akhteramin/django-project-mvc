@@ -39,9 +39,9 @@ DEV_URLS = {
     # "crm": ""
 }
 
-APP_LIST = { '2': 'Auth', '7': 'CRM', '6': 'Admin' }
+APP_LIST = { '2': 'Auth', '3': 'CRM', '6': 'Admin' }
 
-APP_URL = {'2': DEV_URLS['auth'], '7': DEV_URLS['crm'], '6': DEV_URLS['member_service']}
+APP_URL = {'2': DEV_URLS['auth'], '3': DEV_URLS['crm'], '6': DEV_URLS['member_service']}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
