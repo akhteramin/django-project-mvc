@@ -34,6 +34,9 @@ DEV_URLS = {
     "auth": "http://10.10.40.31:8080",
     "member_service": "http://10.15.40.11:80/",
     "crm": ""
+    # "auth": "http://localhost:8000",
+    # "member_service": "http://localhost:8080/",
+    # "crm": ""
 }
 
 APP_LIST = { '2': 'Auth', '7': 'CRM', '6': 'Admin' }

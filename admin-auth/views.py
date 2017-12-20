@@ -169,12 +169,13 @@ def accounts(request):
 
 
 def accountslogout( request ):
+    print(HEADERS['token'])
     try:
         # del request.session['token']
+        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
         for key in list(request.session.keys()):
             del request.session[key]
         request.session.modified = True
-        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
     except Exception as e:
         print(e)
         # Redisplay the question voting form.
@@ -200,6 +201,7 @@ def home(request):
 
 
 def logout(request):
+    print(HEADERS['token'])
     # del request.session['token']
     # request.session.modified = True
     # response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
@@ -207,10 +209,10 @@ def logout(request):
     # return render(request,'admin-auth/login.html')
     try:
         # del request.session['token']
+        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
         for key in list(request.session.keys()):
             del request.session[key]
         request.session.modified = True
-        response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
     except Exception as e:
         print(e)
         # Redisplay the question voting form.
