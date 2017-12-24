@@ -608,6 +608,8 @@ def assign_user_group(request,userID='',appID=''):
         if request.POST:
             save_user_group(request.POST.getlist('groupID'),userID)
             postData=load_user_group_list(userID, appID)
+            postData['message']= 'User has been successfully assigned to Group.'
+            postData['status']= 201
             return render(request, 'admin-auth/assign_user_group.html',postData)
         else:
             postData=load_user_group_list(userID,appID)
@@ -682,6 +684,8 @@ def assign_group_service(request,groupID='',appID=''):
         if request.POST:
             save_group_service(request.POST.getlist('serviceID'),groupID)
             postData=load_group_service_list(groupID, appID)
+            postData['message'] = 'Group has been successfully assigned to Service.'
+            postData['status'] = 201
             return render(request, 'admin-auth/assign_group_service.html',postData)
         else:
             postData=load_group_service_list(groupID,appID)

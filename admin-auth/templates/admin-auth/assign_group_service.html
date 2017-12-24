@@ -12,6 +12,30 @@
     </div>
     <div class="col-md-12">
         <hr/>
+        <div class="col-md-1">
+            <a href="{% url 'admin-auth:list_group' %}">
+                <button type="button" class="btn btn-primary">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </button>
+            </a>
+        </div>
+        {% if message and status %}
+            {% if status == 201 %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Success!</strong> {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <strong>Warning!</strong> {{ message }}
+                </div>
+            {% endif%}
+        {% endif%}
     </div>
     <div class="table_container">
         <form class="form-horizontal" action="/assign/group/service/{{group.id}}/{{group.appID}}/" method="post">
