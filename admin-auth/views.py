@@ -98,6 +98,9 @@ def accounts(request):
         elif request.GET.get('appID') in request.session and request.GET.get('appID') is '2':
             print("appIDDDDD::", request.session[request.GET.get('appID')])
             return HttpResponseRedirect(DEV_URLS['auth'])
+        elif request.GET.get('appID') in request.session and request.GET.get('appID') is '3':
+            print("appIDDDDD::", request.session[request.GET.get('appID')])
+            return HttpResponseRedirect(DEV_URLS['crm'])
         else:
             print("not appIDDDDD::")
             return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get('appID')})
@@ -107,6 +110,11 @@ def accounts(request):
             if request.POST['appID'] is '6':
                 print("in post appIDDDDD::", request.session[request.POST['appID']])
                 return HttpResponseRedirect(DEV_URLS['member_service'] + '?token='+request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
+            elif request.POST['appID'] is '3':
+                print("in post appIDDDDD::", request.session[request.POST['appID']])
+                return HttpResponseRedirect(
+                    DEV_URLS['crm'] + '?token=' + request.session[request.POST['appID']] + '&loginID=' +
+                    request.session['loginID'])
             elif request.POST['appID'] is '2':
                 print("in post appIDDDDD::", request.session[request.POST['appID']])
                 return HttpResponseRedirect(DEV_URLS['auth'])
@@ -159,6 +167,9 @@ def accounts(request):
         print("app data:", request.POST.get('appID'))
         if request.POST.get('appID') is '6':
             return HttpResponseRedirect(DEV_URLS['member_service']+'?token=' + request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
+        elif request.POST.get('appID') is '3':
+            return HttpResponseRedirect(DEV_URLS['crm'] + '?token=' + request.session[request.POST['appID']] + '&loginID=' +
+                request.session['loginID'])
         else:
             return HttpResponseRedirect(DEV_URLS['auth'])
 
