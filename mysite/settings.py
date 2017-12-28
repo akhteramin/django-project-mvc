@@ -34,7 +34,7 @@ DEV_URLS = {
     "auth": "http://10.10.40.31:8080",
     # "member_service": "http://10.15.40.11:80/",
     "member_service": "http://adminnew.ipay.com.bd/",
-    "crm": "http://localhost:8080/"
+    "crm": "http://localhost:8080/login/"
     # "auth": "http://localhost:8000",
     # "member_service": "http://localhost:8080/",
     # "crm": "http://localhost:8080/"
