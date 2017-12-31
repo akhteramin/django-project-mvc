@@ -100,7 +100,7 @@ def accounts(request):
             return HttpResponseRedirect(DEV_URLS['auth'])
         elif request.GET.get('appID') in request.session and request.GET.get('appID') is '3':
             print("appIDDDDD::", request.session[request.GET.get('appID')])
-            return HttpResponseRedirect(DEV_URLS['crm'])
+            return HttpResponseRedirect(DEV_URLS['crm'] + '?token='+request.session[request.GET.get('appID')] + '&loginID=' +request.session['loginID'])
         else:
             print("not appIDDDDD::")
             return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get('appID')})
@@ -436,7 +436,6 @@ def edit_service(request,serviceId=''):
             return render(request, 'admin-auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
 
 def list_user(request):
     if 'token' in request.session:
