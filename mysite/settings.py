@@ -17,6 +17,9 @@ import socket
 
 if socket.gethostname().startswith('dev'):
     SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
+elif socket.gethostname().startswith('localhost'):
+    # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
+    SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
 else:
     # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
     # SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
@@ -34,10 +37,10 @@ DEV_URLS = {
     "auth": "http://10.10.40.31:8080",
     # "member_service": "http://10.15.40.11:80/",
     "member_service": "http://adminnew.ipay.com.bd/",
-    "crm": "http://localhost:8080/login/"
+    "crm": "http://10.10.10.169/login/"
     # "auth": "http://localhost:8000",
     # "member_service": "http://localhost:8080/",
-    # "crm": "http://localhost:8080/"
+    # "crm": "http://10.10.10.169/login/"
 }
 
 APP_LIST = { '2': 'Auth', '3': 'CRM', '6': 'Admin' }

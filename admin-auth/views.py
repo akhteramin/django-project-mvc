@@ -138,7 +138,7 @@ def accounts(request):
             # Redisplay the question voting form.
             msg = "Wrong Credentials"
             # return HttpResponseRedirect(reverse('login', args=(msg,)))
-            return render(request, 'admin-auth/accounts.html', {"error": msg})
+            return render(request, 'admin-auth/accounts.html', {"error": msg,"appID":request.POST['appID']})
 
         print(token)
         HEADERS['token'] = token['token']
@@ -208,7 +208,7 @@ def home(request):
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     else:
-        return render(request, 'admin-auth/accounts.html',)
+        return render(request, 'admin-auth/accounts.html',{"appID": 2})
 
 
 def logout(request):
@@ -259,7 +259,7 @@ def create_user(request):
 
         return render(request, 'admin-auth/create_user.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/accounts.html')
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def create_service(request):
@@ -281,7 +281,7 @@ def create_service(request):
 
         return render(request, 'admin-auth/create_service.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/accounts.html')
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def create_group(request):
@@ -305,7 +305,7 @@ def create_group(request):
 
         return render(request, 'admin-auth/create_group.html',{"applications": applications['results']})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def create_app(request):
@@ -324,7 +324,7 @@ def create_app(request):
                 return render(request, 'admin-auth/create_app.html', {"message": response_data.text,"status":response_data.status_code})
         return render(request, 'admin-auth/create_app.html')
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def edit_app(request,appID=''):
@@ -356,7 +356,7 @@ def edit_app(request,appID=''):
             app_details=response_data.json()
             return render(request, 'admin-auth/edit_app.html', {"app_details": app_details})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2} )
 
 
 def edit_group(request,groupId=''):
@@ -395,7 +395,7 @@ def edit_group(request,groupId=''):
             group_details=response_data.json()
             return render(request, 'admin-auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def edit_service(request,serviceId=''):
@@ -435,7 +435,7 @@ def edit_service(request,serviceId=''):
             service_details=response_data.json()
             return render(request, 'admin-auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def list_user(request):
@@ -474,7 +474,7 @@ def list_user(request):
         return render(request, 'admin-auth/list_user.html',
                       {"users":userList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def list_group(request):
@@ -512,7 +512,7 @@ def list_group(request):
         return render(request, 'admin-auth/list_group.html',
                       {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def list_service(request):
@@ -549,7 +549,7 @@ def list_service(request):
         return render(request, 'admin-auth/list_service.html',
                       {"services": serviceList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def list_app(request):
@@ -572,7 +572,7 @@ def list_app(request):
 
         return render(request, 'admin-auth/list_app.html', {"apps": appList})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def list_activity(request):
@@ -610,7 +610,7 @@ def list_activity(request):
         return render(request, 'admin-auth/list_activity.html',
                       {"activities": activityList,"applications":appList['results'],'searchParam':searchParam})
     else:
-        return render(request, 'admin-auth/accounts.html', )
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def assign_user_group(request,userID='',appID=''):
@@ -627,7 +627,7 @@ def assign_user_group(request,userID='',appID=''):
             return render(request, 'admin-auth/assign_user_group.html',postData)
 
     else:
-        return render(request,'admin-auth/accounts.html')
+        return render(request,'admin-auth/accounts.html', {"appID": 2})
 
 
 # only load Data
@@ -703,7 +703,7 @@ def assign_group_service(request,groupID='',appID=''):
             return render(request, 'admin-auth/assign_group_service.html',postData)
 
     else:
-        return render(request,'admin-auth/accounts.html')
+        return render(request,'admin-auth/accounts.html', {"appID": 2})
 
 
     # only load Data
