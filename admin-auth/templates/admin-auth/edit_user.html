@@ -1,0 +1,67 @@
+{% extends "main.html" %}
+
+{% block content %}
+{% include "menu_bar.html" %}
+<div class="row">
+
+    <div class="container">
+
+            <h1>User Edit</h1>
+            {% if message and status %}
+                {% if status == 200 %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>Success!</strong> {{ message }}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>Warning!</strong> {{ message }}
+                    </div>
+                {% endif%}
+            {% endif%}
+            <form class="form-horizontal" name="UserForm" action="{% url 'admin-auth:edit_user' user_data.id%}" method="post">
+            {% csrf_token %}
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            {% endif %}
+            <div class="control-group">
+                <div class="controls">
+                    <!--<input id="loginID" type="text" class="form-control input-sm chat-input" name="loginID"  placeholder="login ID">-->
+                    <p><b>{{user_data.loginID}}</b></p>
+                </div>
+                <hr>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="appID">Select App</label>
+                <div class="controls">
+                    {% for application in applications%}
+                        {% if application.exist %}
+                            <input type="checkbox" name="appID" id="appID" value="{{ application.id }}" checked/>
+                        {% else %}
+                            <input type="checkbox" name="appID" id="appID" value="{{ application.id }}"/>
+                        {% endif %}
+                        <label><b>{{application.appName}}</b></label><br/>
+                    {% endfor %}
+                </div>
+            </div>
+            </br>
+            <div class="control-group text-center">
+                <div class="controls">
+                <button id="create_user" type="submit" class="button-create create">Update</button>
+                <a href="{% url 'admin-auth:list_user' %}">
+                    <button type="button" class="button-create-cancel create-cancel">Cancel</button>
+                </a>
+                </div>
+            </div>
+            </form>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -437,6 +437,93 @@ def edit_service(request,serviceId=''):
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
+def edit_user(request,loginID=''):
+    if 'token' in request.session:
+        param_data = "?limit=100&offset=0"
+        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+        applications=response_app_data.json()
+        print(response_app_data.content)
+
+        response_user_data = requests.get(SERVICE_URL + 'user/' + loginID +'/', headers=HEADERS)
+        user_data = response_user_data.json()
+        print(response_user_data.content)
+        print(user_data['loginID'])
+
+        param_user_app_data = '?login_id=' + user_data['loginID'] + '&app_id=&limit=100&offset=0'
+        response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
+        user_apps_data = response_user_app_data.json()
+        print(response_user_app_data.content)
+
+        for application in applications['results']:
+            application['exist']= False
+            for user_apps in user_apps_data['results']:
+                if user_apps['appID'] == application['id']:
+                    application['exist'] = True
+        print(applications['results'])
+        if request.POST:
+            print(request.POST.getlist('appID'))
+            user_app_list={}
+            for new_app in request.POST.getlist('appID'):
+                user_app_list['appID']= int(new_app)
+                user_app_list['exist']= False
+                for existing_app in user_apps_data['results']:
+                    if 'exist' not in existing_app:
+                        existing_app['exist'] = False
+                    if user_app_list['appID'] == existing_app['appID']:
+                        user_app_list['exist'] = True
+                        existing_app['exist'] = True
+                        print("user apps apps")
+                        print(user_apps_data['results'])
+                print("user apps apps")
+                print(user_apps_data['results'])
+                if user_app_list['exist'] == False:
+                    print(user_app_list['appID'])
+                    print(user_app_list['exist'])
+                    device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+                    post_data = {'loginID': user_data['loginID'], 'appID': user_app_list['appID'], 'deviceID': device_id};
+                    response_data = requests.post(SERVICE_URL + 'update/', headers=HEADERS, data=json.dumps(post_data))
+                    print(response_data.status_code)
+
+            print("out of for loop::")
+            print(user_apps_data['results'])
+            for user_apps in user_apps_data['results']:
+                print(user_apps)
+                if user_apps['exist'] == False:
+                    response_delete_user_data = requests.delete(SERVICE_URL + 'user/' + str(user_apps['id']) + '/', headers=HEADERS)
+                    print('delete')
+                    print(response_delete_user_data.status_code)
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications = response_app_data.json()
+            print(response_app_data.content)
+
+            response_user_data = requests.get(SERVICE_URL + 'user/' + loginID + '/', headers=HEADERS)
+            user_data = response_user_data.json()
+            print(response_user_data.content)
+            print(user_data['loginID'])
+
+            param_user_app_data = '?login_id=' + user_data['loginID'] + '&app_id=&limit=100&offset=0'
+            response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
+            user_apps_data = response_user_app_data.json()
+            print(response_user_app_data.status_code)
+
+            for application in applications['results']:
+                application['exist'] = False
+                for user_apps in user_apps_data['results']:
+                    if user_apps['appID'] == application['id']:
+                        application['exist'] = True
+            print(applications['results'])
+
+            if response_user_app_data.status_code==200:
+                return render(request, 'admin-auth/edit_user.html', {"message": "User has been Updated.","applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+            else:
+                print(response_user_app_data.headers)
+                return render(request, 'admin-auth/edit_user.html', {"message": response_user_app_data.text,"applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+
+        return render(request, 'admin-auth/edit_user.html',{"applications": applications['results'],'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+    else:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
 def list_user(request):
     if 'token' in request.session:
         searchParam={}

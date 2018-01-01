@@ -119,6 +119,11 @@
                    <td id="actionUser_{{user.id}}" class="text-center" style="width:40%">
                        <!--<a href="#" class="btn btn-info btn-md active" role="button" aria-pressed="true">Edit</a>-->
                        {% for permissions in request.session.permissionList %}
+                            {% if permissions.serviceID == "AUTH_ACTIVATE_USER" %}
+                                <a href="/edit/user/{{user.id}}" class="btn button-create_indicator" role="button" aria-pressed="true">Assign App</a>
+                               {% endif %}
+                        {% endfor %}
+                       {% for permissions in request.session.permissionList %}
                             {% if permissions.serviceID == "AUTH_ASSIGN_USER_GROUP" %}
                                 <a href="/assign/user/group/{{user.id}}/{{user.appID}}" class="btn button-assign-service" role="button" aria-pressed="true">Assign Group</a>
                                {% endif %}
