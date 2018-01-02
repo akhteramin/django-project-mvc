@@ -24,7 +24,7 @@ def login(request):
         print(responsePermission.text)
         request.session['permissionList'] = responsePermission.json()
 
-        paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
+        paramData = "?login_id=" + request.session['loginID'] + "&account_status=True&app_id=&limit=10&offset=0"
         response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
         appList = response_data.json()
         request.session['appList'] = appList['results']
@@ -69,7 +69,7 @@ def login(request):
             print(responsePermission.text)
             request.session['permissionList']=responsePermission.json()
 
-            paramData = "?login_id=" + request.session['loginID'] + "&app_id=&limit=10&offset=0"
+            paramData = "?login_id=" + request.session['loginID'] + "&account_status=True&app_id=&limit=10&offset=0"
             response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
             appList = response_data.json()
             request.session['appList'] = appList['results']
@@ -146,7 +146,7 @@ def accounts(request):
         request.session['loginID'] = loginID
         request.session[request.POST['appID']] = token['token']
 
-        paramData = "?login_id="+request.session['loginID']+"&app_id=&limit=100&offset=0"
+        paramData = "?login_id="+request.session['loginID']+"&account_status=True&app_id=&limit=100&offset=0"
         response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
         appList = response_data.json()
         request.session['appList'] = appList['results']
@@ -449,9 +449,10 @@ def edit_user(request,loginID=''):
         print(response_user_data.content)
         print(user_data['loginID'])
 
-        param_user_app_data = '?login_id=' + user_data['loginID'] + '&app_id=&limit=100&offset=0'
+        param_user_app_data = '?login_id=' + user_data['loginID'] + '&account_status=True&app_id=&limit=100&offset=0'
         response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
         user_apps_data = response_user_app_data.json()
+        print("user getting data::")
         print(response_user_app_data.content)
 
         for application in applications['results']:
@@ -502,7 +503,7 @@ def edit_user(request,loginID=''):
             print(response_user_data.content)
             print(user_data['loginID'])
 
-            param_user_app_data = '?login_id=' + user_data['loginID'] + '&app_id=&limit=100&offset=0'
+            param_user_app_data = '?login_id=' + user_data['loginID'] + '&account_status=True&app_id=&limit=100&offset=0'
             response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
             user_apps_data = response_user_app_data.json()
             print(response_user_app_data.status_code)
