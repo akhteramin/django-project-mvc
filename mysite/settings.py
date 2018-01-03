@@ -14,13 +14,13 @@ import os
 
 import socket
 
-
 if socket.gethostname().startswith('dev'):
     SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
 elif socket.gethostname().startswith('localhost'):
     # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
     SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
 else:
+    print(socket.gethostname())
     # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
     # SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
     SERVICE_URL="http://10.10.40.31:8000/auth/api/v1/"

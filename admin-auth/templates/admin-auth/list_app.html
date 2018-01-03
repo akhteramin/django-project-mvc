@@ -24,10 +24,10 @@
             {% endfor %}
         </div>
         <br/>
-        <table class="table table-bordered">
+        <table id="example" class="display compact" width="100%" cellspacing="0">
           <thead>
             <tr>
-                <th>Application ID</th>
+                <th class="text-center">Application ID</th>
                 <th colspan="2">Application Name</th>
                 <th>Description</th>
 
@@ -40,7 +40,7 @@
           {% for app in apps.results %}
                <tr>
 
-                   <td>{{app.id}}</td>
+                   <td class="text-center">{{app.id}}</td>
                    <td colspan="2">{{app.appName}}</td>
                    <td>{{app.description}}</td>
 

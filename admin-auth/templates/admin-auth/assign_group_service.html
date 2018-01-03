@@ -40,13 +40,13 @@
     <div class="table_container">
         <form class="form-horizontal" action="/assign/group/service/{{group.id}}/{{group.appID}}/" method="post">
                   {% csrf_token %}
-            <table class="table table-bordered">
+            <table id="example" class="display compact" width="95%" cellspacing="0">
               <thead>
                 <tr>
                     <th>Service ID</th>
                     <th>Service Description</th>
                     <th>Service Group</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center">Action <input type="checkbox" id="checkAll"></th>
 
 
                 </tr>

@@ -99,4 +99,12 @@ function changeStatus(loginID,appID,activate=1,userID){
      }
 };
 
+$(document).ready(function() {
+        $('#example').DataTable({
+            "paging":   false,
+            "ordering": false,
+            "info":     false,
+            "bFilter": false
+        });
+    });
 
