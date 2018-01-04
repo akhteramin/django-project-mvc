@@ -1,10 +1,21 @@
 {% extends "main.html" %}
-
+{% load static from staticfiles %}
 {% block content %}
 <div class="login-container">
     <div class="row">
         <div class="col-md-7">
+
             <div class="form-login" id="login">
+
+                <img
+                   src="{% static 'admin-auth/images/ipay-logo.png' %}"
+                   alt="Document"
+                   height="40"
+                   width="auto"
+                   class="img-rounded"
+                >
+                <p class="text-center"> Welcome to iPay Admin Panel. Please, enter your email </p>
+                <p class="text-center">address and password to sign in!</p>
                 <form class="form-horizontal" name="LoginForm" action="{% url 'admin-auth:accounts' %}" method="post">
                     {% csrf_token %}
                     {% if next %}
@@ -26,7 +37,7 @@
                     </div>
                     </br>
                     <div class="wrapper">
-                        <button id="user_login" type="submit" class="login" disabled="disabled">Login</button>
+                        <button id="user_login" type="submit" class="login" disabled="disabled">Sign In</button>
 
                     </div>
                     <!--<div class="wrapper">-->
@@ -39,6 +50,8 @@
             </div>
         </div>
     </div>
+    <link href="{% static 'admin-auth/css/login_body.css' %}"
+          rel="stylesheet" media="screen">
 </div>
 
 {% endblock %}
