@@ -13,17 +13,16 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 import socket
+from configparser import RawConfigParser
 
-if socket.gethostname().startswith('dev'):
-    SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
-elif socket.gethostname().startswith('localhost'):
-    # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
-    SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
-else:
-    print(socket.gethostname())
-    # SERVICE_URL = "http://10.10.10.199:8000/auth/api/v1/"
-    # SERVICE_URL="http://127.0.0.1:9000/auth/api/v1/"
-    SERVICE_URL="http://10.10.40.31:8000/auth/api/v1/"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+configFilePath = BASE_DIR + "/application.properties"
+config = RawConfigParser()
+config.read(configFilePath)
+
+SERVICE_URL= config.get('URLSETUP', 'SERVICE_URL')
+
 HEADERS = {
     "Content-type": "application/json",
     "Accept": "application/json",
@@ -34,13 +33,10 @@ HEADERS = {
 
 # URL of all applications
 DEV_URLS = {
-    "auth": "http://10.10.40.31:8080",
-    # "member_service": "http://10.15.40.11:80/",
-    "member_service": "http://adminnew.ipay.com.bd/",
-    "crm": "http://10.10.10.169/login/"
-    # "auth": "http://localhost:8000",
-    # "member_service": "http://localhost:8080/",
-    # "crm": "http://10.10.10.169/login/"
+
+    "auth": config.get('URLSETUP', 'AUTH_URL'),
+    "member_service": config.get('URLSETUP', 'ADMIN_URL'),
+    "crm": config.get('URLSETUP', 'CRM_URL')
 }
 
 APP_LIST = { '2': 'Auth', '3': 'CRM', '6': 'Admin' }

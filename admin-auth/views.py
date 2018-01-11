@@ -21,6 +21,7 @@ def login(request):
     loginID = password = ''
     if 'token' in request.session:
         responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
+        print("response permission::")
         print(responsePermission.text)
         request.session['permissionList'] = responsePermission.json()
 
