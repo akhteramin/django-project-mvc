@@ -32,3 +32,4 @@ uritemplate==3.0.0
 user-agents==1.1.0
 vine==1.1.4
 wrapt==1.10.11
+django-cors-headers==2.0.0
