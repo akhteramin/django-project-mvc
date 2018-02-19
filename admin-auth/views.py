@@ -11,6 +11,7 @@ from mysite.settings import SERVICE_URL, HEADERS, DEV_URLS, APP_LIST, APP_URL
 
 import subprocess
 import os
+import uuid
 
 class IndexView(generic.ListView):
     template_name = 'admin-auth/index.html'
@@ -18,6 +19,7 @@ class IndexView(generic.ListView):
 def login(request):
     # latest_question_list = Question.objects.order_by('-pub_date')[:5]
     # context = {'latest_question_list': latest_question_list}
+    print(SERVICE_URL + 'login/')
     loginID = password = ''
     if 'token' in request.session:
         responsePermission = requests.get(SERVICE_URL + 'permissions/', headers=HEADERS)
@@ -34,7 +36,7 @@ def login(request):
     if request.POST:
         loginID = request.POST['loginID']
         password = request.POST['password']
-        device_id = request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family
+        device_id = request.user_agent.browser.family+"_"+request.user_agent.browser.version_string+"_"+request.user_agent.os.family+"_"+ request.user_agent.device.family+"_"+str(uuid.uuid4())
         print(device_id)
         print(loginID)
         print(password)
@@ -76,8 +78,6 @@ def login(request):
             request.session['appList'] = appList['results']
 
             print(HEADERS)
-
-
             return HttpResponseRedirect(reverse('home'))
 
     if request.GET.get("appID"):
@@ -122,7 +122,7 @@ def accounts(request):
 
         loginID = request.POST['loginID']
         password = request.POST['password']
-        device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+        device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family+"_"+str(uuid.uuid4())
         print(device_id)
         print(loginID)
         print(password)
@@ -166,6 +166,7 @@ def accounts(request):
 
         print("response data:", response_data.content)
         print("app data:", request.POST.get('appID'))
+
         if request.POST.get('appID') is '6':
             return HttpResponseRedirect(DEV_URLS['member_service']+'?token=' + request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
         elif request.POST.get('appID') is '3':
@@ -205,7 +206,6 @@ def accountslogout( request ):
 
 
 def home(request):
-
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     else:
@@ -465,35 +465,39 @@ def edit_user(request,loginID=''):
         if request.POST:
             print(request.POST.getlist('appID'))
             user_app_list={}
-            for new_app in request.POST.getlist('appID'):
-                user_app_list['appID']= int(new_app)
-                user_app_list['exist']= False
-                for existing_app in user_apps_data['results']:
-                    if 'exist' not in existing_app:
-                        existing_app['exist'] = False
-                    if user_app_list['appID'] == existing_app['appID']:
-                        user_app_list['exist'] = True
-                        existing_app['exist'] = True
-                        print("user apps apps")
-                        print(user_apps_data['results'])
-                print("user apps apps")
-                print(user_apps_data['results'])
-                if user_app_list['exist'] == False:
-                    print(user_app_list['appID'])
-                    print(user_app_list['exist'])
-                    device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
-                    post_data = {'loginID': user_data['loginID'], 'appID': user_app_list['appID'], 'deviceID': device_id};
-                    response_data = requests.post(SERVICE_URL + 'update/', headers=HEADERS, data=json.dumps(post_data))
-                    print(response_data.status_code)
+            try:
+                for new_app in request.POST.getlist('appID'):
+                    user_app_list['appID']= int(new_app)
+                    user_app_list['exist']= False
+                    for existing_app in user_apps_data['results']:
+                        if 'exist' not in existing_app:
+                            existing_app['exist'] = False
+                        if user_app_list['appID'] == existing_app['appID']:
+                            user_app_list['exist'] = True
+                            existing_app['exist'] = True
+                            print("user apps apps")
+                            print(user_apps_data['results'])
+                    print("user apps apps")
+                    print(user_apps_data['results'])
+                    if user_app_list['exist'] == False:
+                        print(user_app_list['appID'])
+                        print(user_app_list['exist'])
+                        device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+                        post_data = {'loginID': user_data['loginID'], 'appID': user_app_list['appID'], 'deviceID': device_id};
+                        response_data = requests.post(SERVICE_URL + 'update/', headers=HEADERS, data=json.dumps(post_data))
+                        print(response_data.status_code)
 
-            print("out of for loop::")
-            print(user_apps_data['results'])
-            for user_apps in user_apps_data['results']:
-                print(user_apps)
-                if user_apps['exist'] == False:
-                    response_delete_user_data = requests.delete(SERVICE_URL + 'user/' + str(user_apps['id']) + '/', headers=HEADERS)
-                    print('delete')
-                    print(response_delete_user_data.status_code)
+                print("out of for loop::")
+                print(user_apps_data['results'])
+                for user_apps in user_apps_data['results']:
+                    print(user_apps)
+                    if user_apps['exist'] == False:
+                        response_delete_user_data = requests.delete(SERVICE_URL + 'user/' + str(user_apps['id']) + '/', headers=HEADERS)
+                        print('delete')
+                        print(response_delete_user_data.status_code)
+            except Exception as e:
+                return render(request, 'admin-auth/edit_user.html', {"message": "User can't be removed from all applications. But you can deactivate user.","applications": applications['results'],"status":'400','user_data': user_data, 'user_apps_data': user_apps_data['results']})
+
             param_data = "?limit=100&offset=0"
             response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
             applications = response_app_data.json()
