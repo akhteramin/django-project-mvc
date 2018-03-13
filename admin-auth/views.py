@@ -29,10 +29,12 @@ def login(request):
 
         paramData = "?login_id=" + request.session['loginID'] + "&account_status=True&app_id=&limit=10&offset=0"
         response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
-        appList = response_data.json()
-        request.session['appList'] = appList['results']
-
-        return render(request,'admin-auth/home.html')
+        try:
+            appList = response_data.json()
+            request.session['appList'] = appList['results']
+        except Exception as e:
+            print(e)
+        return render(request, 'admin-auth/home.html')
     if request.POST:
         loginID = request.POST['loginID']
         password = request.POST['password']
@@ -74,8 +76,12 @@ def login(request):
 
             paramData = "?login_id=" + request.session['loginID'] + "&account_status=True&app_id=&limit=10&offset=0"
             response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
-            appList = response_data.json()
-            request.session['appList'] = appList['results']
+
+            try:
+                appList = response_data.json()
+                request.session['appList'] = appList['results']
+            except Exception as e:
+                print(e)
 
             print(HEADERS)
             return HttpResponseRedirect(reverse('home'))
@@ -84,6 +90,7 @@ def login(request):
         return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
 
 
 def accounts(request):
@@ -149,24 +156,26 @@ def accounts(request):
 
         paramData = "?login_id="+request.session['loginID']+"&account_status=True&app_id=&limit=100&offset=0"
         response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
-        appList = response_data.json()
-        request.session['appList'] = appList['results']
-        for app in appList['results']:
-            print("appID::"+str(app['appID']))
-            if request.POST['appID'] != str(app['appID']):
-                paramData = "?appID=" + str(app['appID']) + "&deviceID=" + device_id
-                response_data = requests.get(SERVICE_URL + 'token/renew/' + paramData, headers=HEADERS)
-                new_token = response_data.json()
-                print("request token:::" + new_token['token'])
-                request.session[str(app['appID'])] = new_token['token']
-                if str(app['appID']) == '2':
-                    HEADERS['token'] = new_token['token']
-                    request.session['token'] = new_token['token']
-                    request.session['loginID'] = loginID
+        try:
+            appList = response_data.json()
+            request.session['appList'] = appList['results']
+            for app in appList['results']:
+                print("appID::"+str(app['appID']))
+                if request.POST['appID'] != str(app['appID']):
+                    paramData = "?appID=" + str(app['appID']) + "&deviceID=" + device_id
+                    response_data = requests.get(SERVICE_URL + 'token/renew/' + paramData, headers=HEADERS)
+                    new_token = response_data.json()
+                    print("request token:::" + new_token['token'])
+                    request.session[str(app['appID'])] = new_token['token']
+                    if str(app['appID']) == '2':
+                        HEADERS['token'] = new_token['token']
+                        request.session['token'] = new_token['token']
+                        request.session['loginID'] = loginID
 
-        print("response data:", response_data.content)
-        print("app data:", request.POST.get('appID'))
-
+            print("response data:", response_data.content)
+            print("app data:", request.POST.get('appID'))
+        except Exception as e:
+            print(e)
         if request.POST.get('appID') is '6':
             return HttpResponseRedirect(DEV_URLS['member_service']+'?token=' + request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
         elif request.POST.get('appID') is '3':
@@ -236,274 +245,241 @@ def logout(request):
 
 
 def create_user(request):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications=response_app_data.json()
-        print(response_app_data.content)
-        if request.POST:
-            print(request.POST.getlist('appID'))
-            appList = request.POST.getlist('appID')
-            device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
-            for app in appList:
-                post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': app, 'deviceID': device_id};
-                response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
-                print(response_data.status_code)
+    try:
+        if 'token' in request.session:
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications=response_app_data.json()
+            print(response_app_data.content)
+            if request.POST:
+                print(request.POST.getlist('appID'))
+                appList = request.POST.getlist('appID')
+                device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+                for app in appList:
+                    post_data = {'loginID': request.POST['loginID'], 'password': request.POST['password'], 'appID': app, 'deviceID': device_id};
+                    response_data = requests.post(SERVICE_URL + 'create/', headers=HEADERS, data=json.dumps(post_data))
+                    print(response_data.status_code)
 
 
-            if response_data.status_code==201:
-                return render(request, 'admin-auth/create_user.html', {"message": "User has been created","applications": applications['results'],"status":response_data.status_code})
-            else:
-                print(response_data.headers)
-                return render(request, 'admin-auth/create_user.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
+                if response_data.status_code==201:
+                    return render(request, 'admin-auth/create_user.html', {"message": "User has been created","applications": applications['results'],"status":response_data.status_code})
+                else:
+                    print(response_data.headers)
+                    return render(request, 'admin-auth/create_user.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
 
 
-        return render(request, 'admin-auth/create_user.html',{"applications": applications['results']})
-    else:
+            return render(request, 'admin-auth/create_user.html',{"applications": applications['results']})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 
 def create_service(request):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications = response_app_data.json()
-        print(response_app_data.content)
-        if request.POST:
-            post_data = {'appID': request.POST['appID'], 'serviceID': request.POST['serviceID'],
-                         'description': request.POST['description'], 'category':request.POST['serviceCategory']};
-
-            response_data = requests.post(SERVICE_URL + 'service/', headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-            if response_data.status_code==201:
-                return render(request, 'admin-auth/create_service.html', {"message": "Service has been created","applications": applications['results'],"status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/create_service.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
-
-        return render(request, 'admin-auth/create_service.html',{"applications": applications['results']})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
-
-def create_group(request):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications = response_app_data.json()
-        print(response_app_data.content)
-        if request.POST:
-            print(request.POST['appID'])
-            print(request.POST['groupID'])
-            print(request.POST['description'])
-            post_data = {'appID': request.POST['appID'], 'groupID': request.POST['groupID'], 'description': request.POST['description']};
-
-            response_data = requests.post(SERVICE_URL + 'group/', headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-            if response_data.status_code==201:
-                return render(request, 'admin-auth/create_group.html', {"message": "Group has been created","applications": applications['results'],"status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/create_group.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
-
-        return render(request, 'admin-auth/create_group.html',{"applications": applications['results']})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
-
-def create_app(request):
-    if 'token' in request.session:
-        if request.POST:
-            print(request.POST['appName'])
-            print(request.POST['description'])
-            post_data = {'appName': request.POST['appName'],
-                         'description': request.POST['description']};
-
-            response_data = requests.post(SERVICE_URL + 'app/', headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-            if response_data.status_code == 201:
-                return render(request, 'admin-auth/create_app.html', {"message": "Application has been created","status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/create_app.html', {"message": response_data.text,"status":response_data.status_code})
-        return render(request, 'admin-auth/create_app.html')
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
-
-def edit_app(request,appID=''):
-    if 'token' in request.session:
-        if request.POST:
-            print(request.POST['appName'])
-            print(request.POST['description'])
-            post_data = {'appName': request.POST['appName'],
-                         'description': request.POST['description']};
-
-            response_data = requests.patch(SERVICE_URL + 'app/'+appID+"/",
-                                           headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-
-            response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
-                                           headers=HEADERS)
-            app_details = response_data.json()
-
-            if response_data.status_code == 200:
-                return render(request, 'admin-auth/edit_app.html', {"message": "Application has been updated","app_details":app_details,"status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/edit_app.html', {"message": response_data.text,"app_details":app_details,"status":response_data.status_code})
-
-
-        elif appID!='':
-            print(appID)
-            response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
-                                           headers=HEADERS)
-            app_details=response_data.json()
-            return render(request, 'admin-auth/edit_app.html', {"app_details": app_details})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2} )
-
-
-def edit_group(request,groupId=''):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications = response_app_data.json()
-        print(response_app_data.content)
-        if request.POST:
-            print(request.POST['appID'])
-            print(request.POST['description'])
-            post_data = {'appID': request.POST['appID'],
-                         'groupID':request.POST['groupID'],
-                         'description': request.POST['description']};
-
-            response_data = requests.patch(SERVICE_URL + 'group/'+groupId+"/",
-                                           headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-
-            response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
-                                           headers=HEADERS)
-            group_details = response_data.json()
-
-            if response_data.status_code == 200:
-                return render(request, 'admin-auth/edit_group.html',
-                              {"message": "Group has been updated","group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/edit_group.html',
-                              {"message": response_data.text,"group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
-
-
-        elif groupId!='':
-            print(groupId)
-            response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
-                                           headers=HEADERS)
-            group_details=response_data.json()
-            return render(request, 'admin-auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
-
-def edit_service(request,serviceId=''):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications = response_app_data.json()
-        print(response_app_data.content)
-        if request.POST:
-            print(request.POST['appID'])
-            print(request.POST['description'])
-            post_data = {'appID': request.POST['appID'],
-                         'serviceID':request.POST['serviceID'],
-                         'category':request.POST['serviceCategory'],
-                         'description': request.POST['description']};
-
-            response_data = requests.patch(SERVICE_URL + 'service/'+serviceId+"/",
-                                           headers=HEADERS, data=json.dumps(post_data))
-            print(response_data.status_code)
-
-            response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
-                                           headers=HEADERS)
-            service_details = response_data.json()
-
-            if response_data.status_code == 200:
-                return render(request, 'admin-auth/edit_service.html',
-                              {"message": "Service has been updated","service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
-            else:
-                return render(request, 'admin-auth/edit_service.html', {"message": response_data.text,"service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
-
-
-        elif serviceId!='':
-            print(serviceId)
-            response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
-                                           headers=HEADERS)
-            print(response_data.content)
-            service_details=response_data.json()
-            return render(request, 'admin-auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
-def edit_user(request,loginID=''):
-    if 'token' in request.session:
-        param_data = "?limit=100&offset=0"
-        response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
-        applications=response_app_data.json()
-        print(response_app_data.content)
-
-        response_user_data = requests.get(SERVICE_URL + 'user/' + loginID +'/', headers=HEADERS)
-        user_data = response_user_data.json()
-        print(response_user_data.content)
-        print(user_data['loginID'])
-
-        param_user_app_data = '?login_id=' + user_data['loginID'] + '&account_status=True&app_id=&limit=100&offset=0'
-        response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
-        user_apps_data = response_user_app_data.json()
-        print("user getting data::")
-        print(response_user_app_data.content)
-
-        for application in applications['results']:
-            application['exist']= False
-            for user_apps in user_apps_data['results']:
-                if user_apps['appID'] == application['id']:
-                    application['exist'] = True
-        print(applications['results'])
-        if request.POST:
-            print(request.POST.getlist('appID'))
-            user_app_list={}
-            try:
-                for new_app in request.POST.getlist('appID'):
-                    user_app_list['appID']= int(new_app)
-                    user_app_list['exist']= False
-                    for existing_app in user_apps_data['results']:
-                        if 'exist' not in existing_app:
-                            existing_app['exist'] = False
-                        if user_app_list['appID'] == existing_app['appID']:
-                            user_app_list['exist'] = True
-                            existing_app['exist'] = True
-                            print("user apps apps")
-                            print(user_apps_data['results'])
-                    print("user apps apps")
-                    print(user_apps_data['results'])
-                    if user_app_list['exist'] == False:
-                        print(user_app_list['appID'])
-                        print(user_app_list['exist'])
-                        device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
-                        post_data = {'loginID': user_data['loginID'], 'appID': user_app_list['appID'], 'deviceID': device_id};
-                        response_data = requests.post(SERVICE_URL + 'update/', headers=HEADERS, data=json.dumps(post_data))
-                        print(response_data.status_code)
-
-                print("out of for loop::")
-                print(user_apps_data['results'])
-                for user_apps in user_apps_data['results']:
-                    print(user_apps)
-                    if user_apps['exist'] == False:
-                        response_delete_user_data = requests.delete(SERVICE_URL + 'user/' + str(user_apps['id']) + '/', headers=HEADERS)
-                        print('delete')
-                        print(response_delete_user_data.status_code)
-            except Exception as e:
-                return render(request, 'admin-auth/edit_user.html', {"message": "User can't be removed from all applications. But you can deactivate user.","applications": applications['results'],"status":'400','user_data': user_data, 'user_apps_data': user_apps_data['results']})
-
+    try:
+        if 'token' in request.session:
             param_data = "?limit=100&offset=0"
             response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
             applications = response_app_data.json()
             print(response_app_data.content)
+            if request.POST:
+                post_data = {'appID': request.POST['appID'], 'serviceID': request.POST['serviceID'],
+                             'description': request.POST['description'], 'category':request.POST['serviceCategory']};
 
-            response_user_data = requests.get(SERVICE_URL + 'user/' + loginID + '/', headers=HEADERS)
+                response_data = requests.post(SERVICE_URL + 'service/', headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+                if response_data.status_code==201:
+                    return render(request, 'admin-auth/create_service.html', {"message": "Service has been created","applications": applications['results'],"status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/create_service.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
+
+            return render(request, 'admin-auth/create_service.html',{"applications": applications['results']})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+def create_group(request):
+    try:
+        if 'token' in request.session:
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications = response_app_data.json()
+            print(response_app_data.content)
+            if request.POST:
+                print(request.POST['appID'])
+                print(request.POST['groupID'])
+                print(request.POST['description'])
+                post_data = {'appID': request.POST['appID'], 'groupID': request.POST['groupID'], 'description': request.POST['description']};
+
+                response_data = requests.post(SERVICE_URL + 'group/', headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+                if response_data.status_code==201:
+                    return render(request, 'admin-auth/create_group.html', {"message": "Group has been created","applications": applications['results'],"status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/create_group.html', {"message": response_data.text,"applications": applications['results'],"status":response_data.status_code})
+
+            return render(request, 'admin-auth/create_group.html',{"applications": applications['results']})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+def create_app(request):
+    try:
+        if 'token' in request.session:
+            if request.POST:
+                print(request.POST['appName'])
+                print(request.POST['description'])
+                post_data = {'appName': request.POST['appName'],
+                             'description': request.POST['description']};
+
+                response_data = requests.post(SERVICE_URL + 'app/', headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+                if response_data.status_code == 201:
+                    return render(request, 'admin-auth/create_app.html', {"message": "Application has been created","status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/create_app.html', {"message": response_data.text,"status":response_data.status_code})
+            return render(request, 'admin-auth/create_app.html')
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+
+def edit_app(request,appID=''):
+    try:
+        if 'token' in request.session:
+            if request.POST:
+                print(request.POST['appName'])
+                print(request.POST['description'])
+                post_data = {'appName': request.POST['appName'],
+                             'description': request.POST['description']};
+
+                response_data = requests.patch(SERVICE_URL + 'app/'+appID+"/",
+                                               headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+
+                response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
+                                               headers=HEADERS)
+                app_details = response_data.json()
+
+                if response_data.status_code == 200:
+                    return render(request, 'admin-auth/edit_app.html', {"message": "Application has been updated","app_details":app_details,"status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/edit_app.html', {"message": response_data.text,"app_details":app_details,"status":response_data.status_code})
+
+
+            elif appID!='':
+                print(appID)
+                response_data = requests.get(SERVICE_URL + 'app/' + appID + "/",
+                                               headers=HEADERS)
+                app_details=response_data.json()
+                return render(request, 'admin-auth/edit_app.html', {"app_details": app_details})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2} )
+    except Exception as e:
+        print(e)
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+def edit_group(request,groupId=''):
+    try:
+        if 'token' in request.session:
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications = response_app_data.json()
+            print(response_app_data.content)
+            if request.POST:
+                print(request.POST['appID'])
+                print(request.POST['description'])
+                post_data = {'appID': request.POST['appID'],
+                             'groupID':request.POST['groupID'],
+                             'description': request.POST['description']};
+
+                response_data = requests.patch(SERVICE_URL + 'group/'+groupId+"/",
+                                               headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+
+                response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
+                                               headers=HEADERS)
+                group_details = response_data.json()
+
+                if response_data.status_code == 200:
+                    return render(request, 'admin-auth/edit_group.html',
+                                  {"message": "Group has been updated","group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/edit_group.html',
+                                  {"message": response_data.text,"group_details":group_details,"applications":applications['results'],"status":response_data.status_code})
+
+
+            elif groupId!='':
+                print(groupId)
+                response_data = requests.get(SERVICE_URL + 'group/' + groupId + "/",
+                                               headers=HEADERS)
+                group_details=response_data.json()
+                return render(request, 'admin-auth/edit_group.html', {"group_details": group_details,"applications":applications['results']})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+
+def edit_service(request,serviceId=''):
+    try:
+        if 'token' in request.session:
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications = response_app_data.json()
+            print(response_app_data.content)
+            if request.POST:
+                print(request.POST['appID'])
+                print(request.POST['description'])
+                post_data = {'appID': request.POST['appID'],
+                             'serviceID':request.POST['serviceID'],
+                             'category':request.POST['serviceCategory'],
+                             'description': request.POST['description']};
+
+                response_data = requests.patch(SERVICE_URL + 'service/'+serviceId+"/",
+                                               headers=HEADERS, data=json.dumps(post_data))
+                print(response_data.status_code)
+
+                response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
+                                               headers=HEADERS)
+                service_details = response_data.json()
+
+                if response_data.status_code == 200:
+                    return render(request, 'admin-auth/edit_service.html',
+                                  {"message": "Service has been updated","service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
+                else:
+                    return render(request, 'admin-auth/edit_service.html', {"message": response_data.text,"service_details":service_details,"applications":applications['results'],"status":response_data.status_code})
+
+
+            elif serviceId!='':
+                print(serviceId)
+                response_data = requests.get(SERVICE_URL + 'service/' + serviceId + "/",
+                                               headers=HEADERS)
+                print(response_data.content)
+                service_details=response_data.json()
+                return render(request, 'admin-auth/edit_service.html', {"service_details": service_details,"applications":applications['results']})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+
+def edit_user(request,loginID=''):
+    try:
+        if 'token' in request.session:
+            param_data = "?limit=100&offset=0"
+            response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+            applications=response_app_data.json()
+            print(response_app_data.content)
+
+            response_user_data = requests.get(SERVICE_URL + 'user/' + loginID +'/', headers=HEADERS)
             user_data = response_user_data.json()
             print(response_user_data.content)
             print(user_data['loginID'])
@@ -511,199 +487,271 @@ def edit_user(request,loginID=''):
             param_user_app_data = '?login_id=' + user_data['loginID'] + '&account_status=True&app_id=&limit=100&offset=0'
             response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
             user_apps_data = response_user_app_data.json()
-            print(response_user_app_data.status_code)
+            print("user getting data::")
+            print(response_user_app_data.content)
 
             for application in applications['results']:
-                application['exist'] = False
+                application['exist']= False
                 for user_apps in user_apps_data['results']:
                     if user_apps['appID'] == application['id']:
                         application['exist'] = True
             print(applications['results'])
+            if request.POST:
+                print(request.POST.getlist('appID'))
+                user_app_list={}
+                try:
+                    for new_app in request.POST.getlist('appID'):
+                        user_app_list['appID']= int(new_app)
+                        user_app_list['exist']= False
+                        for existing_app in user_apps_data['results']:
+                            if 'exist' not in existing_app:
+                                existing_app['exist'] = False
+                            if user_app_list['appID'] == existing_app['appID']:
+                                user_app_list['exist'] = True
+                                existing_app['exist'] = True
+                                print("user apps apps")
+                                print(user_apps_data['results'])
+                        print("user apps apps")
+                        print(user_apps_data['results'])
+                        if user_app_list['exist'] == False:
+                            print(user_app_list['appID'])
+                            print(user_app_list['exist'])
+                            device_id = request.user_agent.browser.family + "_" + request.user_agent.browser.version_string + "_" + request.user_agent.os.family + "_" + request.user_agent.device.family
+                            post_data = {'loginID': user_data['loginID'], 'appID': user_app_list['appID'], 'deviceID': device_id};
+                            response_data = requests.post(SERVICE_URL + 'update/', headers=HEADERS, data=json.dumps(post_data))
+                            print(response_data.status_code)
 
-            if response_user_app_data.status_code==200:
-                return render(request, 'admin-auth/edit_user.html', {"message": "User has been Updated.","applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
-            else:
-                print(response_user_app_data.headers)
-                return render(request, 'admin-auth/edit_user.html', {"message": response_user_app_data.text,"applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+                    print("out of for loop::")
+                    print(user_apps_data['results'])
+                    for user_apps in user_apps_data['results']:
+                        print(user_apps)
+                        if user_apps['exist'] == False:
+                            response_delete_user_data = requests.delete(SERVICE_URL + 'user/' + str(user_apps['id']) + '/', headers=HEADERS)
+                            print('delete')
+                            print(response_delete_user_data.status_code)
+                except Exception as e:
+                    return render(request, 'admin-auth/edit_user.html', {"message": "User can't be removed from all applications. But you can deactivate user.","applications": applications['results'],"status":'400','user_data': user_data, 'user_apps_data': user_apps_data['results']})
 
-        return render(request, 'admin-auth/edit_user.html',{"applications": applications['results'],'user_data': user_data, 'user_apps_data': user_apps_data['results']})
-    else:
-        return render(request, 'admin-auth/accounts.html', {"appID": 2})
+                param_data = "?limit=100&offset=0"
+                response_app_data = requests.get(SERVICE_URL + 'app/' + param_data, headers=HEADERS)
+                applications = response_app_data.json()
+                print(response_app_data.content)
 
-def list_user(request):
-    if 'token' in request.session:
-        searchParam={}
-        print("headers::")
-        print(HEADERS)
-        if 'next_url' in request.POST:
+                response_user_data = requests.get(SERVICE_URL + 'user/' + loginID + '/', headers=HEADERS)
+                user_data = response_user_data.json()
+                print(response_user_data.content)
+                print(user_data['loginID'])
 
-            searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
-            userList = response_data.json()
-            print(response_data.content)
-        elif 'prev_url' in request.POST:
-            searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
-            userList = response_data.json()
-            print(response_data.content)
-        elif 'login_id' in request.POST and 'app_id' in request.POST:
+                param_user_app_data = '?login_id=' + user_data['loginID'] + '&account_status=True&app_id=&limit=100&offset=0'
+                response_user_app_data = requests.get(SERVICE_URL + 'user/get/' + param_user_app_data, headers=HEADERS)
+                user_apps_data = response_user_app_data.json()
+                print(response_user_app_data.status_code)
 
-            paramData="?login_id="+request.POST.get('login_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
-            searchParam={'login_id':request.POST['login_id'],'app_id':request.POST['app_id']}
-            response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
-            userList = response_data.json()
-            print(response_data.content)
+                for application in applications['results']:
+                    application['exist'] = False
+                    for user_apps in user_apps_data['results']:
+                        if user_apps['appID'] == application['id']:
+                            application['exist'] = True
+                print(applications['results'])
+
+                if response_user_app_data.status_code==200:
+                    return render(request, 'admin-auth/edit_user.html', {"message": "User has been Updated.","applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+                else:
+                    print(response_user_app_data.headers)
+                    return render(request, 'admin-auth/edit_user.html', {"message": response_user_app_data.text,"applications": applications['results'],"status":response_user_app_data.status_code,'user_data': user_data, 'user_apps_data': user_apps_data['results']})
+
+            return render(request, 'admin-auth/edit_user.html',{"applications": applications['results'],'user_data': user_data, 'user_apps_data': user_apps_data['results']})
         else:
-            postData="?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'user/'+postData, headers=HEADERS)
-            userList=response_data.json()
-            print(response_data.content)
-
-        postData = "?limit=1000&offset=0"
-        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
-        appList = response_data.json()
-
-        return render(request, 'admin-auth/list_user.html',
-                      {"users":userList,"applications":appList['results'],'searchParam':searchParam})
-    else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
+def list_user(request):
+    try:
+        if 'token' in request.session:
+            searchParam={}
+            print("headers::")
+            print(HEADERS)
+            if 'next_url' in request.POST:
 
+                searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+                userList = response_data.json()
+                print(response_data.content)
+            elif 'prev_url' in request.POST:
+                searchParam={'login_id':request.GET['login_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+                userList = response_data.json()
+                print(response_data.content)
+            elif 'login_id' in request.POST and 'app_id' in request.POST:
+
+                paramData="?login_id="+request.POST.get('login_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
+                searchParam={'login_id':request.POST['login_id'],'app_id':request.POST['app_id']}
+                response_data = requests.get(SERVICE_URL + 'user/get/' + paramData, headers=HEADERS)
+                userList = response_data.json()
+                print(response_data.content)
+            else:
+                postData="?limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'user/'+postData, headers=HEADERS)
+                userList=response_data.json()
+                print(response_data.content)
+
+            postData = "?limit=1000&offset=0"
+            response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+            appList = response_data.json()
+
+            return render(request, 'admin-auth/list_user.html',
+                          {"users":userList,"applications":appList['results'],'searchParam':searchParam})
+        else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except:
+        return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 def list_group(request):
-    if 'token' in request.session:
-        print("headers::")
-        print(HEADERS)
-        searchParam={}
-        if 'next_url' in request.POST:
-            searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
-            groupList = response_data.json()
-            print(response_data.content)
-        elif 'prev_url' in request.POST:
-            searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
-            groupList = response_data.json()
-            print(response_data.content)
-        elif 'group_id' in request.POST and 'app_id' in request.POST:
-            searchParam={'group_id':request.POST.get('group_id'),'app_id':request.POST.get('app_id')}
-            paramData="?group_id="+request.POST.get('group_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'group/get/' + paramData, headers=HEADERS)
-            print(response_data.content)
-            groupList = response_data.json()
-            print(response_data.content)
+    try:
+        if 'token' in request.session:
+            print("headers::")
+            print(HEADERS)
+            searchParam={}
+            if 'next_url' in request.POST:
+                searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+                groupList = response_data.json()
+                print(response_data.content)
+            elif 'prev_url' in request.POST:
+                searchParam={'group_id':request.GET['group_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+                groupList = response_data.json()
+                print(response_data.content)
+            elif 'group_id' in request.POST and 'app_id' in request.POST:
+                searchParam={'group_id':request.POST.get('group_id'),'app_id':request.POST.get('app_id')}
+                paramData="?group_id="+request.POST.get('group_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'group/get/' + paramData, headers=HEADERS)
+                print(response_data.content)
+                groupList = response_data.json()
+                print(response_data.content)
+            else:
+                postData = "?limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'group/' + postData, headers=HEADERS)
+                groupList = response_data.json()
+                print(response_data.content)
+
+            postData = "?limit=1000&offset=0"
+            response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+            appList = response_data.json()
+
+            return render(request, 'admin-auth/list_group.html',
+                          {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
         else:
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'group/' + postData, headers=HEADERS)
-            groupList = response_data.json()
-            print(response_data.content)
-
-        postData = "?limit=1000&offset=0"
-        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
-        appList = response_data.json()
-
-        return render(request, 'admin-auth/list_group.html',
-                      {"groups":groupList,"applications":appList['results'],'searchParam':searchParam})
-    else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
 
 def list_service(request):
-    if 'token' in request.session:
-        searchParam = {}
-        if 'next_url' in request.POST:
-            searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
-            serviceList = response_data.json()
-            print(response_data.content)
-        elif 'prev_url' in request.POST:
-            searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
-            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
-            serviceList = response_data.json()
-            print(response_data.content)
+    try:
+        if 'token' in request.session:
+            searchParam = {}
+            if 'next_url' in request.POST:
+                searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+                serviceList = response_data.json()
+                print(response_data.content)
+            elif 'prev_url' in request.POST:
+                searchParam={'service_id':request.GET['service_id'],'app_id':request.GET['app_id']}
+                response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+                serviceList = response_data.json()
+                print(response_data.content)
 
-        elif 'service_id' in request.POST and 'app_id' in request.POST:
-            searchParam = {'service_id': request.POST.get('service_id'), 'app_id': request.POST.get('app_id')}
-            paramData="?service_id="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'service/get/' + paramData, headers=HEADERS)
-            print(response_data.content)
-            serviceList = response_data.json()
-            print(response_data.content)
+            elif 'service_id' in request.POST and 'app_id' in request.POST:
+                searchParam = {'service_id': request.POST.get('service_id'), 'app_id': request.POST.get('app_id')}
+                paramData="?service_id="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'service/get/' + paramData, headers=HEADERS)
+                print(response_data.content)
+                serviceList = response_data.json()
+                print(response_data.content)
 
+            else:
+                print(request.POST);
+                postData = "?limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'service/' + postData, headers=HEADERS)
+                serviceList = response_data.json()
+                print(response_data.content)
+            postData = "?limit=1000&offset=0"
+            response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+            appList=response_data.json()
+            return render(request, 'admin-auth/list_service.html',
+                          {"services": serviceList,"applications":appList['results'],'searchParam':searchParam})
         else:
-            print(request.POST);
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'service/' + postData, headers=HEADERS)
-            serviceList = response_data.json()
-            print(response_data.content)
-        postData = "?limit=1000&offset=0"
-        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
-        appList=response_data.json()
-        return render(request, 'admin-auth/list_service.html',
-                      {"services": serviceList,"applications":appList['results'],'searchParam':searchParam})
-    else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
 
 def list_app(request):
-    if 'token' in request.session:
-        if 'next_url' in request.POST:
-            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
-            appList = response_data.json()
-            print(response_data.content)
-        elif 'prev_url' in request.POST:
-            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
-            appList = response_data.json()
-            print(response_data.content)
+    try:
+        if 'token' in request.session:
+            if 'next_url' in request.POST:
+                response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+                appList = response_data.json()
+                print(response_data.content)
+            elif 'prev_url' in request.POST:
+                response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+                appList = response_data.json()
+                print(response_data.content)
 
+            else:
+                postData = "?limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+                print(response_data.content)
+                appList = response_data.json()
+                print(response_data.content)
+
+            return render(request, 'admin-auth/list_app.html', {"apps": appList})
         else:
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
-            print(response_data.content)
-            appList = response_data.json()
-            print(response_data.content)
-
-        return render(request, 'admin-auth/list_app.html', {"apps": appList})
-    else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
 
 def list_activity(request):
+    try:
+        if 'token' in request.session:
+            searchParam = {}
+            if 'next_url' in request.POST:
+                searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
+                response_data = requests.get(request.POST['next_url'], headers=HEADERS)
+                activityList = response_data.json()
+                print(response_data.content)
+            elif 'prev_url' in request.POST:
+                searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
+                response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
+                activityList = response_data.json()
+                print(response_data.content)
 
-    if 'token' in request.session:
-        searchParam = {}
-        if 'next_url' in request.POST:
-            searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
-            response_data = requests.get(request.POST['next_url'], headers=HEADERS)
-            activityList = response_data.json()
-            print(response_data.content)
-        elif 'prev_url' in request.POST:
-            searchParam={'service_name':request.GET['service_id'],'app_id':request.GET['app_id'], 'login_id':request.GET['login_id']}
-            response_data = requests.get(request.POST['prev_url'], headers=HEADERS)
-            activityList = response_data.json()
-            print(response_data.content)
+            elif 'service_id' in request.POST and 'app_id' in request.POST and 'login_id' in request.POST:
+                searchParam = {'service_name': request.POST.get('service_id'), 'app_id': request.POST.get('app_id'), 'login_id':request.POST.get('login_id')}
+                paramData="?service_name="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&login_id="+request.POST.get('login_id')+"&limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'activity/get/' + paramData, headers=HEADERS)
+                print(response_data.content)
+                activityList = response_data.json()
+                print(response_data.content)
 
-        elif 'service_id' in request.POST and 'app_id' in request.POST and 'login_id' in request.POST:
-            searchParam = {'service_name': request.POST.get('service_id'), 'app_id': request.POST.get('app_id'), 'login_id':request.POST.get('login_id')}
-            paramData="?service_name="+request.POST.get('service_id')+"&app_id="+request.POST.get('app_id')+"&login_id="+request.POST.get('login_id')+"&limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'activity/get/' + paramData, headers=HEADERS)
-            print(response_data.content)
-            activityList = response_data.json()
-            print(response_data.content)
-
+            else:
+                print(request.POST);
+                postData = "?limit=10&offset=0"
+                response_data = requests.get(SERVICE_URL + 'activity/' + postData, headers=HEADERS)
+                activityList = response_data.json()
+                print(response_data.content)
+            postData = "?limit=1000&offset=0"
+            response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
+            appList=response_data.json()
+            return render(request, 'admin-auth/list_activity.html',
+                          {"activities": activityList,"applications":appList['results'],'searchParam':searchParam})
         else:
-            print(request.POST);
-            postData = "?limit=10&offset=0"
-            response_data = requests.get(SERVICE_URL + 'activity/' + postData, headers=HEADERS)
-            activityList = response_data.json()
-            print(response_data.content)
-        postData = "?limit=1000&offset=0"
-        response_data = requests.get(SERVICE_URL + 'app/' + postData, headers=HEADERS)
-        appList=response_data.json()
-        return render(request, 'admin-auth/list_activity.html',
-                      {"activities": activityList,"applications":appList['results'],'searchParam':searchParam})
-    else:
+            return render(request, 'admin-auth/accounts.html', {"appID": 2})
+    except Exception as e:
+        print(e)
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
-
 
 def assign_user_group(request,userID='',appID=''):
 
