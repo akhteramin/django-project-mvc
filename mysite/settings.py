@@ -62,6 +62,9 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'admin-auth.apps.AdminAuthConfig',
+    'createData.apps.CreateDataConfig',
+    'listData.apps.ListDataConfig',
+    'editData.apps.EditDataConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

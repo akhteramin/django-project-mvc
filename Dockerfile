@@ -12,8 +12,6 @@ RUN pip install -r requirements.txt
 
 ADD . .
 
-RUN python manage.py makemigrations
-RUN python manage.py migrate
 
 ENTRYPOINT [ "python" ]
 

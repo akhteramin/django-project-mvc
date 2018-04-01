@@ -28,7 +28,7 @@
             {% endif%}
         {% endif%}
 
-        <form class="form-horizontal" name="LoginForm" action="{% url 'admin-auth:edit_group' group_details.id%}" method="post">
+        <form class="form-horizontal" name="LoginForm" action="{% url 'editData:edit_group' group_details.id%}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
@@ -64,7 +64,7 @@
         <div class="control-group text-center">
             <div class="controls">
                 <button type="submit" class="button-update update">Update</button>
-                <a href="{% url 'admin-auth:list_group' %}">
+                <a href="{% url 'listData:list_group' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>
             </div>

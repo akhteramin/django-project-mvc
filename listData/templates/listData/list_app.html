@@ -18,7 +18,7 @@
             {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_ADD_APPLICATION" %}
 
-                    <a href="{% url 'admin-auth:create_app' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Application</a>
+                    <a href="{% url 'createData:create_app' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create Application</a>
 
                 {% endif %}
             {% endfor %}
@@ -70,7 +70,7 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin-auth:list_app' %}" method="post">
+                <form class="form-horizontal" action="{% url 'listData:list_app' %}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{apps.previous}}'>
                   <button type="submit" class="page-link"  aria-label="Previous">
@@ -95,7 +95,7 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin-auth:list_app' %}" method="post">
+              <form class="form-horizontal" action="{% url 'listData:list_app' %}" method="post">
                   {% csrf_token %}
 
                   <input id="next_url" name="next_url" type="hidden" value='{{apps.next}}'>
