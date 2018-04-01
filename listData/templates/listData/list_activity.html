@@ -22,7 +22,7 @@
 
             <div class="col-md-8 offset-md-3 search-content">
 
-                <form class="form-horizontal" name="UserForm" action="{% url 'admin-auth:list_activity' %}" method="post">
+                <form class="form-horizontal" name="UserForm" action="{% url 'listData:list_activity' %}" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-3">
@@ -58,7 +58,7 @@
                         <div class="col-md-3">
                             <button type="submit" class="button-search">Search</button>
 
-                            <a href="{% url 'admin-auth:list_activity' %}">
+                            <a href="{% url 'listData:list_activity' %}">
                                 <button type="button" class="button-reset">Reset</button>
                             </a>
                         </div>
@@ -119,7 +119,7 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin-auth:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
+                <form class="form-horizontal" action="{% url 'listData:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{activities.previous}}'>
                   <button type="submit" class="page-link"  aria-label="Previous">
@@ -144,7 +144,7 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin-auth:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
+              <form class="form-horizontal" action="{% url 'listData:list_activity' %}?service_id={{searchParam.service_name}}&app_id={{searchParam.app_id}}&app_id={{searchParam.app_id}}&login_id={{searchParam.login_id}}" method="post">
                   {% csrf_token %}
 
                   <input id="next_url" name="next_url" type="hidden" value='{{activities.next}}'>

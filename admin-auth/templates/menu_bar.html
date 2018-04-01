@@ -12,35 +12,35 @@
         {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_GET_USER_LIST" %}
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_user' %}">User</a>
+                        <a class="nav-item nav-link" href="{% url 'listData:list_user' %}">User</a>
                     </li>
                 {% endif %}
         {% endfor %}
       {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_GET_GROUP_LIST" %}
                   <li class="nav-item">
-                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_group' %}">Group</a>
+                      <a class="nav-item nav-link" href="{% url 'listData:list_group' %}">Group</a>
                   </li>
                 {% endif %}
         {% endfor %}
         {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_GET_SERVICE_LIST" %}
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="{% url 'admin-auth:list_service' %}">Service</a>
+                        <a class="nav-item nav-link" href="{% url 'listData:list_service' %}">Service</a>
                     </li>
             {% endif %}
         {% endfor %}
         {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_GET_APPLICATION_LIST" %}
                     <li class="nav-item">
-                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_app' %}">Application</a>
+                      <a class="nav-item nav-link" href="{% url 'listData:list_app' %}">Application</a>
                     </li>
             {% endif %}
         {% endfor %}
         {% for permissions in request.session.permissionList %}
                 {% if permissions.serviceID == "AUTH_GET_ACTIVITY_LIST" %}
                     <li class="nav-item">
-                      <a class="nav-item nav-link" href="{% url 'admin-auth:list_activity' %}">Activity</a>
+                      <a class="nav-item nav-link" href="{% url 'listData:list_activity' %}">Activity</a>
                     </li>
             {% endif %}
         {% endfor %}

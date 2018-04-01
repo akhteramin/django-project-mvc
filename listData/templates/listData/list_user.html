@@ -36,13 +36,13 @@
             <div class="col-md-3">
                 {% for permissions in request.session.permissionList %}
                     {% if permissions.serviceID == "AUTH_CREATE_USER" %}
-                        <a href="{% url 'admin-auth:create_user' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create User</a>
+                        <a href="{% url 'createData:create_user' %}" class="btn button-create_indicator active" role="button" aria-pressed="true">Create User</a>
                     {% endif %}
                 {% endfor %}
             </div>
             <div class="col-md-5 offset-md-3 search-content">
 
-                <form class="form-horizontal" name="UserForm" action="{% url 'admin-auth:list_user' %}" method="post">
+                <form class="form-horizontal" name="UserForm" action="{% url 'listData:list_user' %}" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-4">
@@ -70,7 +70,7 @@
                         <div class="col-md-4">
                             <button type="submit" class="button-search">Search</button>
 
-                            <a href="{% url 'admin-auth:list_user' %}">
+                            <a href="{% url 'listData:list_user' %}">
                                 <button type="button" class="button-reset">Reset</button>
                             </a>
                         </div>
@@ -169,7 +169,7 @@
                 </li>
               {% else %}
                 <li class="page-item">
-                <form class="form-horizontal" action="{% url 'admin-auth:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
+                <form class="form-horizontal" action="{% url 'listData:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
                     {% csrf_token %}
                     <input id="prev_url" name="prev_url" type="hidden" value='{{users.previous}}'>
 
@@ -196,7 +196,7 @@
             </li>
           {% else %}
               <li class="page-item">
-              <form class="form-horizontal" action="{% url 'admin-auth:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
+              <form class="form-horizontal" action="{% url 'listData:list_user' %}?login_id={{searchParam.login_id}}&app_id={{searchParam.app_id}}" method="post">
                   {% csrf_token %}
 
 

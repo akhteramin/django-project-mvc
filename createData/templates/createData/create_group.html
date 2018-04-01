@@ -4,9 +4,12 @@
 {% include "menu_bar.html" %}
 <div class="row">
 
+<div class="container">
 
-    <div class="container">
-            <h1>Application Creation</h1>
+
+
+    <div id="group">
+        <h1>Group Creation</h1>
         {% if message and status %}
             {% if status == 201 %}
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,16 +28,26 @@
             {% endif%}
         {% endif%}
 
-        <form class="form-horizontal" name="AppCreateForm" action="{% url 'admin-auth:create_app' %}" method="post">
+        <form class="form-horizontal" name="LoginForm" action="{% url 'createData:create_group' %}" method="post">
         {% csrf_token %}
         {% if next %}
             <input type="hidden" class="form-control input-sm chat-input" name="next" value="{{ next }}" />
         {% endif %}
         <div class="control-group">
-            <div>{{ error }} </div>
-            <label class="control-label" for="appName">App Name</label>
+                <label class="control-label" for="appID">App ID</label>
+                <div class="controls">
+                    <select id="appID" class="form-control" name="appID">
+                        <option value="">Select Application</option>
+                    {% for application in applications %}
+                        <option value="{{ application.id }}">{{ application.appName }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+        <div class="control-group">
+            <label class="control-label" for="groupID">Group ID</label>
             <div class="controls">
-                <input id="appName" type="text" class="form-control input-sm chat-input" name="appName"  placeholder="app name">
+                <input id="groupID" type="text" class="form-control input-sm chat-input" name="groupID" placeholder="group ID">
             </div>
         </div>
 
@@ -42,23 +55,23 @@
             <label class="control-label" for="description">Description</label>
             <div class="controls">
                 <!--<input type="text" name="description" id="description" placeholder="description">-->
-                 <textarea id="description" rows="4" class="form-control input-sm chat-input" cols="50" name="description"></textarea>
+                 <textarea  id="description" rows="4" class="form-control input-sm chat-input" cols="50" name="description"></textarea>
             </div>
         </div>
         </br>
 
         <div class="control-group text-center">
             <div class="controls">
-                <button id="create_app" type="submit" class="button-create create">Create</button>
-                <a href="{% url 'admin-auth:list_app' %}">
+                <button id="create_group" type="submit" class="button-create create">Create</button>
+                <a href="{% url 'listData:list_group' %}">
                     <button type="button" class="button-create-cancel create-cancel">Cancel</button>
                 </a>
-
-
             </div>
         </div>
         </form>
     </div>
+
 </div>
 
+</div>
 {% endblock %}
