@@ -135,21 +135,15 @@
                         {% endfor %}
 
                        {% for permissions in request.session.permissionList %}
-                            {% if permissions.serviceID == "AUTH_ACTIVATE_USER" and user.appID == 2 %}
+                            {% if permissions.serviceID == "AUTH_ACTIVATE_USER" %}
                                {% if user.is_active  %}
                                <a id="deactivate_{{user.id}}" href="#" onclick="changeStatus('{{user.loginID}}','{{user.appID}}','0','{{user.id}}')" class="btn button-deactivate">Deactivate</a>
                                {% else %}
                                <a id="activate_{{user.id}}" href="#" onclick="changeStatus('{{user.loginID}}','{{user.appID}}','1','{{user.id}}')" class="btn button-activate">Activate</a>
                                {% endif %}
-                            {% elif permissions.serviceID == "AUTH_ACTIVATE_USER" and user.appID != 2 %}
-                                {% if user.is_active  %}
-                               <a id="deactivate_{{user.id}}" class="button-deactivate-disabled" disabled="disabled">Deactivate</a>
-                               {% else %}
-                               <a id="activate_{{user.id}}" class="button-activate-disabled" disabled="disabled">Activate</a>
-                               {% endif %}
                             {% endif %}
 
-                        {% endfor %}
+                       {% endfor %}
 
                    </td>
 
