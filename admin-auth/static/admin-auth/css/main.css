@@ -45830,12 +45830,6 @@ footer {
   .ps {
     overflow: auto !important; } }
 
-@font-face {
-  font-family: 'themify';
-  src: url("http://localhost:3000/2c454669bdf3aebf32a1bd8ac1e0d2d6.eot");
-  src: url("http://localhost:3000/2c454669bdf3aebf32a1bd8ac1e0d2d6.eot?#iefix-fvbane") format("embedded-opentype"), url("http://localhost:3000/a1ecc3b826d01251edddf29c3e4e1e97.woff") format("woff"), url("http://localhost:3000/e23a7dcaefbde4e74e263247aa42ecd7.ttf") format("truetype"), url("http://localhost:3000/assets/6d16f95495605c95172bc8c924720bff.svg#themify") format("svg");
-  font-weight: normal;
-  font-style: normal; }
 
 [class^="ti-"], [class*=" ti-"] {
   font-family: 'themify';
@@ -46913,12 +46907,7 @@ footer {
  */
 /* FONT PATH
  * -------------------------- */
-@font-face {
-  font-family: 'FontAwesome';
-  src: url("http://localhost:3000/674f50d287a8c48dc19ba404d20fe713.eot");
-  src: url("http://localhost:3000/674f50d287a8c48dc19ba404d20fe713.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("http://localhost:3000/af7ae505a9eed503f8b8e6982036873e.woff2") format("woff2"), url("http://localhost:3000/fee66e712a8a08eef5805a46892932ad.woff") format("woff"), url("http://localhost:3000/b06871f281fee6b241d60582ae9369b9.ttf") format("truetype"), url("http://localhost:3000/assets/36d50c1381fda7c71d12b6643cbe1ee0.svg#fontawesomeregular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
+
 
 .fa {
   display: inline-block;
