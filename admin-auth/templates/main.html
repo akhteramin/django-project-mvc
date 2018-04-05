@@ -9,24 +9,28 @@
           rel="stylesheet" media="screen">
     <link href="{% static 'admin-auth/css/font-awesome-4.7.0/css/font-awesome.min.css' %}"
           rel="stylesheet" media="screen">
-
+    <link href="{% static 'admin-auth/css/themify-icons.css' %}"
+          rel="stylesheet" media="screen">
+    <link href="{% static 'admin-auth/css/main.css' %}"
+          rel="stylesheet" media="screen">
     <script src="{% static 'admin-auth/js/jquery.min.js' %}"></script>
     <script src="{% static 'admin-auth/js/jquery.dataTables.min.js' %}"></script>
 
 
   </head>
 
-  <body>
+  <body class="app">
 
     {% block content %}
     {% endblock %}
-
+    </div>
     <script src="{% static 'admin-auth/js/csrf_token_header.js' %}"></script>
     <script src="{% static 'admin-auth/template_js/list_user.js' %}"></script>
     <script src="{% static 'admin-auth/template_js/create_user.js' %}"></script>
     <script src="{% static 'admin-auth/template_js/login.js' %}"></script>
     <script src="{% static 'admin-auth/template_js/change_password.js' %}"></script>
     <script src="{% static 'admin-auth/template_js/check_all.js' %}"></script>
+    <script src="{% static 'admin-auth/template_js/common.js' %}"></script>
 
 
 
