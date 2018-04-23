@@ -36,12 +36,14 @@ DEV_URLS = {
 
     "auth": config.get('URLSETUP', 'AUTH_URL'),
     "member_service": config.get('URLSETUP', 'ADMIN_URL'),
-    "crm": config.get('URLSETUP', 'CRM_URL')
+    "crm": config.get('URLSETUP', 'CRM_URL'),
+    "financial_service": config.get('URLSETUP', 'FS_URL')
+
 }
 
-APP_LIST = { '2': 'Auth', '3': 'CRM', '6': 'Admin' }
+APP_LIST = { '2': 'Auth', '3': 'CRM', '6': 'Admin', '10': 'Financial Service' }
 
-APP_URL = {'2': DEV_URLS['auth'], '3': DEV_URLS['crm'], '6': DEV_URLS['member_service']}
+APP_URL = {'2': DEV_URLS['auth'], '3': DEV_URLS['crm'], '6': DEV_URLS['member_service'], '10': DEV_URLS['financial_service']}
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

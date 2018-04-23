@@ -17,8 +17,6 @@ class IndexView(generic.ListView):
     template_name = 'admin-auth/index.html'
 
 def login(request):
-    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    # context = {'latest_question_list': latest_question_list}
     print(SERVICE_URL + 'login/')
     loginID = password = ''
     if 'token' in request.session:
@@ -43,7 +41,6 @@ def login(request):
         print(loginID)
         print(password)
 
-        # if 'token' not in request.session:
         if 'token' in request.session:
             return render(request, 'admin-auth/home.html', {
                 'login_token':
@@ -91,12 +88,7 @@ def login(request):
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
-
-
 def accounts(request):
-    # print(request.GET.get('loginID'))
-    # print(request.GET.get('appID'))
-    # print(request.GET.get('token'))'
     print("here it is")
 
     if request.GET.get('appID'):
@@ -189,7 +181,6 @@ def accounts(request):
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
-
 def accountslogout( request ):
     print(HEADERS['token'])
     try:
@@ -213,13 +204,11 @@ def accountslogout( request ):
     else:
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
-
 def home(request):
     if 'token' in request.session:
         return render(request,'admin-auth/home.html')
     else:
         return render(request, 'admin-auth/accounts.html',{"appID": 2})
-
 
 def logout(request):
     print(HEADERS['token'])
@@ -244,7 +233,6 @@ def logout(request):
     return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
 def assign_user_group(request,userID='',appID=''):
-
     if 'token' in request.session:
         if request.POST:
             save_user_group(request.POST.getlist('groupID'),userID)
@@ -258,7 +246,6 @@ def assign_user_group(request,userID='',appID=''):
 
     else:
         return render(request,'admin-auth/accounts.html', {"appID": 2})
-
 
 # only load Data
 def load_user_group_list(userID='', appID=''):
@@ -291,7 +278,6 @@ def load_user_group_list(userID='', appID=''):
     print(grouptList)
     return {'groups': grouptList, 'user': user, 'app': app, 'user_group': user_group_list};
 
-
 # only load Data
 def save_user_group(groupIDList,userID):
     response_user_group_data = requests.get(SERVICE_URL + 'user_group/details/user/' + str(userID),
@@ -315,7 +301,6 @@ def save_user_group(groupIDList,userID):
         if 'change' not in userGroup:
             deleteUserGroup = requests.delete(SERVICE_URL + 'user_group/' + str(userGroup['id']),
                                           headers=HEADERS)
-
     return
 
 
@@ -334,7 +319,6 @@ def assign_group_service(request,groupID='',appID=''):
 
     else:
         return render(request,'admin-auth/accounts.html', {"appID": 2})
-
 
     # only load Data
 def load_group_service_list(groupID='', appID=''):
@@ -367,7 +351,6 @@ def load_group_service_list(groupID='', appID=''):
     print(serviceList)
     return {'services': serviceList, 'group': group, 'app': app, 'group_service': group_service_list};
 
-
 def save_group_service(serviceIDList,groupID):
     response_group_service_data = requests.get(SERVICE_URL + 'acl/details/group/' + str(groupID),
                                             headers=HEADERS)
@@ -392,13 +375,11 @@ def save_group_service(serviceIDList,groupID):
                                           headers=HEADERS)
     return
 
-
 def get_device_id():
     if 'nt' in os.name:
         return subprocess.Popen('dmidecode.exe -s system-uuid'.split())
     else:
         return subprocess.Popen('hal-get-property --udi /org/freedesktop/Hal/devices/computer --key system.hardware.uuid'.split())
-
 
 # def check_service_permission(request,serviceID):
 #     for permission in request.session['permissionList']:
