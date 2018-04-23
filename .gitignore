@@ -110,3 +110,4 @@ application.properties
 
 .idea/*
 db.sqlite3
+Dockerfile
