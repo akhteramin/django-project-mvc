@@ -92,32 +92,19 @@ def accounts(request):
     print("here it is")
 
     if request.GET.get('appID'):
-        if request.GET.get('appID') in request.session and request.GET.get('appID') is '6':
+        if request.GET.get('appID') in request.session:
             print("appIDDDDD::", request.session[request.GET.get('appID')])
-            return HttpResponseRedirect(DEV_URLS['member_service'] + '?token='+request.session[request.GET.get('appID')] + '&loginID=' +request.session['loginID'])
-        elif request.GET.get('appID') in request.session and request.GET.get('appID') is '2':
-            print("appIDDDDD::", request.session[request.GET.get('appID')])
-            return HttpResponseRedirect(DEV_URLS['auth'])
-        elif request.GET.get('appID') in request.session and request.GET.get('appID') is '3':
-            print("appIDDDDD::", request.session[request.GET.get('appID')])
-            return HttpResponseRedirect(DEV_URLS['crm'] + '?token='+request.session[request.GET.get('appID')] + '&loginID=' +request.session['loginID'])
-        else:
-            print("not appIDDDDD::")
-            return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get('appID')})
+            return HttpResponseRedirect(
+                APP_URL[request.GET.get('appID')] + '?token=' + request.session[request.GET.get('appID')] + '&loginID=' +
+                request.session['loginID'])
     if request.POST:
         print("post")
         if request.POST['appID'] in request.session:
-            if request.POST['appID'] is '6':
-                print("in post appIDDDDD::", request.session[request.POST['appID']])
-                return HttpResponseRedirect(DEV_URLS['member_service'] + '?token='+request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
-            elif request.POST['appID'] is '3':
-                print("in post appIDDDDD::", request.session[request.POST['appID']])
-                return HttpResponseRedirect(
-                    DEV_URLS['crm'] + '?token=' + request.session[request.POST['appID']] + '&loginID=' +
-                    request.session['loginID'])
-            elif request.POST['appID'] is '2':
-                print("in post appIDDDDD::", request.session[request.POST['appID']])
-                return HttpResponseRedirect(DEV_URLS['auth'])
+            print(request.session[request.GET.get('appID')])
+            return HttpResponseRedirect(
+                APP_URL[request.GET.get('appID')] + '?token=' + request.session[
+                    request.GET.get('appID')] + '&loginID=' +
+                request.session['loginID'])
 
         loginID = request.POST['loginID']
         password = request.POST['password']
@@ -168,13 +155,11 @@ def accounts(request):
             print("app data:", request.POST.get('appID'))
         except Exception as e:
             print(e)
-        if request.POST.get('appID') is '6':
-            return HttpResponseRedirect(DEV_URLS['member_service']+'?token=' + request.session[request.POST['appID']] + '&loginID=' +request.session['loginID'])
-        elif request.POST.get('appID') is '3':
-            return HttpResponseRedirect(DEV_URLS['crm'] + '?token=' + request.session[request.POST['appID']] + '&loginID=' +
+
+        if request.POST.get('appID'):
+            return HttpResponseRedirect(
+                APP_URL[request.POST.get('appID')] + '?token=' + request.session[request.POST.get('appID')] + '&loginID=' +
                 request.session['loginID'])
-        else:
-            return HttpResponseRedirect(DEV_URLS['auth'])
 
     if request.GET.get("appID"):
         return render(request, 'admin-auth/accounts.html', {"appID": request.GET.get("appID")})
@@ -211,23 +196,13 @@ def home(request):
         return render(request, 'admin-auth/accounts.html',{"appID": 2})
 
 def logout(request):
-    print(HEADERS['token'])
-    # del request.session['token']
-    # request.session.modified = True
-    # response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
-
-    # return render(request,'admin-auth/login.html')
     try:
-        # del request.session['token']
         response = requests.get(SERVICE_URL + 'logout/', headers=HEADERS)
         for key in list(request.session.keys()):
             del request.session[key]
         request.session.modified = True
     except Exception as e:
         print(e)
-        # Redisplay the question voting form.
-        msg = ""
-        # return HttpResponseRedirect(reverse('login', args=(msg,)))
         return render(request, 'admin-auth/accounts.html', {"appID": 2})
 
     return render(request, 'admin-auth/accounts.html', {"appID": 2})

@@ -14,9 +14,5 @@ urlpatterns = [
     url(r'^logout/$', views.logout, name='logout'),
 
     url(r'^assign/user/group/(?P<userID>\w+)/(?P<appID>\w+)/$', views.assign_user_group, name='assign_user_group'),
-    url(r'^assign/group/service/(?P<groupID>\w+)/(?P<appID>\w+)/$', views.assign_group_service, name='assign_group_service'),
-
-
-    url(r'^$', views.login, name='login'),
-
+    url(r'^assign/group/service/(?P<groupID>\w+)/(?P<appID>\w+)/$', views.assign_group_service, name='assign_group_service')
 ]
